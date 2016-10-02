@@ -1,0 +1,36 @@
+#
+# [DRAFT] Annotated TJSON examples intended for testing TJSON parsers
+#
+# Revision: 0 (bump this when making changes to this file)
+#
+# Syntax used in this file:
+#
+# - Any line beginning with a '#' is a comment and should be ignored
+# - Examples are delimited by a line containing only '-----' (5 hyphen characters)
+# - This file should begin/end with '-----' with only comments allowed before/after
+#   the leading and trailing '-----' respectively (i.e. this comment block)
+# - Each example consists of TOML metadata and an example, separated by '%%%'
+#
+# Example metadata syntax:
+#
+# - name = "Name of this example"
+# - description = "A more extended description of what this example tests"
+# - result = "success" | "error"
+#
+-----
+name = "Empty Array"
+description = "Arrays are allowed as a toplevel value and can be empty"
+result = "success"
+%%%
+
+[]
+
+-----
+name = "Empty Object"
+description = "Objects are allowed as a toplevel value and can be empty"
+result = "success"
+%%%
+
+{}
+
+-----
