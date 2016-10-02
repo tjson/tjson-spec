@@ -3,6 +3,18 @@ require "bundler/setup"
 TJSON_EXAMPLES = Pathname("draft-tjson-examples.txt")
 MANDATORY_KEYS = %w(name description result)
 
+namespace :generate do
+  task :xml do
+    sh "mmark -xml2 -page draft-tjson-spec.md generated/draft-tjson-spec.xml"
+  end
+
+  task txt: :xml do
+    sh "xml2rfc --text generated/draft-tjson-spec.xml"
+  end
+
+  task all: %w(xml txt)
+end
+
 namespace :examples do
   task :verify do
     require "toml"
