@@ -49,9 +49,10 @@
 
 
 <abstract>
-<t>Tagged JavaScript Object Notation (TJSON) is a JavaScript Object Notation (JSON)
-<xref target="RFC7159"/> compatible data interchange format with first-class type annotations
-(&quot;tags&quot;) for supporting a richer set of types within JSON documents.
+<t>Tagged JavaScript Object Notation (TJSON) is a data interchange format which is
+backwards compatible with the JavaScript Object Notation (JSON)[ @!RFC7159]
+format. It adds first-class type annotations (&quot;tags&quot;) for supporting a richer
+set of types within JSON documents.
 </t>
 </abstract>
 
@@ -61,13 +62,37 @@
 <middle>
 
 <section anchor="introduction" title="Introduction">
-<t>TBD
+<t>Tagged JavaScript Object Notation (TJSON) is a set of backwards-compatible
+extensions to JavaScript Object Notation (JSON) <xref target="RFC7159"/> which enrich
+the set of types the format is able to express.
 </t>
+<t>TJSON can represent six primitive types (strings, binary data, integers,
+floating points, datetimes, and null) and two structured types (objects and
+arrays).
+</t>
+<t>To extend JSON with additional types in a backwards-compatible manner,
+TJSON adds a special mandatory &quot;tag&quot; to each JSON string which identifies
+the data type and, optionally, encoding format. A tag consists of one
+or more alphanumeric characters, followed by the colon &quot;:&quot; character.
+All strings in TJSON MUST have a valid tag prefix.
+</t>
+<t>TJSON is intended to simplify transcoding documents from other interchange
+formats which disambiguate strings from binary data, and also improve the
+ability to both canonicalize and authenticate JSON documents.
+</t>
+
+<section anchor="conventions-used-in-this-document" title="Conventions Used in This Document">
+<t>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;,
+&quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be
+interpreted as described in <xref target="RFC2119"/>.
+</t>
+</section>
 </section>
 
 </middle>
 <back>
 <references title="Normative References">
+<?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
 <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7159.xml"?>
 </references>
 

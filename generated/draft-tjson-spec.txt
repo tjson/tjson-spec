@@ -13,10 +13,11 @@ Expires: April 5, 2017                                   October 2, 2016
 
 Abstract
 
-   Tagged JavaScript Object Notation (TJSON) is a JavaScript Object
-   Notation (JSON) [RFC7159] compatible data interchange format with
-   first-class type annotations ("tags") for supporting a richer set of
-   types within JSON documents.
+   Tagged JavaScript Object Notation (TJSON) is a data interchange
+   format which is backwards compatible with the JavaScript Object
+   Notation (JSON)[ @!RFC7159] format.  It adds first-class type
+   annotations ("tags") for supporting a richer set of types within JSON
+   documents.
 
 Status of This Memo
 
@@ -52,7 +53,6 @@ Copyright Notice
 
 
 
-
 Arcieri & Laurie          Expires April 5, 2017                 [Page 1]
 
 Internet-Draft        TJSON Data Interchange Format         October 2016
@@ -61,18 +61,58 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+     1.1.  Conventions Used in This Document . . . . . . . . . . . .   2
    2.  Normative References  . . . . . . . . . . . . . . . . . . . .   2
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   2
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   3
 
 1.  Introduction
 
-   TBD
+   Tagged JavaScript Object Notation (TJSON) is a set of backwards-
+   compatible extensions to JavaScript Object Notation (JSON) [RFC7159]
+   which enrich the set of types the format is able to express.
+
+   TJSON can represent six primitive types (strings, binary data,
+   integers, floating points, datetimes, and null) and two structured
+   types (objects and arrays).
+
+   To extend JSON with additional types in a backwards-compatible
+   manner, TJSON adds a special mandatory "tag" to each JSON string
+   which identifies the data type and, optionally, encoding format.  A
+   tag consists of one or more alphanumeric characters, followed by the
+   colon ":" character.  All strings in TJSON MUST have a valid tag
+   prefix.
+
+   TJSON is intended to simplify transcoding documents from other
+   interchange formats which disambiguate strings from binary data, and
+   also improve the ability to both canonicalize and authenticate JSON
+   documents.
+
+1.1.  Conventions Used in This Document
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119].
 
 2.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <http://www.rfc-editor.org/info/rfc2119>.
 
    [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
               2014, <http://www.rfc-editor.org/info/rfc7159>.
+
+
+
+
+
+
+Arcieri & Laurie          Expires April 5, 2017                 [Page 2]
+
+Internet-Draft        TJSON Data Interchange Format         October 2016
+
 
 Authors' Addresses
 
@@ -109,4 +149,20 @@ Authors' Addresses
 
 
 
-Arcieri & Laurie          Expires April 5, 2017                 [Page 2]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Arcieri & Laurie          Expires April 5, 2017                 [Page 3]
