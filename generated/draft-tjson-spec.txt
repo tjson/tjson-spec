@@ -3,9 +3,9 @@
 
 
 Network Working Group                                         T. Arcieri
-Internet-Draft                                           October 2, 2016
-Intended status: Informational
-Expires: April 5, 2017
+Internet-Draft
+Intended status: Informational                                 B. Laurie
+Expires: April 5, 2017                                   October 2, 2016
 
 
    Tagged JavaScript Object Notation (TJSON) Data Interchange Format
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Arcieri                   Expires April 5, 2017                 [Page 1]
+Arcieri & Laurie          Expires April 5, 2017                 [Page 1]
 
 Internet-Draft        TJSON Data Interchange Format         October 2016
 
@@ -62,7 +62,7 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Normative References  . . . . . . . . . . . . . . . . . . . .   2
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   2
 
 1.  Introduction
 
@@ -74,11 +74,12 @@ Table of Contents
               Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
               2014, <http://www.rfc-editor.org/info/rfc7159>.
 
-Author's Address
+Authors' Addresses
 
    Tony Arcieri
 
 
+   Ben Laurie
 
 
 
@@ -108,5 +109,4 @@ Author's Address
 
 
 
-
-Arcieri                   Expires April 5, 2017                 [Page 2]
+Arcieri & Laurie          Expires April 5, 2017                 [Page 2]
