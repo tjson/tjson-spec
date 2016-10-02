@@ -12,6 +12,11 @@
     surname = "Arcieri"
     fullname = "Tony Arcieri"
 
+    [[author]]
+    initials = "B. "
+    surname = "Laurie"
+    fullname = "Ben Laurie"
+
 %%%
 
 .# Abstract
