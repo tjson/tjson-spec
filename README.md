@@ -1,4 +1,4 @@
-# TJSON Specification
+# TJSON Specification [![Build Status](https://travis-ci.org/tjson/tjson-spec.svg?branch=master)](https://travis-ci.org/tjson/tjson-spec)
 
 IETF-style specification for TJSON authored using [mmark].
 
