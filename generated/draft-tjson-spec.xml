@@ -173,7 +173,8 @@ parsers.
 </t>
 
 <section anchor="base16-b16" title="base16 (&quot;b16:&quot;)">
-<t>The base16 format (a.k.a. hexadecimal) is described in <xref target="RFC4648"/>. All base16
+<t>A base16 literal starts with the &quot;b16:&quot; tag, followed by a valid base16 string.
+The base16 format (a.k.a. hexadecimal) is described in <xref target="RFC4648"/>. All base16
 strings in TJSON MUST be lower case.
 </t>
 <t>The following is an example of a base16 string literal in TJSON:
@@ -187,8 +188,9 @@ strings in TJSON MUST be lower case.
 </section>
 
 <section anchor="base64url-b64" title="base64url (&quot;b64:&quot;)">
-<t>The base64url format is described in <xref target="RFC4648"/>. All base64url strings in
-TJSON MUST NOT include any padding with the '=' character. TJSON parsers
+<t>A base64url literal starts with the &quot;b64:&quot; tag, followed by a valid base64url
+string. The base64url format is described in <xref target="RFC4648"/>. All base64url strings
+in TJSON MUST NOT include any padding with the '=' character. TJSON parsers
 MUST reject any documents containing padded base64url strings.
 </t>
 <t>The following is an example of a base64url string literal in TJSON:

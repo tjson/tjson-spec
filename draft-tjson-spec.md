@@ -129,6 +129,7 @@ parsers.
 
 ### base16 ("b16:")
 
+A base16 literal starts with the "b16:" tag, followed by a valid base16 string.
 The base16 format (a.k.a. hexadecimal) is described in [@!RFC4648]. All base16
 strings in TJSON MUST be lower case.
 
@@ -140,8 +141,9 @@ This should decode to the equivalent of the ASCII string: "Hello, world!"
 
 ### base64url ("b64:")
 
-The base64url format is described in [@!RFC4648]. All base64url strings in
-TJSON MUST NOT include any padding with the '=' character. TJSON parsers
+A base64url literal starts with the "b64:" tag, followed by a valid base64url
+string. The base64url format is described in [@!RFC4648]. All base64url strings
+in TJSON MUST NOT include any padding with the '=' character. TJSON parsers
 MUST reject any documents containing padded base64url strings.
 
 The following is an example of a base64url string literal in TJSON:
