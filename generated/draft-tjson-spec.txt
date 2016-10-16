@@ -66,9 +66,11 @@ Table of Contents
      2.1.  String Grammar  . . . . . . . . . . . . . . . . . . . . .   3
      2.2.  Root Symbol . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Extended Types  . . . . . . . . . . . . . . . . . . . . . . .   3
-     3.1.  Unicode Strings . . . . . . . . . . . . . . . . . . . . .   3
+     3.1.  Unicode Strings ("u:")  . . . . . . . . . . . . . . . . .   3
+     3.2.  Binary Data . . . . . . . . . . . . . . . . . . . . . . .   4
+       3.2.1.  Base16 ("b16:") . . . . . . . . . . . . . . . . . . .   4
    4.  Normative References  . . . . . . . . . . . . . . . . . . . .   4
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   4
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   5
 
 1.  Introduction
 
@@ -107,8 +109,6 @@ Table of Contents
 
 
 
-
-
 Arcieri & Laurie          Expires April 5, 2017                 [Page 2]
 
 Internet-Draft        TJSON Data Interchange Format         October 2016
@@ -132,6 +132,9 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 
    <alphanumeric> ::= <alpha> | <digit>
 
+   The tagged-string pushdown replaces the string pushdown in JSON as
+   described in [RFC7159].
+
    The quotation-mark and char pushdowns are described in section 7 of
    [RFC7159].
 
@@ -154,14 +157,11 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
    embedding them in string literals as described in section 2.1 of this
    document.
 
-3.1.  Unicode Strings
+3.1.  Unicode Strings ("u:")
 
    The representation of Unicode Strings is grammatically identical to
    JSON, except per section 2.1 of this document strings of this type
    carry a mandatory tag character, "u:" indicating a Unicode String.
-
-   The following is an example of a Unicode String literal in TJSON:
-
 
 
 
@@ -170,10 +170,31 @@ Arcieri & Laurie          Expires April 5, 2017                 [Page 3]
 Internet-Draft        TJSON Data Interchange Format         October 2016
 
 
+   The following is an example of a Unicode String literal in TJSON:
+
                              "u:Hello, world!"
 
    Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8
    [RFC3629].
+
+3.2.  Binary Data
+
+   TJSON provides first-class support for binary data stored in multiple
+   different encodings within a tagged string.  Tags for binary data
+   begin with the "b" character followed by an alphanumeric identifier
+   for a specific format.
+
+3.2.1.  Base16 ("b16:")
+
+   Base16 (a.k.a. hexadecimal) is described in [RFC4648].  All Base16
+   strings in TJSON MUST be lower case.
+
+   The following is an example of a Base16 literal in TJSON:
+
+                     "b16:48656c6c6f2c20776f726c6421"
+
+   This should decode to the equivalent of the ASCII string: "Hello,
+   world!"
 
 4.  Normative References
 
@@ -186,9 +207,24 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
               10646", STD 63, RFC 3629, DOI 10.17487/RFC3629, November
               2003, <http://www.rfc-editor.org/info/rfc3629>.
 
+   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
+              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
+              <http://www.rfc-editor.org/info/rfc4648>.
+
    [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
               2014, <http://www.rfc-editor.org/info/rfc7159>.
+
+
+
+
+
+
+
+Arcieri & Laurie          Expires April 5, 2017                 [Page 4]
+
+Internet-Draft        TJSON Data Interchange Format         October 2016
+
 
 Authors' Addresses
 
@@ -221,4 +257,24 @@ Authors' Addresses
 
 
 
-Arcieri & Laurie          Expires April 5, 2017                 [Page 4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Arcieri & Laurie          Expires April 5, 2017                 [Page 5]

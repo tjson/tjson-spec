@@ -74,3 +74,26 @@ result = "error"
 ["hello, world!"]
 
 -----
+name = "Base16 Binary Data"
+description = "Base16 data begins with the 'b16:' prefix"
+result = "success"
+%%%
+
+["b16:48656c6c6f2c20776f726c6421"]
+
+-----
+name = "Invalid Base16 Binary Data with bad case"
+description = "Base16 data MUST be lower case"
+result = "error"
+%%%
+
+["b16:48656C6C6F2C20776F726C6421"]
+
+-----
+name = "Invalid Base16 Binary Data"
+description = "Base16 data must be valid hexadecimal"
+result = "error"
+%%%
+
+["b16:This is not a valid hexadecimal string"]
+-----

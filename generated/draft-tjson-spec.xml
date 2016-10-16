@@ -115,6 +115,9 @@ described by the following grammar:
 
 &lt;alphanumeric&gt; ::= &lt;alpha&gt; | &lt;digit&gt;
 </artwork></figure>
+<t>The tagged-string pushdown replaces the string pushdown in JSON as described in
+<xref target="RFC7159"/>.
+</t>
 <t>The quotation-mark and char pushdowns are described in section 7 of <xref target="RFC7159"/>.
 </t>
 <t>TJSON places a maximum length of 4 bytes on tag, including the ':' character.
@@ -140,7 +143,7 @@ MUST be rejected by parsers.
 them in string literals as described in section 2.1 of this document.
 </t>
 
-<section anchor="unicode-strings" title="Unicode Strings">
+<section anchor="unicode-strings-u" title="Unicode Strings (&quot;u:&quot;)">
 <t>The representation of Unicode Strings is grammatically identical to JSON,
 except per section 2.1 of this document strings of this type carry a
 mandatory tag character, &quot;u:&quot; indicating a Unicode String.
@@ -154,6 +157,28 @@ mandatory tag character, &quot;u:&quot; indicating a Unicode String.
 <t>Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8 <xref target="RFC3629"/>.
 </t>
 </section>
+
+<section anchor="binary-data" title="Binary Data">
+<t>TJSON provides first-class support for binary data stored in multiple
+different encodings within a tagged string. Tags for binary data begin
+with the &quot;b&quot; character followed by an alphanumeric identifier for a
+specific format.
+</t>
+
+<section anchor="base16-b16" title="Base16 (&quot;b16:&quot;)">
+<t>Base16 (a.k.a. hexadecimal) is described in <xref target="RFC4648"/>. All Base16 strings
+in TJSON MUST be lower case.
+</t>
+<t>The following is an example of a Base16 literal in TJSON:
+</t>
+
+<figure align="center"><artwork align="center">
+"b16:48656c6c6f2c20776f726c6421"
+</artwork></figure>
+<t>This should decode to the equivalent of the ASCII string: &quot;Hello, world!&quot;
+</t>
+</section>
+</section>
 </section>
 
 </middle>
@@ -161,6 +186,7 @@ mandatory tag character, &quot;u:&quot; indicating a Unicode String.
 <references title="Normative References">
 <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
 <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3629.xml"?>
+<?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"?>
 <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7159.xml"?>
 </references>
 

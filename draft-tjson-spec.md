@@ -79,6 +79,9 @@ described by the following grammar:
 
     <alphanumeric> ::= <alpha> | <digit>
 
+The tagged-string pushdown replaces the string pushdown in JSON as described in
+[@!RFC7159].
+
 The quotation-mark and char pushdowns are described in section 7 of [@!RFC7159].
 
 TJSON places a maximum length of 4 bytes on tag, including the ':' character.
@@ -98,7 +101,7 @@ MUST be rejected by parsers.
 The following section describes the extended types added to TJSON by embedding
 them in string literals as described in section 2.1 of this document.
 
-## Unicode Strings
+## Unicode Strings ("u:")
 
 The representation of Unicode Strings is grammatically identical to JSON,
 except per section 2.1 of this document strings of this type carry a
@@ -109,5 +112,23 @@ The following is an example of a Unicode String literal in TJSON:
     "u:Hello, world!"
 
 Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8 [@!RFC3629].
+
+## Binary Data
+
+TJSON provides first-class support for binary data stored in multiple
+different encodings within a tagged string. Tags for binary data begin
+with the "b" character followed by an alphanumeric identifier for a
+specific format.
+
+### Base16 ("b16:")
+
+Base16 (a.k.a. hexadecimal) is described in [@!RFC4648]. All Base16 strings
+in TJSON MUST be lower case.
+
+The following is an example of a Base16 literal in TJSON:
+
+    "b16:48656c6c6f2c20776f726c6421"
+
+This should decode to the equivalent of the ASCII string: "Hello, world!"
 
 {backmatter}
