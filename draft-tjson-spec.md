@@ -69,7 +69,7 @@ described by the following grammar:
 
     <tagged-string> ::= quotation-mark tag *char quotation-mark
 
-    <tag> = <alpha> *<alphanumeric> ':'
+    <tag> ::= <alpha> *<alphanumeric> ':'
 
     <alpha> ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' |
                 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' |
