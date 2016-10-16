@@ -22,7 +22,7 @@
 .# Abstract
 
 Tagged JavaScript Object Notation (TJSON) is a data interchange format which is
-backwards compatible with the JavaScript Object Notation (JSON)[ @!RFC7159]
+backwards compatible with the JavaScript Object Notation (JSON) [@!RFC7159]
 format. It adds first-class type annotations ("tags") for supporting a richer
 set of types within JSON documents.
 
