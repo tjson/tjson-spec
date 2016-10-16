@@ -83,6 +83,16 @@ The quotation-mark and char pushdowns are described in section 7 of [@!RFC7159].
 
 TJSON places a maximum length of 4 bytes on tag, including the ':' character.
 
+## Root Symbol
+
+The root grammatical symbol of all TJSON documents is constrained to the
+following nonterminals as described in [@!RFC7159]:
+
+    <root> ::= <object> | <array>
+
+Documents which do not contain an object or array as the toplevel element
+MUST be rejected by parsers.
+
 # Extended Types
 
 The following section describes the extended types added to TJSON by embedding

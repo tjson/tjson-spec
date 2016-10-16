@@ -120,6 +120,19 @@ described by the following grammar:
 <t>TJSON places a maximum length of 4 bytes on tag, including the ':' character.
 </t>
 </section>
+
+<section anchor="root-symbol" title="Root Symbol">
+<t>The root grammatical symbol of all TJSON documents is constrained to the
+following nonterminals as described in <xref target="RFC7159"/>:
+</t>
+
+<figure align="center"><artwork align="center">
+&lt;root&gt; ::= &lt;object&gt; | &lt;array&gt;
+</artwork></figure>
+<t>Documents which do not contain an object or array as the toplevel element
+MUST be rejected by parsers.
+</t>
+</section>
 </section>
 
 <section anchor="extended-types" title="Extended Types">
