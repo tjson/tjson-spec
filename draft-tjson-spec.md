@@ -81,6 +81,6 @@ described by the following grammar:
 
 The quotation-mark and char pushdowns are described in section 7 of [@!RFC7159].
 
-TJSON places a maximum length of 4 bytes on <tag>, including the ':' character.
+TJSON places a maximum length of 4 bytes on tag, including the ':' character.
 
 {backmatter}

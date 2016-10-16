@@ -89,6 +89,39 @@ interpreted as described in <xref target="RFC2119"/>.
 </section>
 </section>
 
+<section anchor="tjson-grammar" title="TJSON Grammar">
+<t>TJSON relies on JSON as the basis of its grammar. All TJSON documents are valid
+JSON documents (however the reverse is not true). The TJSON grammar can thus
+be seen as an extension of the JSON grammar, but one implemented in a
+backwards-compatible way.
+</t>
+
+<section anchor="string-grammar" title="String Grammar">
+<t>The main grammatical addition of TJSON is a tag prefix on string literals. Every
+string literal MUST have a tag prefix in TJSON. Strings literals in TJSON are
+described by the following grammar:
+</t>
+
+<figure align="center"><artwork align="center">
+&lt;tagged-string&gt; ::= quotation-mark tag *char quotation-mark
+
+&lt;tag&gt; = &lt;alpha&gt; *&lt;alphanumeric&gt; ':'
+
+&lt;alpha&gt; ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' |
+            'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' |
+            's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
+
+&lt;digit&gt; ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+
+&lt;alphanumeric&gt; ::= &lt;alpha&gt; | &lt;digit&gt;
+</artwork></figure>
+<t>The quotation-mark and char pushdowns are described in section 7 of <xref target="RFC7159"/>.
+</t>
+<t>TJSON places a maximum length of 4 bytes on tag, including the ':' character.
+</t>
+</section>
+</section>
+
 </middle>
 <back>
 <references title="Normative References">
