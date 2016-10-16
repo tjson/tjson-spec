@@ -74,6 +74,14 @@ result = "error"
 ["hello, world!"]
 
 -----
+name = "Empty Base16 Binary Data"
+description = "Data in this format is represented by a bare b16: tag"
+result = "success"
+%%%
+
+["b16:"]
+
+-----
 name = "Base16 Binary Data"
 description = "Base16 data begins with the 'b16:' prefix"
 result = "success"
