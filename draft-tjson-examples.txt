@@ -159,7 +159,7 @@ description = "It should be possible to represent the full range of a signed 64-
 result = "success"
 %%%
 
-["i:−9223372036854775808", "i:9223372036854775807"]
+["i:-9223372036854775808", "i:9223372036854775807"]
 
 -----
 name = "Oversized Integer Test"
@@ -175,7 +175,7 @@ description = "Values smaller than can be represented by a signed 64-bit integer
 result = "error"
 %%%
 
-["i:−9223372036854775809"]
+["i:-9223372036854775809"]
 
 -----
 

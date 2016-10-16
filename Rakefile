@@ -20,7 +20,7 @@ namespace :examples do
     require "toml"
     require "json"
 
-    examples_text = TJSON_EXAMPLES.read
+    examples_text = TJSON_EXAMPLES.read(encoding: "UTF-8")
 
     # Strip comments
     examples_text.gsub!(/^#.*?$/m, "")
