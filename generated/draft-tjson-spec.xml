@@ -206,6 +206,28 @@ is not supported and MUST be rejected by parsers.
 </t>
 </section>
 </section>
+
+<section anchor="integers-i" title="Integers (&quot;i:&quot;)">
+<t>TJSON provides a standard syntax for representing integers as tagged strings,
+which allows representing more than the <spanx style="verb">[-(2**53)+1, (2**53)-1]</spanx> range of
+integers defined as interoperable in <xref target="RFC7159"/>.
+</t>
+<t>An integer literal tagged string starts with the &quot;i:&quot; tag, followed by a
+valid JSON integer literal, with an optional minus character.
+</t>
+<t>Conforming TJSON parsers MUST be capable of supporting the full integer range
+<spanx style="verb">[−(2**63), (2**63)−1]</spanx>, i.e. the range of a signed 64-bit integer.
+</t>
+<t>Integers outside this range MUST be rejected.
+</t>
+</section>
+
+<section anchor="floating-points" title="Floating Points">
+<t>All numeric literals which are not represented as tagged strings MUST be
+treated as floating points under TJSON. This is already the default behavior
+of many JSON libraries.
+</t>
+</section>
 </section>
 
 </middle>

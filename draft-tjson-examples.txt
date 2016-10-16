@@ -146,3 +146,44 @@ result = "error"
 ["b16:This is not a valid base64url string"]
 
 -----
+name = "Integer"
+description = "Integers are represented as tagged strings"
+result = "success"
+%%%
+
+["i:42"]
+
+-----
+name = "Integer Range Test"
+description = "It should be possible to represent the full range of a signed 64-bit integer"
+result = "success"
+%%%
+
+["i:−9223372036854775808", "i:9223372036854775807"]
+
+-----
+name = "Oversized Integer Test"
+description = "Values larger than can be represented by a signed 64-bit integer should be rejected"
+result = "error"
+%%%
+
+["i:9223372036854775808"]
+
+-----
+name = "Undersized Integer Test"
+description = "Values smaller than can be represented by a signed 64-bit integer should be rejected"
+result = "error"
+%%%
+
+["i:−9223372036854775809"]
+
+-----
+
+name = "Invalid Integer"
+description = "Garbage data after the integer tag should be rejected"
+result = "error"
+%%%
+
+["i:This is not a valid integer"]
+
+-----

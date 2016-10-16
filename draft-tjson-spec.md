@@ -155,4 +155,24 @@ This should decode to the equivalent of the ASCII string: "Hello, world!"
 Only the base64url format is supported. The non-URL safe form of base64
 is not supported and MUST be rejected by parsers.
 
+## Integers ("i:")
+
+TJSON provides a standard syntax for representing integers as tagged strings,
+which allows representing more than the `[-(2**53)+1, (2**53)-1]` range of
+integers defined as interoperable in [@!RFC7159].
+
+An integer literal tagged string starts with the "i:" tag, followed by a
+valid JSON integer literal, with an optional minus character.
+
+Conforming TJSON parsers MUST be capable of supporting the full integer range
+`[−(2**63), (2**63)−1]`, i.e. the range of a signed 64-bit integer.
+
+Integers outside this range MUST be rejected.
+
+## Floating Points
+
+All numeric literals which are not represented as tagged strings MUST be
+treated as floating points under TJSON. This is already the default behavior
+of many JSON libraries.
+
 {backmatter}
