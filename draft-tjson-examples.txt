@@ -104,4 +104,45 @@ result = "error"
 %%%
 
 ["b16:This is not a valid hexadecimal string"]
+
+-----
+name = "Empty Base64url Binary Data"
+description = "Data in this format is represented by a bare b64: tag"
+result = "success"
+%%%
+
+["b64:"]
+
+-----
+name = "Base64url Binary Data"
+description = "Base64 data begins with the 'b64:' prefix"
+result = "success"
+%%%
+
+["b64:SGVsbG8sIHdvcmxkIQ"]
+
+-----
+name = "Invalid Base64url Binary Data with padding"
+description = "Base64 data MUST NOT include padding"
+result = "error"
+%%%
+
+["b64:SGVsbG8sIHdvcmxkIQ=="]
+
+-----
+name = "Invalid Base64url Binary Data with non-URL safe characters"
+description = "Traditional Base64 is expressly disallowed"
+result = "error"
+%%%
+
+["b64:+/+/"]
+
+-----
+name = "Invalid Base64url Binary Data"
+description = "Garbage data MUST be rejected"
+result = "error"
+%%%
+
+["b16:This is not a valid base64url string"]
+
 -----
