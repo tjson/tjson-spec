@@ -34,6 +34,14 @@ result = "success"
 {}
 
 -----
+name = "Bare String"
+description = "Toplevel elements other than object or array are disallowed"
+result = "error"
+%%%
+
+"u:hello, world!"
+
+-----
 name = "Empty Unicode String"
 description = "An empty Unicode String is represented by a bare u: tag"
 result = "success"

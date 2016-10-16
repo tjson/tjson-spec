@@ -64,9 +64,10 @@ Table of Contents
      1.1.  Conventions Used in This Document . . . . . . . . . . . .   2
    2.  TJSON Grammar . . . . . . . . . . . . . . . . . . . . . . . .   2
      2.1.  String Grammar  . . . . . . . . . . . . . . . . . . . . .   3
+     2.2.  Root Symbol . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Extended Types  . . . . . . . . . . . . . . . . . . . . . . .   3
      3.1.  Unicode Strings . . . . . . . . . . . . . . . . . . . . .   3
-   4.  Normative References  . . . . . . . . . . . . . . . . . . . .   3
+   4.  Normative References  . . . . . . . . . . . . . . . . . . . .   4
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   4
 
 1.  Introduction
@@ -108,7 +109,6 @@ Table of Contents
 
 
 
-
 Arcieri & Laurie          Expires April 5, 2017                 [Page 2]
 
 Internet-Draft        TJSON Data Interchange Format         October 2016
@@ -138,6 +138,16 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
    TJSON places a maximum length of 4 bytes on tag, including the ':'
    character.
 
+2.2.  Root Symbol
+
+   The root grammatical symbol of all TJSON documents is constrained to
+   the following nonterminals as described in [RFC7159]:
+
+                       <root> ::= <object> | <array>
+
+   Documents which do not contain an object or array as the toplevel
+   element MUST be rejected by parsers.
+
 3.  Extended Types
 
    The following section describes the extended types added to TJSON by
@@ -152,16 +162,6 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 
    The following is an example of a Unicode String literal in TJSON:
 
-                             "u:Hello, world!"
-
-   Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8
-   [RFC3629].
-
-4.  Normative References
-
-
-
-
 
 
 
@@ -169,6 +169,13 @@ Arcieri & Laurie          Expires April 5, 2017                 [Page 3]
 
 Internet-Draft        TJSON Data Interchange Format         October 2016
 
+
+                             "u:Hello, world!"
+
+   Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8
+   [RFC3629].
+
+4.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -189,13 +196,6 @@ Authors' Addresses
 
 
    Ben Laurie
-
-
-
-
-
-
-
 
 
 
