@@ -54,4 +54,33 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
 interpreted as described in [@!RFC2119].
 
+# TJSON Grammar
+
+TJSON relies on JSON as the basis of its grammar. All TJSON documents are valid
+JSON documents (however the reverse is not true). The TJSON grammar can thus
+be seen as an extension of the JSON grammar, but one implemented in a
+backwards-compatible way.
+
+## String Grammar
+
+The main grammatical addition of TJSON is a tag prefix on string literals. Every
+string literal MUST have a tag prefix in TJSON. Strings literals in TJSON are
+described by the following grammar:
+
+    <tagged-string> ::= quotation-mark tag *char quotation-mark
+
+    <tag> = <alpha> *<alphanumeric> ':'
+
+    <alpha> ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' |
+                'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' |
+                's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
+
+    <digit> ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+
+    <alphanumeric> ::= <alpha> | <digit>
+
+The quotation-mark and char pushdowns are described in section 7 of [@!RFC7159].
+
+TJSON places a maximum length of 4 bytes on <tag>, including the ':' character.
+
 {backmatter}
