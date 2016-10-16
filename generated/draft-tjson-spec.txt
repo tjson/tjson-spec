@@ -62,8 +62,12 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Conventions Used in This Document . . . . . . . . . . . .   2
-   2.  Normative References  . . . . . . . . . . . . . . . . . . . .   2
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  TJSON Grammar . . . . . . . . . . . . . . . . . . . . . . . .   2
+     2.1.  String Grammar  . . . . . . . . . . . . . . . . . . . . .   3
+   3.  Extended Types  . . . . . . . . . . . . . . . . . . . . . . .   3
+     3.1.  Unicode Strings . . . . . . . . . . . . . . . . . . . . .   3
+   4.  Normative References  . . . . . . . . . . . . . . . . . . . .   3
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   4
 
 1.  Introduction
 
@@ -93,16 +97,12 @@ Table of Contents
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119].
 
-2.  Normative References
+2.  TJSON Grammar
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <http://www.rfc-editor.org/info/rfc2119>.
-
-   [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
-              Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
-              2014, <http://www.rfc-editor.org/info/rfc7159>.
+   TJSON relies on JSON as the basis of its grammar.  All TJSON
+   documents are valid JSON documents (however the reverse is not true).
+   The TJSON grammar can thus be seen as an extension of the JSON
+   grammar, but one implemented in a backwards-compatible way.
 
 
 
@@ -113,6 +113,75 @@ Arcieri & Laurie          Expires April 5, 2017                 [Page 2]
 
 Internet-Draft        TJSON Data Interchange Format         October 2016
 
+
+2.1.  String Grammar
+
+   The main grammatical addition of TJSON is a tag prefix on string
+   literals.  Every string literal MUST have a tag prefix in TJSON.
+   Strings literals in TJSON are described by the following grammar:
+
+   <tagged-string> ::= quotation-mark tag *char quotation-mark
+
+   <tag> = <alpha> *<alphanumeric> ':'
+
+   <alpha> ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' |
+               'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' |
+               's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
+
+   <digit> ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+
+   <alphanumeric> ::= <alpha> | <digit>
+
+   The quotation-mark and char pushdowns are described in section 7 of
+   [RFC7159].
+
+   TJSON places a maximum length of 4 bytes on tag, including the ':'
+   character.
+
+3.  Extended Types
+
+   The following section describes the extended types added to TJSON by
+   embedding them in string literals as described in section 2.1 of this
+   document.
+
+3.1.  Unicode Strings
+
+   The representation of Unicode Strings is grammatically identical to
+   JSON, except per section 2.1 of this document strings of this type
+   carry a mandatory tag character, "u:" indicating a Unicode String.
+
+   The following is an example of a Unicode String literal in TJSON:
+
+                             "u:Hello, world!"
+
+   Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8
+   [RFC3629].
+
+4.  Normative References
+
+
+
+
+
+
+
+Arcieri & Laurie          Expires April 5, 2017                 [Page 3]
+
+Internet-Draft        TJSON Data Interchange Format         October 2016
+
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <http://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC3629]  Yergeau, F., "UTF-8, a transformation format of ISO
+              10646", STD 63, RFC 3629, DOI 10.17487/RFC3629, November
+              2003, <http://www.rfc-editor.org/info/rfc3629>.
+
+   [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
+              Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
+              2014, <http://www.rfc-editor.org/info/rfc7159>.
 
 Authors' Addresses
 
@@ -152,17 +221,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Arcieri & Laurie          Expires April 5, 2017                 [Page 3]
+Arcieri & Laurie          Expires April 5, 2017                 [Page 4]

@@ -122,10 +122,32 @@ described by the following grammar:
 </section>
 </section>
 
+<section anchor="extended-types" title="Extended Types">
+<t>The following section describes the extended types added to TJSON by embedding
+them in string literals as described in section 2.1 of this document.
+</t>
+
+<section anchor="unicode-strings" title="Unicode Strings">
+<t>The representation of Unicode Strings is grammatically identical to JSON,
+except per section 2.1 of this document strings of this type carry a
+mandatory tag character, &quot;u:&quot; indicating a Unicode String.
+</t>
+<t>The following is an example of a Unicode String literal in TJSON:
+</t>
+
+<figure align="center"><artwork align="center">
+"u:Hello, world!"
+</artwork></figure>
+<t>Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8 <xref target="RFC3629"/>.
+</t>
+</section>
+</section>
+
 </middle>
 <back>
 <references title="Normative References">
 <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
+<?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3629.xml"?>
 <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7159.xml"?>
 </references>
 

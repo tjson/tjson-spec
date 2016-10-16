@@ -83,4 +83,21 @@ The quotation-mark and char pushdowns are described in section 7 of [@!RFC7159].
 
 TJSON places a maximum length of 4 bytes on tag, including the ':' character.
 
+# Extended Types
+
+The following section describes the extended types added to TJSON by embedding
+them in string literals as described in section 2.1 of this document.
+
+## Unicode Strings
+
+The representation of Unicode Strings is grammatically identical to JSON,
+except per section 2.1 of this document strings of this type carry a
+mandatory tag character, "u:" indicating a Unicode String.
+
+The following is an example of a Unicode String literal in TJSON:
+
+    "u:Hello, world!"
+
+Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8 [@!RFC3629].
+
 {backmatter}
