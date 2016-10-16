@@ -1,7 +1,7 @@
 #
 # [DRAFT] Annotated TJSON examples intended for testing TJSON parsers
 #
-# Revision: 0 (bump this when making changes to this file)
+# Revision: 1 (bump this when making changes to this file)
 #
 # Syntax used in this file:
 #
@@ -32,5 +32,37 @@ result = "success"
 %%%
 
 {}
+
+-----
+name = "Empty Unicode String"
+description = "An empty Unicode String is represented by a bare u: tag"
+result = "success"
+%%%
+
+["u:"]
+
+-----
+name = "Unicode String"
+description = "A Unicode String is always prefixed by a u: tag"
+result = "success"
+%%%
+
+["u:hello, world!"]
+
+-----
+name = "Invalid Empty String"
+description = "Type prefixes on strings in TJSON are mandatory"
+result = "error"
+%%%
+
+[""]
+
+-----
+name = "Invalid Untagged String"
+description = "Type prefixes on strings in TJSON are mandatory"
+result = "error"
+%%%
+
+["hello, world!"]
 
 -----
