@@ -120,15 +120,37 @@ different encodings within a tagged string. Tags for binary data begin
 with the "b" character followed by an alphanumeric identifier for a
 specific format.
 
-### Base16 ("b16:")
+The preferred encoding is base64url ("b64:"), which SHOULD be used by
+default unless another encoding is explicitly specified at serialization
+time.
 
-Base16 (a.k.a. hexadecimal) is described in [@!RFC4648]. All Base16 strings
-in TJSON MUST be lower case.
+The base16 and base64url formats are mandatory to implement for all TJSON
+parsers.
 
-The following is an example of a Base16 literal in TJSON:
+### base16 ("b16:")
+
+The base16 format (a.k.a. hexadecimal) is described in [@!RFC4648]. All base16
+strings in TJSON MUST be lower case.
+
+The following is an example of a base16 string literal in TJSON:
 
     "b16:48656c6c6f2c20776f726c6421"
 
 This should decode to the equivalent of the ASCII string: "Hello, world!"
+
+### base64url ("b64:")
+
+The base64url format is described in [@!RFC4648]. All base64url strings in
+TJSON MUST NOT include any padding with the '=' character. TJSON parsers
+MUST reject any documents containing padded base64url strings.
+
+The following is an example of a base64url string literal in TJSON:
+
+    "b64:SGVsbG8sIHdvcmxkIQ"
+
+This should decode to the equivalent of the ASCII string: "Hello, world!"
+
+Only the base64url format is supported. The non-URL safe form of base64
+is not supported and MUST be rejected by parsers.
 
 {backmatter}
