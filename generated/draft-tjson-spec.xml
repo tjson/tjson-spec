@@ -216,9 +216,23 @@ integers defined as interoperable in <xref target="RFC7159"/>.
 valid JSON integer literal, with an optional minus character.
 </t>
 <t>Conforming TJSON parsers MUST be capable of supporting the full integer range
-<spanx style="verb">[−(2**63), (2**63)−1]</spanx>, i.e. the range of a signed 64-bit integer.
+<spanx style="verb">[-(2**63), (2**63)-1]</spanx>, i.e. the range of a signed 64-bit integer.
 </t>
 <t>Integers outside this range MUST be rejected.
+</t>
+</section>
+</section>
+
+<section anchor="handling-of-json-types" title="Handling of JSON types">
+<t>Below are notes about how the processing of certain JSON types should be
+handled under TJSON.
+</t>
+
+<section anchor="objects" title="Objects">
+<t>TJSON constrains the allowable types for the names of object members to either
+Unicode Strings or Binary Data.
+</t>
+<t>All other types, such as integers, are expressly disallowed.
 </t>
 </section>
 

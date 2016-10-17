@@ -34,6 +34,38 @@ result = "success"
 {}
 
 -----
+name = "Object with Unicode String Key"
+description = "Strings are allowed as names of object members"
+result = "success"
+%%%
+
+{"u:foo":"u:bar"}
+
+-----
+name = "Object with Binary Data Key"
+description = "Binary Data is allowed as the name of an object member"
+result = "success"
+%%%
+
+{"b16:48656c6c6f2c20776f726c6421":"u:foobar"}
+
+-----
+name = "Invalid Object with Bare String Key"
+description = "All strings in TJSON must be tagged"
+result = "error"
+%%%
+
+{"foo":"u:bar"}
+
+-----
+name = "Invalid Object with Integer Key"
+description = "Only Unicode Strings and Binary Data are allowed as names of object members"
+result = "error"
+%%%
+
+{"i:42":"u:foobar"}
+
+-----
 name = "Bare String"
 description = "Toplevel elements other than object or array are disallowed"
 result = "error"
