@@ -165,7 +165,7 @@ An integer literal tagged string starts with the "i:" tag, followed by a
 valid JSON integer literal, with an optional minus character.
 
 Conforming TJSON parsers MUST be capable of supporting the full integer range
-`[−(2**63), (2**63)−1]`, i.e. the range of a signed 64-bit integer.
+`[-(2**63), (2**63)-1]`, i.e. the range of a signed 64-bit integer.
 
 Integers outside this range MUST be rejected.
 
