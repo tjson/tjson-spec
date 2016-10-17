@@ -169,6 +169,18 @@ Conforming TJSON parsers MUST be capable of supporting the full integer range
 
 Integers outside this range MUST be rejected.
 
+# Handling of JSON types
+
+Below are notes about how the processing of certain JSON types should be
+handled under TJSON.
+
+## Objects
+
+TJSON constrains the allowable types for the names of object members to either
+Unicode Strings or Binary Data.
+
+All other types, such as integers, are expressly disallowed.
+
 ## Floating Points
 
 All numeric literals which are not represented as tagged strings MUST be

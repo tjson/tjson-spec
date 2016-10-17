@@ -71,8 +71,10 @@ Table of Contents
        3.2.1.  base16 ("b16:") . . . . . . . . . . . . . . . . . . .   4
        3.2.2.  base64url ("b64:")  . . . . . . . . . . . . . . . . .   5
      3.3.  Integers ("i:") . . . . . . . . . . . . . . . . . . . . .   5
-     3.4.  Floating Points . . . . . . . . . . . . . . . . . . . . .   5
-   4.  Normative References  . . . . . . . . . . . . . . . . . . . .   5
+   4.  Handling of JSON types  . . . . . . . . . . . . . . . . . . .   5
+     4.1.  Objects . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     4.2.  Floating Points . . . . . . . . . . . . . . . . . . . . .   6
+   5.  Normative References  . . . . . . . . . . . . . . . . . . . .   6
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
 
 1.  Introduction
@@ -102,8 +104,6 @@ Table of Contents
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119].
-
-
 
 
 
@@ -259,18 +259,18 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 
    Integers outside this range MUST be rejected.
 
-3.4.  Floating Points
+4.  Handling of JSON types
 
-   All numeric literals which are not represented as tagged strings MUST
-   be treated as floating points under TJSON.  This is already the
-   default behavior of many JSON libraries.
+   Below are notes about how the processing of certain JSON types should
+   be handled under TJSON.
 
-4.  Normative References
+4.1.  Objects
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <http://www.rfc-editor.org/info/rfc2119>.
+   TJSON constrains the allowable types for the names of object members
+   to either Unicode Strings or Binary Data.
+
+   All other types, such as integers, are expressly disallowed.
+
 
 
 
@@ -281,6 +281,19 @@ Arcieri & Laurie          Expires April 5, 2017                 [Page 5]
 
 Internet-Draft        TJSON Data Interchange Format         October 2016
 
+
+4.2.  Floating Points
+
+   All numeric literals which are not represented as tagged strings MUST
+   be treated as floating points under TJSON.  This is already the
+   default behavior of many JSON libraries.
+
+5.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <http://www.rfc-editor.org/info/rfc2119>.
 
    [RFC3629]  Yergeau, F., "UTF-8, a transformation format of ISO
               10646", STD 63, RFC 3629, DOI 10.17487/RFC3629, November
@@ -300,19 +313,6 @@ Authors' Addresses
 
 
    Ben Laurie
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
