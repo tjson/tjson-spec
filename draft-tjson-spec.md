@@ -101,17 +101,17 @@ MUST be rejected by parsers.
 The following section describes the extended types added to TJSON by embedding
 them in string literals as described in section 2.1 of this document.
 
-## Unicode Strings ("u:")
+## UTF-8 Strings ("s:")
 
-The representation of Unicode Strings is grammatically identical to JSON,
-except per section 2.1 of this document strings of this type carry a
-mandatory tag character, "u:" indicating a Unicode String.
+The syntax for TJSON strings is grammatically identical to JSON, except per
+section 2.1 of this document the string type MUST carry a mandatory tag
+character, "s:" indicating a UTF-8 String. Unlike JSON, all Unicode Strings
+in TJSON MUST be valid UTF-8 [@!RFC3629]. Other Unicode encodings are
+expressly not supported.
 
-The following is an example of a Unicode String literal in TJSON:
+The following is an example of a UTF-8 String literal in TJSON:
 
-    "u:Hello, world!"
-
-Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8 [@!RFC3629].
+    "s:Hello, world!"
 
 ## Binary Data
 
