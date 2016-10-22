@@ -169,6 +169,18 @@ Conforming TJSON parsers MUST be capable of supporting the full integer range
 
 Integers outside this range MUST be rejected.
 
+## Timestamps ("t:")
+
+TJSON natively supports a timestamp type whose syntax is a subset of that
+provided by [@!RFC3339]. Specifically, TJSON timestamps MUST use of the
+UTC time zone identifier "Z".
+
+The following is an example of a TJSON timestamp:
+
+    "t:2016-10-02T07:31:51Z"
+
+TJSON libraries SHOULD convert these timestamps to a native datetime type.
+
 # Handling of JSON types
 
 Below are notes about how the processing of certain JSON types should be

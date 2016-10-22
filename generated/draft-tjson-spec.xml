@@ -221,6 +221,21 @@ valid JSON integer literal, with an optional minus character.
 <t>Integers outside this range MUST be rejected.
 </t>
 </section>
+
+<section anchor="timestamps-t" title="Timestamps (&quot;t:&quot;)">
+<t>TJSON natively supports a timestamp type whose syntax is a subset of that
+provided by <xref target="RFC3339"/>. Specifically, TJSON timestamps MUST use of the
+UTC time zone identifier &quot;Z&quot;.
+</t>
+<t>The following is an example of a TJSON timestamp:
+</t>
+
+<figure align="center"><artwork align="center">
+"t:2016-10-02T07:31:51Z"
+</artwork></figure>
+<t>TJSON libraries SHOULD convert these timestamps to a native datetime type.
+</t>
+</section>
 </section>
 
 <section anchor="handling-of-json-types" title="Handling of JSON types">
@@ -248,6 +263,7 @@ of many JSON libraries.
 <back>
 <references title="Normative References">
 <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
+<?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3339.xml"?>
 <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3629.xml"?>
 <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"?>
 <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7159.xml"?>
