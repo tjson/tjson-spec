@@ -224,8 +224,9 @@ valid JSON integer literal, with an optional minus character.
 
 <section anchor="timestamps-t" title="Timestamps (&quot;t:&quot;)">
 <t>TJSON natively supports a timestamp type whose syntax is a subset of that
-provided by <xref target="RFC3339"/>. Specifically, TJSON timestamps MUST use of the
-UTC time zone identifier &quot;Z&quot;.
+provided by <xref target="RFC3339"/>. Specifically, TJSON timestamps MUST use only the
+upper-case UTC time zone identifier &quot;Z&quot;. No other time zone identifiers are
+allowed except &quot;Z&quot; and parsers MUST NOT allow them.
 </t>
 <t>The following is an example of a TJSON timestamp:
 </t>

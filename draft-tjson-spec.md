@@ -172,8 +172,9 @@ Integers outside this range MUST be rejected.
 ## Timestamps ("t:")
 
 TJSON natively supports a timestamp type whose syntax is a subset of that
-provided by [@!RFC3339]. Specifically, TJSON timestamps MUST use of the
-UTC time zone identifier "Z".
+provided by [@!RFC3339]. Specifically, TJSON timestamps MUST use only the
+upper-case UTC time zone identifier "Z". No other time zone identifiers are
+allowed except "Z" and parsers MUST NOT allow them.
 
 The following is an example of a TJSON timestamp:
 

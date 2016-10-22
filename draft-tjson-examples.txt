@@ -210,12 +210,35 @@ result = "error"
 ["i:-9223372036854775809"]
 
 -----
-
 name = "Invalid Integer"
 description = "Garbage data after the integer tag should be rejected"
 result = "error"
 %%%
 
 ["i:This is not a valid integer"]
+
+-----
+name = "Timestamp"
+description = "A valid RFC3339 timestamp example"
+result = "success"
+%%%
+
+["t:2016-10-02T07:31:51Z"]
+
+-----
+name = "Timestamp With Invalid Time Zone"
+description = "All timestamps must be in the UTC ('Z') time zone"
+result = "error"
+%%%
+
+["t:2016-10-02T07:31:51-08:00"]
+
+-----
+name = "Invalid Timestamp"
+description = "Garbage data after the timestamp tag should be rejected"
+result = "error"
+%%%
+
+["t:This is not a valid timestamp"]
 
 -----
