@@ -208,6 +208,13 @@ Unicode Strings or Binary Data.
 
 All other types, such as integers, are expressly disallowed.
 
+The names of object members MUST be unique in TJSON. Repeated use of the same
+name for more than one member MUST be rejected by TJSON parsers.
+
+## Arrays
+
+Arrays have no additional handling considerations in TJSON.
+
 ## Floating Points
 
 All numeric literals which are not represented as tagged strings MUST be
