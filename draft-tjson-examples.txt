@@ -9,7 +9,7 @@
 # - Examples are delimited by a line containing only '-----' (5 hyphen characters)
 # - This file should begin/end with '-----' with only comments allowed before/after
 #   the leading and trailing '-----' respectively (i.e. this comment block)
-# - Each example consists of TOML metadata and an example, separated by '%%%'
+# - Each example consists of TOML metadata and an example, separated by a blank line
 #
 # Example metadata syntax:
 #
@@ -21,7 +21,6 @@
 name = "Empty Array"
 description = "Arrays are allowed as a toplevel value and can be empty"
 result = "success"
-%%%
 
 []
 
@@ -29,7 +28,6 @@ result = "success"
 name = "Empty Object"
 description = "Objects are allowed as a toplevel value and can be empty"
 result = "success"
-%%%
 
 {}
 
@@ -37,7 +35,6 @@ result = "success"
 name = "Object with UTF-8 String Key"
 description = "Strings are allowed as names of object members"
 result = "success"
-%%%
 
 {"s:foo":"s:bar"}
 
@@ -45,7 +42,6 @@ result = "success"
 name = "Object with Binary Data Key"
 description = "Binary Data is allowed as the name of an object member"
 result = "success"
-%%%
 
 {"b16:48656c6c6f2c20776f726c6421":"s:foobar"}
 
@@ -53,7 +49,6 @@ result = "success"
 name = "Invalid Object with Bare String Key"
 description = "All strings in TJSON must be tagged"
 result = "error"
-%%%
 
 {"foo":"s:bar"}
 
@@ -61,7 +56,6 @@ result = "error"
 name = "Invalid Object with Integer Key"
 description = "Only UTF-8 Strings and Binary Data are allowed as names of object members"
 result = "error"
-%%%
 
 {"i:42":"s:foobar"}
 
@@ -69,7 +63,6 @@ result = "error"
 name = "Bare String"
 description = "Toplevel elements other than object or array are disallowed"
 result = "error"
-%%%
 
 "s:hello, world!"
 
@@ -77,7 +70,6 @@ result = "error"
 name = "Empty UTF-8 String"
 description = "An empty UTF-8 String is represented by a bare s: tag"
 result = "success"
-%%%
 
 ["s:"]
 
@@ -85,7 +77,6 @@ result = "success"
 name = "UTF-8 String"
 description = "A UTF-8 String is always prefixed by a s: tag"
 result = "success"
-%%%
 
 ["s:hello, world!"]
 
@@ -93,7 +84,6 @@ result = "success"
 name = "Invalid Empty String"
 description = "Type prefixes on strings in TJSON are mandatory"
 result = "error"
-%%%
 
 [""]
 
@@ -101,7 +91,6 @@ result = "error"
 name = "Invalid Untagged String"
 description = "Type prefixes on strings in TJSON are mandatory"
 result = "error"
-%%%
 
 ["hello, world!"]
 
@@ -109,7 +98,6 @@ result = "error"
 name = "Empty Base16 Binary Data"
 description = "Data in this format is represented by a bare b16: tag"
 result = "success"
-%%%
 
 ["b16:"]
 
@@ -117,7 +105,6 @@ result = "success"
 name = "Base16 Binary Data"
 description = "Base16 data begins with the 'b16:' prefix"
 result = "success"
-%%%
 
 ["b16:48656c6c6f2c20776f726c6421"]
 
@@ -125,7 +112,6 @@ result = "success"
 name = "Invalid Base16 Binary Data with bad case"
 description = "Base16 data MUST be lower case"
 result = "error"
-%%%
 
 ["b16:48656C6C6F2C20776F726C6421"]
 
@@ -133,7 +119,6 @@ result = "error"
 name = "Invalid Base16 Binary Data"
 description = "Base16 data must be valid hexadecimal"
 result = "error"
-%%%
 
 ["b16:This is not a valid hexadecimal string"]
 
@@ -141,7 +126,6 @@ result = "error"
 name = "Empty Base64url Binary Data"
 description = "Data in this format is represented by a bare b64: tag"
 result = "success"
-%%%
 
 ["b64:"]
 
@@ -149,7 +133,6 @@ result = "success"
 name = "Base64url Binary Data"
 description = "Base64 data begins with the 'b64:' prefix"
 result = "success"
-%%%
 
 ["b64:SGVsbG8sIHdvcmxkIQ"]
 
@@ -157,7 +140,6 @@ result = "success"
 name = "Invalid Base64url Binary Data with padding"
 description = "Base64 data MUST NOT include padding"
 result = "error"
-%%%
 
 ["b64:SGVsbG8sIHdvcmxkIQ=="]
 
@@ -165,7 +147,6 @@ result = "error"
 name = "Invalid Base64url Binary Data with non-URL safe characters"
 description = "Traditional Base64 is expressly disallowed"
 result = "error"
-%%%
 
 ["b64:+/+/"]
 
@@ -173,7 +154,6 @@ result = "error"
 name = "Invalid Base64url Binary Data"
 description = "Garbage data MUST be rejected"
 result = "error"
-%%%
 
 ["b16:This is not a valid base64url string"]
 
@@ -181,7 +161,6 @@ result = "error"
 name = "Signed Integer"
 description = "Signed integers are represented as tagged strings"
 result = "success"
-%%%
 
 ["i:42"]
 
@@ -189,7 +168,6 @@ result = "success"
 name = "Signed Integer Range Test"
 description = "It should be possible to represent the full range of a signed 64-bit integer"
 result = "success"
-%%%
 
 ["i:-9223372036854775808", "i:9223372036854775807"]
 
@@ -197,7 +175,6 @@ result = "success"
 name = "Oversized Signed Integer Test"
 description = "Values larger than can be represented by a signed 64-bit integer MUST be rejected"
 result = "error"
-%%%
 
 ["i:9223372036854775808"]
 
@@ -205,7 +182,6 @@ result = "error"
 name = "Undersized Signed Integer Test"
 description = "Values smaller than can be represented by a signed 64-bit integer MUST be rejected"
 result = "error"
-%%%
 
 ["i:-9223372036854775809"]
 
@@ -213,7 +189,6 @@ result = "error"
 name = "Invalid Signed Integer"
 description = "Garbage data after the integer tag should be rejected"
 result = "error"
-%%%
 
 ["i:This is not a valid integer"]
 
@@ -221,7 +196,6 @@ result = "error"
 name = "Unsigned Integer"
 description = "Unsigned integers are represented as tagged strings"
 result = "success"
-%%%
 
 ["u:42"]
 
@@ -229,7 +203,6 @@ result = "success"
 name = "Unsigned Integer Range Test"
 description = "It should be possible to represent the full range of a signed 64-bit integer"
 result = "success"
-%%%
 
 ["u:18446744073709551615"]
 
@@ -237,7 +210,6 @@ result = "success"
 name = "Oversized Unsigned Integer Test"
 description = "Values larger than can be represented by an unsigned 64-bit integer MUST be rejected"
 result = "error"
-%%%
 
 ["u:18446744073709551616"]
 
@@ -245,7 +217,6 @@ result = "error"
 name = "Negative Unsigned Integer Test"
 description = "Unsigned integers cannot be negative"
 result = "error"
-%%%
 
 ["u:-1"]
 
@@ -253,7 +224,6 @@ result = "error"
 name = "Invalid Unsigned Integer"
 description = "Garbage data after the integer tag should be rejected"
 result = "error"
-%%%
 
 ["u:This is not a valid integer"]
 
@@ -261,7 +231,6 @@ result = "error"
 name = "Timestamp"
 description = "A valid RFC3339 timestamp example"
 result = "success"
-%%%
 
 ["t:2016-10-02T07:31:51Z"]
 
@@ -269,7 +238,6 @@ result = "success"
 name = "Timestamp With Invalid Time Zone"
 description = "All timestamps must be in the UTC ('Z') time zone"
 result = "error"
-%%%
 
 ["t:2016-10-02T07:31:51-08:00"]
 
@@ -277,7 +245,6 @@ result = "error"
 name = "Invalid Timestamp"
 description = "Garbage data after the timestamp tag should be rejected"
 result = "error"
-%%%
 
 ["t:This is not a valid timestamp"]
 

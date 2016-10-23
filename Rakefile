@@ -42,8 +42,8 @@ namespace :examples do
     end
 
     examples.each_with_index do |example, number|
-      metadata_text, example_text, extra = example.split(/^%%%$/m)
-      fail "Error parsing header of example \##{number + 1}: extra '%%%'" unless extra.nil?
+      metadata_text, example_text, extra = example.split(/\n\s*\n/m)
+      fail "Error parsing example \##{number + 1}: extra data after example" unless extra.nil?
 
       # Strip leading newline from metadata
       metadata_text.sub!(/\A\n/m, "")
