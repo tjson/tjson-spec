@@ -207,19 +207,35 @@ is not supported and MUST be rejected by parsers.
 </section>
 </section>
 
-<section anchor="integers-i" title="Integers (&quot;i:&quot;)">
-<t>TJSON provides a standard syntax for representing integers as tagged strings,
-which allows representing more than the <spanx style="verb">[-(2**53)+1, (2**53)-1]</spanx> range of
-integers defined as interoperable in <xref target="RFC7159"/>.
+<section anchor="integers" title="Integers">
+<t>TJSON provides standard syntax for representing integers as tagged strings,
+which can express a larger range of values than the <spanx style="verb">[-(2**53)+1, (2**53)-1]</spanx>
+range defined as interoperable in <xref target="RFC7159"/>.
 </t>
-<t>An integer literal tagged string starts with the &quot;i:&quot; tag, followed by a
-valid JSON integer literal, with an optional minus character.
+<t>Both signed and unsigned integers are supported and provide the same ranges
+as 64-bit integers.
 </t>
-<t>Conforming TJSON parsers MUST be capable of supporting the full integer range
-<spanx style="verb">[-(2**63), (2**63)-1]</spanx>, i.e. the range of a signed 64-bit integer.
+
+<section anchor="signed-integers-i" title="Signed Integers (&quot;i:&quot;)">
+<t>A signed integer literal is represented as string with an &quot;i:&quot; tag, followed
+by a valid JSON integer literal, with an optional minus (&quot;-&quot;) character.
+</t>
+<t>Conforming TJSON parsers MUST be capable of supporting the full 64-bit signed
+integer range <spanx style="verb">[-(2**63), (2**63)-1]</spanx> for this type.
 </t>
 <t>Integers outside this range MUST be rejected.
 </t>
+</section>
+
+<section anchor="unsigned-integers-u" title="Unsigned Integers (&quot;u:&quot;)">
+<t>An unsigned integer literal is represented as a string with a &quot;u:&quot; tag,
+followed by a valid JSON integer literal. The minus (&quot;-&quot;) character is
+expressly disallowed and parsers MUST fail if it's present.
+</t>
+<t>Conforming TJSON parsers MUST be capable of supporting the full 64-bit unsigned
+integer range <spanx style="verb">[0, (2**64)−1]</spanx> for this type.
+</t>
+</section>
 </section>
 
 <section anchor="timestamps-t" title="Timestamps (&quot;t:&quot;)">
