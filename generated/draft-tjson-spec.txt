@@ -61,7 +61,7 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-     1.1.  Conventions Used in This Document . . . . . . . . . . . .   2
+     1.1.  Conventions Used in This Document . . . . . . . . . . . .   3
    2.  TJSON Grammar . . . . . . . . . . . . . . . . . . . . . . . .   3
      2.1.  String Grammar  . . . . . . . . . . . . . . . . . . . . .   3
      2.2.  Root Symbol . . . . . . . . . . . . . . . . . . . . . . .   3
@@ -70,13 +70,15 @@ Table of Contents
      3.2.  Binary Data . . . . . . . . . . . . . . . . . . . . . . .   4
        3.2.1.  base16 ("b16:") . . . . . . . . . . . . . . . . . . .   4
        3.2.2.  base64url ("b64:")  . . . . . . . . . . . . . . . . .   5
-     3.3.  Integers ("i:") . . . . . . . . . . . . . . . . . . . . .   5
-     3.4.  Timestamps ("t:") . . . . . . . . . . . . . . . . . . . .   5
+     3.3.  Integers  . . . . . . . . . . . . . . . . . . . . . . . .   5
+       3.3.1.  Signed Integers ("i:")  . . . . . . . . . . . . . . .   5
+       3.3.2.  Unsigned Integers ("u:")  . . . . . . . . . . . . . .   5
+     3.4.  Timestamps ("t:") . . . . . . . . . . . . . . . . . . . .   6
    4.  Handling of JSON types  . . . . . . . . . . . . . . . . . . .   6
      4.1.  Objects . . . . . . . . . . . . . . . . . . . . . . . . .   6
      4.2.  Floating Points . . . . . . . . . . . . . . . . . . . . .   6
    5.  Normative References  . . . . . . . . . . . . . . . . . . . .   6
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
 
 1.  Introduction
 
@@ -100,11 +102,9 @@ Table of Contents
    also improve the ability to both canonicalize and authenticate JSON
    documents.
 
-1.1.  Conventions Used in This Document
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in [RFC2119].
+
+
 
 
 
@@ -113,6 +113,12 @@ Arcieri & Laurie          Expires April 5, 2017                 [Page 2]
 
 Internet-Draft        TJSON Data Interchange Format         October 2016
 
+
+1.1.  Conventions Used in This Document
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119].
 
 2.  TJSON Grammar
 
@@ -155,12 +161,6 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 
                        <root> ::= <object> | <array>
 
-   Documents which do not contain an object or array as the toplevel
-   element MUST be rejected by parsers.
-
-
-
-
 
 
 
@@ -169,6 +169,9 @@ Arcieri & Laurie          Expires April 5, 2017                 [Page 3]
 
 Internet-Draft        TJSON Data Interchange Format         October 2016
 
+
+   Documents which do not contain an object or array as the toplevel
+   element MUST be rejected by parsers.
 
 3.  Extended Types
 
@@ -218,9 +221,6 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 
 
 
-
-
-
 Arcieri & Laurie          Expires April 5, 2017                 [Page 4]
 
 Internet-Draft        TJSON Data Interchange Format         October 2016
@@ -244,20 +244,43 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
    Only the base64url format is supported.  The non-URL safe form of
    base64 is not supported and MUST be rejected by parsers.
 
-3.3.  Integers ("i:")
+3.3.  Integers
 
-   TJSON provides a standard syntax for representing integers as tagged
-   strings, which allows representing more than the "[-(2**53)+1,
-   (2**53)-1]" range of integers defined as interoperable in [RFC7159].
+   TJSON provides standard syntax for representing integers as tagged
+   strings, which can express a larger range of values than the
+   "[-(2**53)+1, (2**53)-1]" range defined as interoperable in
+   [RFC7159].
 
-   An integer literal tagged string starts with the "i:" tag, followed
-   by a valid JSON integer literal, with an optional minus character.
+   Both signed and unsigned integers are supported and provide the same
+   ranges as 64-bit integers.
+
+3.3.1.  Signed Integers ("i:")
+
+   A signed integer literal is represented as string with an "i:" tag,
+   followed by a valid JSON integer literal, with an optional minus
+   ("-") character.
 
    Conforming TJSON parsers MUST be capable of supporting the full
-   integer range "[-(2**63), (2**63)-1]", i.e. the range of a signed
-   64-bit integer.
+   64-bit signed integer range "[-(2**63), (2**63)-1]" for this type.
 
    Integers outside this range MUST be rejected.
+
+3.3.2.  Unsigned Integers ("u:")
+
+   An unsigned integer literal is represented as a string with a "u:"
+   tag, followed by a valid JSON integer literal.  The minus ("-")
+   character is expressly disallowed and parsers MUST fail if it's
+   present.
+
+   Conforming TJSON parsers MUST be capable of supporting the full
+   64-bit unsigned integer range "[0, (2**64)-1]" for this type.
+
+
+
+Arcieri & Laurie          Expires April 5, 2017                 [Page 5]
+
+Internet-Draft        TJSON Data Interchange Format         October 2016
+
 
 3.4.  Timestamps ("t:")
 
@@ -272,15 +295,6 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 
    TJSON libraries SHOULD convert these timestamps to a native datetime
    type.
-
-
-
-
-
-Arcieri & Laurie          Expires April 5, 2017                 [Page 5]
-
-Internet-Draft        TJSON Data Interchange Format         October 2016
-
 
 4.  Handling of JSON types
 
@@ -315,6 +329,15 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
               10646", STD 63, RFC 3629, DOI 10.17487/RFC3629, November
               2003, <http://www.rfc-editor.org/info/rfc3629>.
 
+
+
+
+
+Arcieri & Laurie          Expires April 5, 2017                 [Page 6]
+
+Internet-Draft        TJSON Data Interchange Format         October 2016
+
+
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
               Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
               <http://www.rfc-editor.org/info/rfc4648>.
@@ -333,4 +356,37 @@ Authors' Addresses
 
 
 
-Arcieri & Laurie          Expires April 5, 2017                 [Page 6]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Arcieri & Laurie          Expires April 5, 2017                 [Page 7]

@@ -155,19 +155,33 @@ This should decode to the equivalent of the ASCII string: "Hello, world!"
 Only the base64url format is supported. The non-URL safe form of base64
 is not supported and MUST be rejected by parsers.
 
-## Integers ("i:")
+## Integers
 
-TJSON provides a standard syntax for representing integers as tagged strings,
-which allows representing more than the `[-(2**53)+1, (2**53)-1]` range of
-integers defined as interoperable in [@!RFC7159].
+TJSON provides standard syntax for representing integers as tagged strings,
+which can express a larger range of values than the `[-(2**53)+1, (2**53)-1]`
+range defined as interoperable in [@!RFC7159].
 
-An integer literal tagged string starts with the "i:" tag, followed by a
-valid JSON integer literal, with an optional minus character.
+Both signed and unsigned integers are supported and provide the same ranges
+as 64-bit integers.
 
-Conforming TJSON parsers MUST be capable of supporting the full integer range
-`[-(2**63), (2**63)-1]`, i.e. the range of a signed 64-bit integer.
+### Signed Integers ("i:")
+
+A signed integer literal is represented as string with an "i:" tag, followed
+by a valid JSON integer literal, with an optional minus ("-") character.
+
+Conforming TJSON parsers MUST be capable of supporting the full 64-bit signed
+integer range `[-(2**63), (2**63)-1]` for this type.
 
 Integers outside this range MUST be rejected.
+
+### Unsigned Integers ("u:")
+
+An unsigned integer literal is represented as a string with a "u:" tag,
+followed by a valid JSON integer literal. The minus ("-") character is
+expressly disallowed and parsers MUST fail if it's present.
+
+Conforming TJSON parsers MUST be capable of supporting the full 64-bit unsigned
+integer range `[0, (2**64)−1]` for this type.
 
 ## Timestamps ("t:")
 
