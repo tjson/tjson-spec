@@ -76,7 +76,8 @@ Table of Contents
      3.4.  Timestamps ("t:") . . . . . . . . . . . . . . . . . . . .   6
    4.  Handling of JSON types  . . . . . . . . . . . . . . . . . . .   6
      4.1.  Objects . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     4.2.  Floating Points . . . . . . . . . . . . . . . . . . . . .   6
+     4.2.  Arrays  . . . . . . . . . . . . . . . . . . . . . . . . .   6
+     4.3.  Floating Points . . . . . . . . . . . . . . . . . . . . .   6
    5.  Normative References  . . . . . . . . . . . . . . . . . . . .   6
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
 
@@ -101,7 +102,6 @@ Table of Contents
    interchange formats which disambiguate strings from binary data, and
    also improve the ability to both canonicalize and authenticate JSON
    documents.
-
 
 
 
@@ -308,7 +308,15 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 
    All other types, such as integers, are expressly disallowed.
 
-4.2.  Floating Points
+   The names of object members MUST be unique in TJSON.  Repeated use of
+   the same name for more than one member MUST be rejected by TJSON
+   parsers.
+
+4.2.  Arrays
+
+   Arrays have no additional handling considerations in TJSON.
+
+4.3.  Floating Points
 
    All numeric literals which are not represented as tagged strings MUST
    be treated as floating points under TJSON.  This is already the
@@ -321,14 +329,6 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
 
-   [RFC3339]  Klyne, G. and C. Newman, "Date and Time on the Internet:
-              Timestamps", RFC 3339, DOI 10.17487/RFC3339, July 2002,
-              <http://www.rfc-editor.org/info/rfc3339>.
-
-   [RFC3629]  Yergeau, F., "UTF-8, a transformation format of ISO
-              10646", STD 63, RFC 3629, DOI 10.17487/RFC3629, November
-              2003, <http://www.rfc-editor.org/info/rfc3629>.
-
 
 
 
@@ -337,6 +337,14 @@ Arcieri & Laurie          Expires April 5, 2017                 [Page 6]
 
 Internet-Draft        TJSON Data Interchange Format         October 2016
 
+
+   [RFC3339]  Klyne, G. and C. Newman, "Date and Time on the Internet:
+              Timestamps", RFC 3339, DOI 10.17487/RFC3339, July 2002,
+              <http://www.rfc-editor.org/info/rfc3339>.
+
+   [RFC3629]  Yergeau, F., "UTF-8, a transformation format of ISO
+              10646", STD 63, RFC 3629, DOI 10.17487/RFC3629, November
+              2003, <http://www.rfc-editor.org/info/rfc3629>.
 
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
               Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
@@ -352,14 +360,6 @@ Authors' Addresses
 
 
    Ben Laurie
-
-
-
-
-
-
-
-
 
 
 

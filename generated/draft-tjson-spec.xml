@@ -266,6 +266,14 @@ Unicode Strings or Binary Data.
 </t>
 <t>All other types, such as integers, are expressly disallowed.
 </t>
+<t>The names of object members MUST be unique in TJSON. Repeated use of the same
+name for more than one member MUST be rejected by TJSON parsers.
+</t>
+</section>
+
+<section anchor="arrays" title="Arrays">
+<t>Arrays have no additional handling considerations in TJSON.
+</t>
 </section>
 
 <section anchor="floating-points" title="Floating Points">
