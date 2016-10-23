@@ -143,19 +143,19 @@ MUST be rejected by parsers.
 them in string literals as described in section 2.1 of this document.
 </t>
 
-<section anchor="unicode-strings-u" title="Unicode Strings (&quot;u:&quot;)">
-<t>The representation of Unicode Strings is grammatically identical to JSON,
-except per section 2.1 of this document strings of this type carry a
-mandatory tag character, &quot;u:&quot; indicating a Unicode String.
+<section anchor="utf8-strings-s" title="UTF-8 Strings (&quot;s:&quot;)">
+<t>The syntax for TJSON strings is grammatically identical to JSON, except per
+section 2.1 of this document the string type MUST carry a mandatory tag
+character, &quot;s:&quot; indicating a UTF-8 String. Unlike JSON, all Unicode Strings
+in TJSON MUST be valid UTF-8 <xref target="RFC3629"/>. Other Unicode encodings are
+expressly not supported.
 </t>
-<t>The following is an example of a Unicode String literal in TJSON:
+<t>The following is an example of a UTF-8 String literal in TJSON:
 </t>
 
 <figure align="center"><artwork align="center">
-"u:Hello, world!"
+"s:Hello, world!"
 </artwork></figure>
-<t>Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8 <xref target="RFC3629"/>.
-</t>
 </section>
 
 <section anchor="binary-data" title="Binary Data">

@@ -34,12 +34,12 @@ result = "success"
 {}
 
 -----
-name = "Object with Unicode String Key"
+name = "Object with UTF-8 String Key"
 description = "Strings are allowed as names of object members"
 result = "success"
 %%%
 
-{"u:foo":"u:bar"}
+{"s:foo":"s:bar"}
 
 -----
 name = "Object with Binary Data Key"
@@ -47,7 +47,7 @@ description = "Binary Data is allowed as the name of an object member"
 result = "success"
 %%%
 
-{"b16:48656c6c6f2c20776f726c6421":"u:foobar"}
+{"b16:48656c6c6f2c20776f726c6421":"s:foobar"}
 
 -----
 name = "Invalid Object with Bare String Key"
@@ -55,15 +55,15 @@ description = "All strings in TJSON must be tagged"
 result = "error"
 %%%
 
-{"foo":"u:bar"}
+{"foo":"s:bar"}
 
 -----
 name = "Invalid Object with Integer Key"
-description = "Only Unicode Strings and Binary Data are allowed as names of object members"
+description = "Only UTF-8 Strings and Binary Data are allowed as names of object members"
 result = "error"
 %%%
 
-{"i:42":"u:foobar"}
+{"i:42":"s:foobar"}
 
 -----
 name = "Bare String"
@@ -71,23 +71,23 @@ description = "Toplevel elements other than object or array are disallowed"
 result = "error"
 %%%
 
-"u:hello, world!"
+"s:hello, world!"
 
 -----
-name = "Empty Unicode String"
-description = "An empty Unicode String is represented by a bare u: tag"
+name = "Empty UTF-8 String"
+description = "An empty UTF-8 String is represented by a bare s: tag"
 result = "success"
 %%%
 
-["u:"]
+["s:"]
 
 -----
-name = "Unicode String"
-description = "A Unicode String is always prefixed by a u: tag"
+name = "UTF-8 String"
+description = "A UTF-8 String is always prefixed by a s: tag"
 result = "success"
 %%%
 
-["u:hello, world!"]
+["s:hello, world!"]
 
 -----
 name = "Invalid Empty String"
