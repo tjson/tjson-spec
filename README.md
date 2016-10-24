@@ -1,4 +1,9 @@
-# TJSON Specification [![Build Status](https://travis-ci.org/tjson/tjson-spec.svg?branch=master)](https://travis-ci.org/tjson/tjson-spec)
+# TJSON Specification [![Build Status][build-image]][build-link] [![Gitter][chat-image]][chat-link]
+
+[build-image]: https://travis-ci.org/tjson/tjson-spec.svg?branch=master
+[build-link]: https://travis-ci.org/tjson/tjson-spec
+[chat-image]: https://img.shields.io/gitter/room/gitterHQ/gitter.svg
+[chat-link]: https://gitter.im/tjson/Lobby
 
 IETF-style specification for TJSON authored using [mmark].
 
