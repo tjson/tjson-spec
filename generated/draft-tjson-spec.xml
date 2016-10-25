@@ -183,7 +183,24 @@ strings in TJSON MUST be lower case.
 <figure align="center"><artwork align="center">
 "b16:48656c6c6f2c20776f726c6421"
 </artwork></figure>
-<t>This should decode to the equivalent of the ASCII string: &quot;Hello, world!&quot;
+<t>This decodes to the equivalent of the ASCII string: &quot;Hello, world!&quot;
+</t>
+</section>
+
+<section anchor="base32-b32" title="base32 (&quot;b32:&quot;)">
+<t>A base32 literal starts with the &quot;b16:&quot; tag, followed by a valid base32 string.
+The base32 format is described in <xref target="RFC4648"/>. All base32 strings in TJSON
+MUST be lower case, and MUST NOT include any padding with the '=' character.
+TJSON parsers MUST reject any documents containing upper case base32 characters
+or padding.
+</t>
+<t>The following is an example of a base32 string literal in TJSON:
+</t>
+
+<figure align="center"><artwork align="center">
+"b32:jbswy3dpfqqho33snrscc"
+</artwork></figure>
+<t>This decodes to the equivalent of the ASCII string: &quot;Hello, world!&quot;
 </t>
 </section>
 
@@ -199,7 +216,7 @@ MUST reject any documents containing padded base64url strings.
 <figure align="center"><artwork align="center">
 "b64:SGVsbG8sIHdvcmxkIQ"
 </artwork></figure>
-<t>This should decode to the equivalent of the ASCII string: &quot;Hello, world!&quot;
+<t>This decodes to the equivalent of the ASCII string: &quot;Hello, world!&quot;
 </t>
 <t>Only the base64url format is supported. The non-URL safe form of base64
 is not supported and MUST be rejected by parsers.

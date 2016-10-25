@@ -69,16 +69,17 @@ Table of Contents
      3.1.  UTF-8 Strings ("s:")  . . . . . . . . . . . . . . . . . .   4
      3.2.  Binary Data . . . . . . . . . . . . . . . . . . . . . . .   4
        3.2.1.  base16 ("b16:") . . . . . . . . . . . . . . . . . . .   4
-       3.2.2.  base64url ("b64:")  . . . . . . . . . . . . . . . . .   5
+       3.2.2.  base32 ("b32:") . . . . . . . . . . . . . . . . . . .   5
+       3.2.3.  base64url ("b64:")  . . . . . . . . . . . . . . . . .   5
      3.3.  Integers  . . . . . . . . . . . . . . . . . . . . . . . .   5
        3.3.1.  Signed Integers ("i:")  . . . . . . . . . . . . . . .   5
-       3.3.2.  Unsigned Integers ("u:")  . . . . . . . . . . . . . .   5
+       3.3.2.  Unsigned Integers ("u:")  . . . . . . . . . . . . . .   6
      3.4.  Timestamps ("t:") . . . . . . . . . . . . . . . . . . . .   6
    4.  Handling of JSON types  . . . . . . . . . . . . . . . . . . .   6
      4.1.  Objects . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     4.2.  Arrays  . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     4.3.  Floating Points . . . . . . . . . . . . . . . . . . . . .   6
-   5.  Normative References  . . . . . . . . . . . . . . . . . . . .   6
+     4.2.  Arrays  . . . . . . . . . . . . . . . . . . . . . . . . .   7
+     4.3.  Floating Points . . . . . . . . . . . . . . . . . . . . .   7
+   5.  Normative References  . . . . . . . . . . . . . . . . . . . .   7
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
 
 1.  Introduction
@@ -102,7 +103,6 @@ Table of Contents
    interchange formats which disambiguate strings from binary data, and
    also improve the ability to both canonicalize and authenticate JSON
    documents.
-
 
 
 
@@ -215,8 +215,8 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 
                      "b16:48656c6c6f2c20776f726c6421"
 
-   This should decode to the equivalent of the ASCII string: "Hello,
-   world!"
+   This decodes to the equivalent of the ASCII string: "Hello, world!"
+
 
 
 
@@ -226,7 +226,21 @@ Arcieri & Laurie          Expires April 5, 2017                 [Page 4]
 Internet-Draft        TJSON Data Interchange Format         October 2016
 
 
-3.2.2.  base64url ("b64:")
+3.2.2.  base32 ("b32:")
+
+   A base32 literal starts with the "b16:" tag, followed by a valid
+   base32 string.  The base32 format is described in [RFC4648].  All
+   base32 strings in TJSON MUST be lower case, and MUST NOT include any
+   padding with the '=' character.  TJSON parsers MUST reject any
+   documents containing upper case base32 characters or padding.
+
+   The following is an example of a base32 string literal in TJSON:
+
+                        "b32:jbswy3dpfqqho33snrscc"
+
+   This decodes to the equivalent of the ASCII string: "Hello, world!"
+
+3.2.3.  base64url ("b64:")
 
    A base64url literal starts with the "b64:" tag, followed by a valid
    base64url string.  The base64url format is described in [RFC4648].
@@ -238,8 +252,7 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 
                          "b64:SGVsbG8sIHdvcmxkIQ"
 
-   This should decode to the equivalent of the ASCII string: "Hello,
-   world!"
+   This decodes to the equivalent of the ASCII string: "Hello, world!"
 
    Only the base64url format is supported.  The non-URL safe form of
    base64 is not supported and MUST be rejected by parsers.
@@ -260,6 +273,15 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
    followed by a valid JSON integer literal, with an optional minus
    ("-") character.
 
+
+
+
+
+Arcieri & Laurie          Expires April 5, 2017                 [Page 5]
+
+Internet-Draft        TJSON Data Interchange Format         October 2016
+
+
    Conforming TJSON parsers MUST be capable of supporting the full
    64-bit signed integer range "[-(2**63), (2**63)-1]" for this type.
 
@@ -274,13 +296,6 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 
    Conforming TJSON parsers MUST be capable of supporting the full
    64-bit unsigned integer range "[0, (2**64)-1]" for this type.
-
-
-
-Arcieri & Laurie          Expires April 5, 2017                 [Page 5]
-
-Internet-Draft        TJSON Data Interchange Format         October 2016
-
 
 3.4.  Timestamps ("t:")
 
@@ -312,6 +327,17 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
    the same name for more than one member MUST be rejected by TJSON
    parsers.
 
+
+
+
+
+
+
+Arcieri & Laurie          Expires April 5, 2017                 [Page 6]
+
+Internet-Draft        TJSON Data Interchange Format         October 2016
+
+
 4.2.  Arrays
 
    Arrays have no additional handling considerations in TJSON.
@@ -328,15 +354,6 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
-
-
-
-
-
-Arcieri & Laurie          Expires April 5, 2017                 [Page 6]
-
-Internet-Draft        TJSON Data Interchange Format         October 2016
-
 
    [RFC3339]  Klyne, G. and C. Newman, "Date and Time on the Internet:
               Timestamps", RFC 3339, DOI 10.17487/RFC3339, July 2002,
@@ -360,23 +377,6 @@ Authors' Addresses
 
 
    Ben Laurie
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,7 +1,7 @@
 #
 # [DRAFT] Annotated TJSON examples intended for testing TJSON parsers
 #
-# Revision: 14 (bump this when making changes to this file)
+# Revision: 15 (bump this when making changes to this file)
 #
 # Syntax used in this file:
 #
@@ -128,6 +128,41 @@ description = "Base16 data must be valid hexadecimal"
 result = "error"
 
 ["b16:This is not a valid hexadecimal string"]
+
+-----
+name = "Empty Base32 Binary Data"
+description = "Data in this format is represented by a bare b32: tag"
+result = "success"
+
+["b32:"]
+
+-----
+name = "Base32 Binary Data"
+description = "Base32 data begins with the 'b32:' prefix"
+result = "success"
+
+["b32:jbswy3dpfqqho33snrscc"]
+
+-----
+name = "Invalid Base32 Binary Data with bad case"
+description = "Base32 data MUST be lower case"
+result = "error"
+
+["b32:JBSWY3DPFQQHO33SNRSCC"]
+
+-----
+name = "Invalid Base32 Binary Data with padding"
+description = "Base64 data MUST NOT include padding"
+result = "error"
+
+["b32:jbswy3dpfqqho33snrscc==="]
+
+-----
+name = "Invalid Base32 Binary Data"
+description = "Base32 data must be valid"
+result = "error"
+
+["b32:This is not a valid base32 string"]
 
 -----
 name = "Empty Base64url Binary Data"
