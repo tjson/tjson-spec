@@ -137,7 +137,21 @@ The following is an example of a base16 string literal in TJSON:
 
     "b16:48656c6c6f2c20776f726c6421"
 
-This should decode to the equivalent of the ASCII string: "Hello, world!"
+This decodes to the equivalent of the ASCII string: "Hello, world!"
+
+### base32 ("b32:")
+
+A base32 literal starts with the "b16:" tag, followed by a valid base32 string.
+The base32 format is described in [@!RFC4648]. All base32 strings in TJSON
+MUST be lower case, and MUST NOT include any padding with the '=' character.
+TJSON parsers MUST reject any documents containing upper case base32 characters
+or padding.
+
+The following is an example of a base32 string literal in TJSON:
+
+    "b32:jbswy3dpfqqho33snrscc"
+
+This decodes to the equivalent of the ASCII string: "Hello, world!"
 
 ### base64url ("b64:")
 
@@ -150,7 +164,7 @@ The following is an example of a base64url string literal in TJSON:
 
     "b64:SGVsbG8sIHdvcmxkIQ"
 
-This should decode to the equivalent of the ASCII string: "Hello, world!"
+This decodes to the equivalent of the ASCII string: "Hello, world!"
 
 Only the base64url format is supported. The non-URL safe form of base64
 is not supported and MUST be rejected by parsers.
