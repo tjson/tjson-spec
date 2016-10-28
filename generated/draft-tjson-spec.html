@@ -383,7 +383,8 @@
 <link href="#rfc.section.3.1" rel="Chapter" title="3.1 UTF-8 Strings (&quot;s:&quot;)"/>
 <link href="#rfc.section.3.2" rel="Chapter" title="3.2 Binary Data"/>
 <link href="#rfc.section.3.2.1" rel="Chapter" title="3.2.1 base16 (&quot;b16:&quot;)"/>
-<link href="#rfc.section.3.2.2" rel="Chapter" title="3.2.2 base64url (&quot;b64:&quot;)"/>
+<link href="#rfc.section.3.2.2" rel="Chapter" title="3.2.2 base32 (&quot;b32:&quot;)"/>
+<link href="#rfc.section.3.2.3" rel="Chapter" title="3.2.3 base64url (&quot;b64:&quot;)"/>
 <link href="#rfc.section.3.3" rel="Chapter" title="3.3 Integers"/>
 <link href="#rfc.section.3.3.1" rel="Chapter" title="3.3.1 Signed Integers (&quot;i:&quot;)"/>
 <link href="#rfc.section.3.3.2" rel="Chapter" title="3.3.2 Unsigned Integers (&quot;u:&quot;)"/>
@@ -467,7 +468,8 @@
 <ul><li>3.1.   <a href="#rfc.section.3.1">UTF-8 Strings ("s:")</a></li>
 <li>3.2.   <a href="#rfc.section.3.2">Binary Data</a></li>
 <ul><li>3.2.1.   <a href="#rfc.section.3.2.1">base16 ("b16:")</a></li>
-<li>3.2.2.   <a href="#rfc.section.3.2.2">base64url ("b64:")</a></li>
+<li>3.2.2.   <a href="#rfc.section.3.2.2">base32 ("b32:")</a></li>
+<li>3.2.3.   <a href="#rfc.section.3.2.3">base64url ("b64:")</a></li>
 </ul><li>3.3.   <a href="#rfc.section.3.3">Integers</a></li>
 <ul><li>3.3.1.   <a href="#rfc.section.3.3.1">Signed Integers ("i:")</a></li>
 <li>3.3.2.   <a href="#rfc.section.3.3.2">Unsigned Integers ("u:")</a></li>
@@ -533,15 +535,22 @@
 <pre>
 "b16:48656c6c6f2c20776f726c6421"
 </pre>
-<p id="rfc.section.3.2.1.p.3">This should decode to the equivalent of the ASCII string: "Hello, world!" </p>
-<h1 id="rfc.section.3.2.2"><a href="#rfc.section.3.2.2">3.2.2.</a> <a href="#base64url-b64" id="base64url-b64">base64url ("b64:")</a></h1>
-<p id="rfc.section.3.2.2.p.1">A base64url literal starts with the "b64:" tag, followed by a valid base64url string. The base64url format is described in <a href="#RFC4648">[RFC4648]</a>. All base64url strings in TJSON MUST NOT include any padding with the '=' character. TJSON parsers MUST reject any documents containing padded base64url strings.  </p>
-<p id="rfc.section.3.2.2.p.2">The following is an example of a base64url string literal in TJSON: </p>
+<p id="rfc.section.3.2.1.p.3">This decodes to the equivalent of the ASCII string: "Hello, world!" </p>
+<h1 id="rfc.section.3.2.2"><a href="#rfc.section.3.2.2">3.2.2.</a> <a href="#base32-b32" id="base32-b32">base32 ("b32:")</a></h1>
+<p id="rfc.section.3.2.2.p.1">A base32 literal starts with the "b16:" tag, followed by a valid base32 string.  The base32 format is described in <a href="#RFC4648">[RFC4648]</a>. All base32 strings in TJSON MUST be lower case, and MUST NOT include any padding with the '=' character.  TJSON parsers MUST reject any documents containing upper case base32 characters or padding.  </p>
+<p id="rfc.section.3.2.2.p.2">The following is an example of a base32 string literal in TJSON: </p>
+<pre>
+"b32:jbswy3dpfqqho33snrscc"
+</pre>
+<p id="rfc.section.3.2.2.p.3">This decodes to the equivalent of the ASCII string: "Hello, world!" </p>
+<h1 id="rfc.section.3.2.3"><a href="#rfc.section.3.2.3">3.2.3.</a> <a href="#base64url-b64" id="base64url-b64">base64url ("b64:")</a></h1>
+<p id="rfc.section.3.2.3.p.1">A base64url literal starts with the "b64:" tag, followed by a valid base64url string. The base64url format is described in <a href="#RFC4648">[RFC4648]</a>. All base64url strings in TJSON MUST NOT include any padding with the '=' character. TJSON parsers MUST reject any documents containing padded base64url strings.  </p>
+<p id="rfc.section.3.2.3.p.2">The following is an example of a base64url string literal in TJSON: </p>
 <pre>
 "b64:SGVsbG8sIHdvcmxkIQ"
 </pre>
-<p id="rfc.section.3.2.2.p.3">This should decode to the equivalent of the ASCII string: "Hello, world!" </p>
-<p id="rfc.section.3.2.2.p.4">Only the base64url format is supported. The non-URL safe form of base64 is not supported and MUST be rejected by parsers.  </p>
+<p id="rfc.section.3.2.3.p.3">This decodes to the equivalent of the ASCII string: "Hello, world!" </p>
+<p id="rfc.section.3.2.3.p.4">Only the base64url format is supported. The non-URL safe form of base64 is not supported and MUST be rejected by parsers.  </p>
 <h1 id="rfc.section.3.3"><a href="#rfc.section.3.3">3.3.</a> <a href="#integers" id="integers">Integers</a></h1>
 <p id="rfc.section.3.3.p.1">TJSON provides standard syntax for representing integers as tagged strings, which can express a larger range of values than the <samp>[-(2**53)+1, (2**53)-1]</samp> range defined as interoperable in <a href="#RFC7159">[RFC7159]</a>.  </p>
 <p id="rfc.section.3.3.p.2">Both signed and unsigned integers are supported and provide the same ranges as 64-bit integers.  </p>

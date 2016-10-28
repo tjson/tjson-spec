@@ -15,6 +15,10 @@ The file `draft-tjson-spec.md` contains the canonical copy of the TJSON
 specification, authored with [mmark]. Text and HTML versions can be
 produced using the [xml2rfc] tool.
 
+An HTML rendering of the spec can be found at:
+
+https://www.tjson.org/spec/
+
 [xml2rfc]: https://xml2rfc.tools.ietf.org/
 
 ## Examples File
