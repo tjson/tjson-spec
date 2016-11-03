@@ -1,7 +1,7 @@
 #
 # [DRAFT] Annotated TJSON examples intended for testing TJSON parsers
 #
-# Revision: 16 (bump this when making changes to this file)
+# Revision: 17 (bump this when making changes to this file)
 #
 # Syntax used in this file:
 #
@@ -36,258 +36,202 @@ name = "Object with UTF-8 String Key"
 description = "Strings are allowed as names of object members"
 result = "success"
 
-{"s:foo":"s:bar"}
+{"example:s":"foobar"}
 
 -----
-name = "Object with Binary Data Key"
-description = "Binary Data is allowed as the name of an object member"
-result = "success"
-
-{"b16:48656c6c6f2c20776f726c6421":"s:foobar"}
-
------
-name = "Invalid Object with Bare String Key"
+name = "Invalid Object with Untagged Name"
 description = "All strings in TJSON must be tagged"
 result = "error"
 
-{"foo":"s:bar"}
+{"example":"foobar"}
 
 -----
-name = "Invalid Object with Integer Key"
-description = "Only UTF-8 Strings and Binary Data are allowed as names of object members"
+name = "Invalid Object with Empty Tag"
+description = "All strings in TJSON must be tagged"
 result = "error"
 
-{"i:42":"s:foobar"}
+{"example:":"foobar"}
 
 -----
-name = "Invalid Object with Repeated Keys"
+name = "Invalid Object with Repeated Member Names"
 description = "Names of the members of objects must be distinct"
 result = "error"
 
-{"s:foo":1,"s:foo":2}
+{"example:i":"1","example:i":"2"}
 
 -----
-name = "Bare String"
-description = "Toplevel elements other than object or array are disallowed"
+name = "Invalid Object with Repeated Member Names and Values"
+description = "Names of the members of objects must be distinct"
 result = "error"
 
-"s:hello, world!"
-
------
-name = "Empty UTF-8 String"
-description = "An empty UTF-8 String is represented by a bare s: tag"
-result = "success"
-
-["s:"]
-
------
-name = "UTF-8 String"
-description = "A UTF-8 String is always prefixed by a s: tag"
-result = "success"
-
-["s:hello, world!"]
-
------
-name = "Invalid Empty String"
-description = "Type prefixes on strings in TJSON are mandatory"
-result = "error"
-
-[""]
-
------
-name = "Invalid Untagged String"
-description = "Type prefixes on strings in TJSON are mandatory"
-result = "error"
-
-["hello, world!"]
-
------
-name = "Empty Base16 Binary Data"
-description = "Data in this format is represented by a bare b16: tag"
-result = "success"
-
-["b16:"]
+{"example:i":"1","example:i":"1"}
 
 -----
 name = "Base16 Binary Data"
 description = "Base16 data begins with the 'b16:' prefix"
 result = "success"
 
-["b16:48656c6c6f2c20776f726c6421"]
+{"example:b16":"48656c6c6f2c20776f726c6421"}
 
 -----
 name = "Invalid Base16 Binary Data with bad case"
 description = "Base16 data MUST be lower case"
 result = "error"
 
-["b16:48656C6C6F2C20776F726C6421"]
+{"example:b16":"48656C6C6F2C20776F726C6421"}
 
 -----
 name = "Invalid Base16 Binary Data"
 description = "Base16 data must be valid hexadecimal"
 result = "error"
 
-["b16:This is not a valid hexadecimal string"]
-
------
-name = "Empty Base32 Binary Data"
-description = "Data in this format is represented by a bare b32: tag"
-result = "success"
-
-["b32:"]
+{"example:b16":"This is not a valid hexadecimal string"}
 
 -----
 name = "Base32 Binary Data"
 description = "Base32 data begins with the 'b32:' prefix"
 result = "success"
 
-["b32:jbswy3dpfqqho33snrscc"]
+{"example:b32":"jbswy3dpfqqho33snrscc"}
 
 -----
 name = "Invalid Base32 Binary Data with bad case"
 description = "Base32 data MUST be lower case"
 result = "error"
 
-["b32:JBSWY3DPFQQHO33SNRSCC"]
+{"example:b32":"JBSWY3DPFQQHO33SNRSCC"}
 
 -----
 name = "Invalid Base32 Binary Data with padding"
 description = "Base64 data MUST NOT include padding"
 result = "error"
 
-["b32:jbswy3dpfqqho33snrscc==="]
+{"example:b32":"jbswy3dpfqqho33snrscc==="}
 
 -----
 name = "Invalid Base32 Binary Data"
 description = "Base32 data must be valid"
 result = "error"
 
-["b32:This is not a valid base32 string"]
-
------
-name = "Empty Base64url Binary Data"
-description = "Data in this format is represented by a bare b64: tag"
-result = "success"
-
-["b64:"]
+{"example:b32":"This is not a valid base32 string"}
 
 -----
 name = "Base64url Binary Data"
 description = "Base64 data begins with the 'b64:' prefix"
 result = "success"
 
-["b64:SGVsbG8sIHdvcmxkIQ"]
+{"example:b64":"SGVsbG8sIHdvcmxkIQ"}
 
 -----
 name = "Invalid Base64url Binary Data with padding"
 description = "Base64 data MUST NOT include padding"
 result = "error"
 
-["b64:SGVsbG8sIHdvcmxkIQ=="]
+{"example:b64":"SGVsbG8sIHdvcmxkIQ=="}
 
 -----
 name = "Invalid Base64url Binary Data with non-URL safe characters"
 description = "Traditional Base64 is expressly disallowed"
 result = "error"
 
-["b64:+/+/"]
+{"example:b64":"+/+/"}
 
 -----
 name = "Invalid Base64url Binary Data"
 description = "Garbage data MUST be rejected"
 result = "error"
 
-["b64:This is not a valid base64url string"]
+{"example:b64":"This is not a valid base64url string"}
 
 -----
 name = "Signed Integer"
 description = "Signed integers are represented as tagged strings"
 result = "success"
 
-["i:42"]
+{"example:i":"42"}
 
 -----
 name = "Signed Integer Range Test"
 description = "It should be possible to represent the full range of a signed 64-bit integer"
 result = "success"
 
-["i:-9223372036854775808", "i:9223372036854775807"]
+{"min:i":"-9223372036854775808", "max:i:":"9223372036854775807"}
 
 -----
 name = "Oversized Signed Integer Test"
 description = "Values larger than can be represented by a signed 64-bit integer MUST be rejected"
 result = "error"
 
-["i:9223372036854775808"]
+{"oversize:i":"9223372036854775808"}
 
 -----
 name = "Undersized Signed Integer Test"
 description = "Values smaller than can be represented by a signed 64-bit integer MUST be rejected"
 result = "error"
 
-["i:-9223372036854775809"]
+{"undersize:i":"-9223372036854775809"}
 
 -----
 name = "Invalid Signed Integer"
 description = "Garbage data after the integer tag should be rejected"
 result = "error"
 
-["i:This is not a valid integer"]
+{"invalid:i":"This is not a valid integer"}
 
 -----
 name = "Unsigned Integer"
 description = "Unsigned integers are represented as tagged strings"
 result = "success"
 
-["u:42"]
+{"example:u":"42"}
 
 -----
 name = "Unsigned Integer Range Test"
 description = "It should be possible to represent the full range of a signed 64-bit integer"
 result = "success"
 
-["u:18446744073709551615"]
+{"maxint:u":"18446744073709551615"}
 
 -----
 name = "Oversized Unsigned Integer Test"
 description = "Values larger than can be represented by an unsigned 64-bit integer MUST be rejected"
 result = "error"
 
-["u:18446744073709551616"]
+{"oversized:u":"18446744073709551616"}
 
 -----
 name = "Negative Unsigned Integer Test"
 description = "Unsigned integers cannot be negative"
 result = "error"
 
-["u:-1"]
+{"negative:u":"-1"}
 
 -----
 name = "Invalid Unsigned Integer"
 description = "Garbage data after the integer tag should be rejected"
 result = "error"
 
-["u:This is not a valid integer"]
+{"invalid:u":"This is not a valid integer"}
 
 -----
 name = "Timestamp"
 description = "A valid RFC3339 timestamp example"
 result = "success"
 
-["t:2016-10-02T07:31:51Z"]
+{"example:t":"2016-10-02T07:31:51Z"}
 
 -----
 name = "Timestamp With Invalid Time Zone"
 description = "All timestamps must be in the UTC ('Z') time zone"
 result = "error"
 
-["t:2016-10-02T07:31:51-08:00"]
+{"invalid:t":"2016-10-02T07:31:51-08:00"}
 
 -----
 name = "Invalid Timestamp"
 description = "Garbage data after the timestamp tag should be rejected"
 result = "error"
 
-["t:This is not a valid timestamp"]
+{"invalid:t":"This is not a valid timestamp"}
 
 -----
