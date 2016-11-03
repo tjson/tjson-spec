@@ -1,7 +1,7 @@
 #
 # [DRAFT] Annotated TJSON examples intended for testing TJSON parsers
 #
-# Revision: 15 (bump this when making changes to this file)
+# Revision: 16 (bump this when making changes to this file)
 #
 # Syntax used in this file:
 #
@@ -197,7 +197,7 @@ name = "Invalid Base64url Binary Data"
 description = "Garbage data MUST be rejected"
 result = "error"
 
-["b16:This is not a valid base64url string"]
+["b64:This is not a valid base64url string"]
 
 -----
 name = "Signed Integer"
