@@ -67,6 +67,27 @@ result = "error"
 {"example:i":"1","example:i":"1"}
 
 -----
+name = "Array of integers"
+description = "Arrays are parameterized by the types of their contents"
+result = "success"
+
+{"example:A<i>": ["1", "2", "3"]}
+
+-----
+name = "Array of objects"
+description = "Objects are the only allowed terminal non-scalar"
+result = "success"
+
+{"example:A<O>": [{"a:i": "1"}, {"b:i": "2"}]}
+
+-----
+name = "Multidimensional array of integers"
+description = "Arrays can contain other arrays"
+result = "success"
+
+{"example:A<A<i>>": [["1", "2"], ["3", "4"], ["5", "6"]]}
+
+-----
 name = "Base16 Binary Data"
 description = "Base16 data begins with the 'b16:' prefix"
 result = "success"
