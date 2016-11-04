@@ -340,7 +340,7 @@ allow them.
 </t>
 </section>
 
-<section anchor="arrays" title="Arrays">
+<section anchor="arrays-a" title="Arrays (&quot;A&quot;)">
 <t>Arrays are a non-scalar and therefore use an upper case tag name as described
 in section 2.1.
 </t>
@@ -362,7 +362,7 @@ an array depends on its contents.
 </artwork></figure>
 </section>
 
-<section anchor="objects" title="Objects">
+<section anchor="objects-o" title="Objects (&quot;O&quot;)">
 <t>Type information MUST be present in all object member names (i.e. all member
 names must be tagged). Parsers MUST reject objects with untagged members.
 </t>

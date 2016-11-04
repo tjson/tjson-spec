@@ -75,8 +75,8 @@ Table of Contents
        3.3.1.  Signed Integers ("i") . . . . . . . . . . . . . . . .   7
        3.3.2.  Unsigned Integers ("u") . . . . . . . . . . . . . . .   7
      3.4.  Timestamps ("t")  . . . . . . . . . . . . . . . . . . . .   7
-     3.5.  Arrays  . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     3.6.  Objects . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     3.5.  Arrays ("A")  . . . . . . . . . . . . . . . . . . . . . .   8
+     3.6.  Objects ("O") . . . . . . . . . . . . . . . . . . . . . .   8
      3.7.  Floating Points . . . . . . . . . . . . . . . . . . . . .   8
    4.  Normative References  . . . . . . . . . . . . . . . . . . . .   9
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
@@ -399,7 +399,7 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    TJSON libraries SHOULD convert these timestamps to a native date/time
    type.
 
-3.5.  Arrays
+3.5.  Arrays ("A")
 
    Arrays are a non-scalar and therefore use an upper case tag name as
    described in section 2.1.
@@ -417,7 +417,7 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
          {"example:A<A<i>>:" [["1", "2"], ["3", "4"], ["5", "6"]]}
 
-3.6.  Objects
+3.6.  Objects ("O")
 
    Type information MUST be present in all object member names (i.e. all
    member names must be tagged).  Parsers MUST reject objects with

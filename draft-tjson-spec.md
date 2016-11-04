@@ -268,7 +268,7 @@ The following is an example of a TJSON timestamp:
 
 TJSON libraries SHOULD convert these timestamps to a native date/time type.
 
-## Arrays
+## Arrays ("A")
 
 Arrays are a non-scalar and therefore use an upper case tag name as described
 in section 2.1. 
@@ -285,7 +285,7 @@ The following is an example of a two dimensional array containing integers:
 
     {"example:A<A<i>>:" [["1", "2"], ["3", "4"], ["5", "6"]]}
 
-## Objects
+## Objects ("O")
 
 Type information MUST be present in all object member names (i.e. all member
 names must be tagged). Parsers MUST reject objects with untagged members.
