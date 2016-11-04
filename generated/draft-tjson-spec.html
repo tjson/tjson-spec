@@ -380,20 +380,19 @@
 <link href="#rfc.section.2.1" rel="Chapter" title="2.1 String Grammar"/>
 <link href="#rfc.section.2.2" rel="Chapter" title="2.2 Root Symbol"/>
 <link href="#rfc.section.3" rel="Chapter" title="3 Extended Types"/>
-<link href="#rfc.section.3.1" rel="Chapter" title="3.1 UTF-8 Strings (&quot;s:&quot;)"/>
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 Unicode Strings (&quot;s&quot;)"/>
 <link href="#rfc.section.3.2" rel="Chapter" title="3.2 Binary Data"/>
-<link href="#rfc.section.3.2.1" rel="Chapter" title="3.2.1 base16 (&quot;b16:&quot;)"/>
-<link href="#rfc.section.3.2.2" rel="Chapter" title="3.2.2 base32 (&quot;b32:&quot;)"/>
-<link href="#rfc.section.3.2.3" rel="Chapter" title="3.2.3 base64url (&quot;b64:&quot;)"/>
+<link href="#rfc.section.3.2.1" rel="Chapter" title="3.2.1 base16 (&quot;b16&quot;)"/>
+<link href="#rfc.section.3.2.2" rel="Chapter" title="3.2.2 base32 (&quot;b32&quot;)"/>
+<link href="#rfc.section.3.2.3" rel="Chapter" title="3.2.3 base64url (&quot;b64&quot;)"/>
 <link href="#rfc.section.3.3" rel="Chapter" title="3.3 Integers"/>
-<link href="#rfc.section.3.3.1" rel="Chapter" title="3.3.1 Signed Integers (&quot;i:&quot;)"/>
-<link href="#rfc.section.3.3.2" rel="Chapter" title="3.3.2 Unsigned Integers (&quot;u:&quot;)"/>
-<link href="#rfc.section.3.4" rel="Chapter" title="3.4 Timestamps (&quot;t:&quot;)"/>
-<link href="#rfc.section.4" rel="Chapter" title="4 Handling of JSON types"/>
-<link href="#rfc.section.4.1" rel="Chapter" title="4.1 Objects"/>
-<link href="#rfc.section.4.2" rel="Chapter" title="4.2 Arrays"/>
-<link href="#rfc.section.4.3" rel="Chapter" title="4.3 Floating Points"/>
-<link href="#rfc.references" rel="Chapter" title="5 Normative References"/>
+<link href="#rfc.section.3.3.1" rel="Chapter" title="3.3.1 Signed Integers (&quot;i&quot;)"/>
+<link href="#rfc.section.3.3.2" rel="Chapter" title="3.3.2 Unsigned Integers (&quot;u&quot;)"/>
+<link href="#rfc.section.3.4" rel="Chapter" title="3.4 Timestamps (&quot;t&quot;)"/>
+<link href="#rfc.section.3.5" rel="Chapter" title="3.5 Arrays"/>
+<link href="#rfc.section.3.6" rel="Chapter" title="3.6 Objects"/>
+<link href="#rfc.section.3.7" rel="Chapter" title="3.7 Floating Points"/>
+<link href="#rfc.references" rel="Chapter" title="4 Normative References"/>
 <link href="#rfc.authors" rel="Chapter"/>
 
 
@@ -402,7 +401,7 @@
 
   <meta name="dct.creator" content="Arcieri, T. and B. Laurie" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-tjson-spec" />
-  <meta name="dct.issued" scheme="ISO8601" content="2016-10-2" />
+  <meta name="dct.issued" scheme="ISO8601" content="2016-11-3" />
   <meta name="dct.abstract" content="Tagged JavaScript Object Notation (TJSON) is a data interchange format which is backwards compatible with the JavaScript Object Notation (JSON) " />
   <meta name="description" content="Tagged JavaScript Object Notation (TJSON) is a data interchange format which is backwards compatible with the JavaScript Object Notation (JSON) " />
 
@@ -426,8 +425,8 @@
   <td class="right">B. Laurie</td>
 </tr>
 <tr>
-  <td class="left">Expires: April 5, 2017</td>
-  <td class="right">October 2, 2016</td>
+  <td class="left">Expires: May 7, 2017</td>
+  <td class="right">November 3, 2016</td>
 </tr>
 
     	
@@ -447,7 +446,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on April 5, 2017.</p>
+<p>This Internet-Draft will expire on May 7, 2017.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -465,120 +464,186 @@
 <ul><li>2.1.   <a href="#rfc.section.2.1">String Grammar</a></li>
 <li>2.2.   <a href="#rfc.section.2.2">Root Symbol</a></li>
 </ul><li>3.   <a href="#rfc.section.3">Extended Types</a></li>
-<ul><li>3.1.   <a href="#rfc.section.3.1">UTF-8 Strings ("s:")</a></li>
+<ul><li>3.1.   <a href="#rfc.section.3.1">Unicode Strings ("s")</a></li>
 <li>3.2.   <a href="#rfc.section.3.2">Binary Data</a></li>
-<ul><li>3.2.1.   <a href="#rfc.section.3.2.1">base16 ("b16:")</a></li>
-<li>3.2.2.   <a href="#rfc.section.3.2.2">base32 ("b32:")</a></li>
-<li>3.2.3.   <a href="#rfc.section.3.2.3">base64url ("b64:")</a></li>
+<ul><li>3.2.1.   <a href="#rfc.section.3.2.1">base16 ("b16")</a></li>
+<li>3.2.2.   <a href="#rfc.section.3.2.2">base32 ("b32")</a></li>
+<li>3.2.3.   <a href="#rfc.section.3.2.3">base64url ("b64")</a></li>
 </ul><li>3.3.   <a href="#rfc.section.3.3">Integers</a></li>
-<ul><li>3.3.1.   <a href="#rfc.section.3.3.1">Signed Integers ("i:")</a></li>
-<li>3.3.2.   <a href="#rfc.section.3.3.2">Unsigned Integers ("u:")</a></li>
-</ul><li>3.4.   <a href="#rfc.section.3.4">Timestamps ("t:")</a></li>
-</ul><li>4.   <a href="#rfc.section.4">Handling of JSON types</a></li>
-<ul><li>4.1.   <a href="#rfc.section.4.1">Objects</a></li>
-<li>4.2.   <a href="#rfc.section.4.2">Arrays</a></li>
-<li>4.3.   <a href="#rfc.section.4.3">Floating Points</a></li>
-</ul><li>5.   <a href="#rfc.references">Normative References</a></li>
+<ul><li>3.3.1.   <a href="#rfc.section.3.3.1">Signed Integers ("i")</a></li>
+<li>3.3.2.   <a href="#rfc.section.3.3.2">Unsigned Integers ("u")</a></li>
+</ul><li>3.4.   <a href="#rfc.section.3.4">Timestamps ("t")</a></li>
+<li>3.5.   <a href="#rfc.section.3.5">Arrays</a></li>
+<li>3.6.   <a href="#rfc.section.3.6">Objects</a></li>
+<li>3.7.   <a href="#rfc.section.3.7">Floating Points</a></li>
+</ul><li>4.   <a href="#rfc.references">Normative References</a></li>
 <li><a href="#rfc.authors">Authors' Addresses</a></li>
 
 
   </ul>
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a></h1>
-<p id="rfc.section.1.p.1">Tagged JavaScript Object Notation (TJSON) is a set of backwards-compatible extensions to JavaScript Object Notation (JSON) <a href="#RFC7159">[RFC7159]</a> which enrich the set of types the format is able to express.  </p>
-<p id="rfc.section.1.p.2">TJSON can represent six primitive types (strings, binary data, integers, floating points, datetimes, and null) and two structured types (objects and arrays).  </p>
-<p id="rfc.section.1.p.3">To extend JSON with additional types in a backwards-compatible manner, TJSON adds a special mandatory "tag" to each JSON string which identifies the data type and, optionally, encoding format. A tag consists of one or more alphanumeric characters, followed by the colon ":" character.  All strings in TJSON MUST have a valid tag prefix.  </p>
-<p id="rfc.section.1.p.4">TJSON is intended to simplify transcoding documents from other interchange formats which disambiguate strings from binary data, and also improve the ability to both canonicalize and authenticate JSON documents.  </p>
+<p id="rfc.section.1.p.1">Tagged JavaScript Object Notation (TJSON) is a set of backwards-compatible extensions to JavaScript Object Notation (JSON) <a href="#RFC7159">[RFC7159]</a> which enriches the format with additional types beyond those originally specified.  </p>
+<p id="rfc.section.1.p.2">TJSON supports six scalar types: </p>
+<p/>
+
+<ul>
+  <li>Strings</li>
+  <li>Binary Data</li>
+  <li>Integers (signed/unsigned)</li>
+  <li>Floating points</li>
+  <li>Timestamps</li>
+  <li>JSON values (true/false/nil)</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.1.p.4">It supports two non-scalar types: </p>
+<p/>
+
+<ul>
+  <li>Objects</li>
+  <li>Arrays</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.1.p.6">TJSON provides backwards-compatible self-describing type annotations to JSON in the form of postfix tags on object member names.  </p>
+<p id="rfc.section.1.p.7">To extend JSON with additional types in a backwards-compatible manner, TJSON adds a special mandatory "tag" to each object member name which identifies the type and encoding format of the member value. A tag consists of a colon ":" delimiter followed by one or more alphanumeric characters which comprise the tag name. All object member names in TJSON MUST have a valid tag.  </p>
+<p id="rfc.section.1.p.8">TJSON is intended to simplify transcoding documents from other interchange formats which have a type system rich enough to include a binary data format in addition to strings, and to improve the ability authenticate JSON documents.  </p>
 <h1 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1.</a> <a href="#conventions-used-in-this-document" id="conventions-used-in-this-document">Conventions Used in This Document</a></h1>
 <p id="rfc.section.1.1.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119">[RFC2119]</a>.  </p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#tjson-grammar" id="tjson-grammar">TJSON Grammar</a></h1>
 <p id="rfc.section.2.p.1">TJSON relies on JSON as the basis of its grammar. All TJSON documents are valid JSON documents (however the reverse is not true). The TJSON grammar can thus be seen as an extension of the JSON grammar, but one implemented in a backwards-compatible way.  </p>
 <h1 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1.</a> <a href="#string-grammar" id="string-grammar">String Grammar</a></h1>
-<p id="rfc.section.2.1.p.1">The main grammatical addition of TJSON is a tag prefix on string literals. Every string literal MUST have a tag prefix in TJSON. Strings literals in TJSON are described by the following grammar: </p>
+<p id="rfc.section.2.1.p.1">The main grammatical addition of TJSON is the addition of a postfix type annotation, or "tag", on the member names of all objects, which are string literals. Every member name MUST have a tag prefix in TJSON. Member names in TJSON are described by the following grammar: </p>
 <pre>
-&lt;tagged-string&gt; ::= quotation-mark tag *char quotation-mark
+&lt;member&gt; ::= &lt;tagged-string&gt; &lt;name-separator&gt; &lt;value&gt;
 
-&lt;tag&gt; ::= &lt;alpha&gt; *&lt;alphanumeric&gt; ':'
+&lt;tagged-string&gt; ::= '"' *&lt;char&gt; ':' &lt;tag&gt; '"'
 
-&lt;alpha&gt; ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' |
-            'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' |
-            's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
+&lt;tag&gt; ::= &lt;type-expression&gt; | &lt;scalar-tag&gt; | &lt;object-tag&gt;
+
+&lt;type-expression&gt; ::= &lt;non-scalar-tag&gt; '&lt;' &lt;tag&gt; '&gt;'
+
+&lt;non-scalar-tag&gt; ::= &lt;alpha-upper&gt; *&lt;alphanumeric-lower&gt;
+
+&lt;scalar-tag&gt; ::= &lt;alpha-lower&gt; *&lt;alphanumeric-lower&gt;
+
+&lt;object-tag&gt; ::= 'O'
+
+&lt;alphanumeric-lower&gt; ::= &lt;alpha-lower&gt; | &lt;digit&gt;
+
+&lt;alpha-upper&gt; ::= 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 
+                  'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' |
+                  'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' |
+                  'Y' | 'Z'
+
+&lt;alpha-lower&gt; ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 
+                  'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' |
+                  'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' |
+                  'y' | 'z'
 
 &lt;digit&gt; ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+</pre>
+<p id="rfc.section.2.1.p.2">The "member" pushdown (with a "tagged-string" instead of a "string" as in JSON replaces the "member" pushdown as described in <a href="#RFC7159">[RFC7159]</a>.  The "value" pushdown remains the same.  </p>
+<p id="rfc.section.2.1.p.3">The "char" nonterminal is described in section 7 of <a href="#RFC7159">[RFC7159]</a>.  </p>
+<p id="rfc.section.2.1.p.4">TJSON uses the case of tag names to identify scalar types vs non-scalars: </p>
+<p/>
 
-&lt;alphanumeric&gt; ::= &lt;alpha&gt; | &lt;digit&gt;
-</pre>
-<p id="rfc.section.2.1.p.2">The tagged-string pushdown replaces the string pushdown in JSON as described in <a href="#RFC7159">[RFC7159]</a>.  </p>
-<p id="rfc.section.2.1.p.3">The quotation-mark and char pushdowns are described in section 7 of <a href="#RFC7159">[RFC7159]</a>.  </p>
-<p id="rfc.section.2.1.p.4">TJSON places a maximum length of 4 bytes on tag, including the ':' character.  </p>
+<ul>
+  <li>Scalars: lower-case tag names (e.g. "t")</li>
+  <li>Non-scalars: capitalized tag names (e.g. "A")</li>
+</ul>
+
+<p> </p>
 <h1 id="rfc.section.2.2"><a href="#rfc.section.2.2">2.2.</a> <a href="#root-symbol" id="root-symbol">Root Symbol</a></h1>
-<p id="rfc.section.2.2.p.1">The root grammatical symbol of all TJSON documents is constrained to the following nonterminals as described in <a href="#RFC7159">[RFC7159]</a>: </p>
+<p id="rfc.section.2.2.p.1">The root grammatical symbol of all TJSON documents is constrained to the "object" nonterminal as described in <a href="#RFC7159">[RFC7159]</a>: </p>
 <pre>
-&lt;root&gt; ::= &lt;object&gt; | &lt;array&gt;
+&lt;root&gt; ::= &lt;object&gt;
 </pre>
-<p id="rfc.section.2.2.p.2">Documents which do not contain an object or array as the toplevel element MUST be rejected by parsers.  </p>
+<p id="rfc.section.2.2.p.2">TJSON uses objects to describe all further type information, so they MUST be the top-level expression.  </p>
+<p id="rfc.section.2.2.p.3">Documents which do not contain an object as the top-level element MUST be rejected by parsers.  </p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#extended-types" id="extended-types">Extended Types</a></h1>
 <p id="rfc.section.3.p.1">The following section describes the extended types added to TJSON by embedding them in string literals as described in section 2.1 of this document.  </p>
-<h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#utf8-strings-s" id="utf8-strings-s">UTF-8 Strings ("s:")</a></h1>
-<p id="rfc.section.3.1.p.1">The syntax for TJSON strings is grammatically identical to JSON, except per section 2.1 of this document the string type MUST carry a mandatory tag character, "s:" indicating a UTF-8 String. Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8 <a href="#RFC3629">[RFC3629]</a>. Other Unicode encodings are expressly not supported.  </p>
-<p id="rfc.section.3.1.p.2">The following is an example of a UTF-8 String literal in TJSON: </p>
+<h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#unicode-strings-s" id="unicode-strings-s">Unicode Strings ("s")</a></h1>
+<p id="rfc.section.3.1.p.1">The syntax for TJSON strings is grammatically identical to JSON, except per section 2.1 of this document the string type MUST carry a mandatory tag character, "s" indicating a Unicode string.  </p>
+<p id="rfc.section.3.1.p.2">Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8 <a href="#RFC3629">[RFC3629]</a>.  No other Unicode encodings are valid for TJSON strings.  </p>
+<p id="rfc.section.3.1.p.3">The following is an example of a Unicode String literal in TJSON: </p>
 <pre>
-"s:Hello, world!"
+{"example:s":"Hello, world!"}
 </pre>
 <h1 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2.</a> <a href="#binary-data" id="binary-data">Binary Data</a></h1>
 <p id="rfc.section.3.2.p.1">TJSON provides first-class support for binary data stored in multiple different encodings within a tagged string. Tags for binary data begin with the "b" character followed by an alphanumeric identifier for a specific format.  </p>
-<p id="rfc.section.3.2.p.2">The preferred encoding is base64url ("b64:"), which SHOULD be used by default unless another encoding is explicitly specified at serialization time.  </p>
-<p id="rfc.section.3.2.p.3">The base16 and base64url formats are mandatory to implement for all TJSON parsers.  </p>
-<h1 id="rfc.section.3.2.1"><a href="#rfc.section.3.2.1">3.2.1.</a> <a href="#base16-b16" id="base16-b16">base16 ("b16:")</a></h1>
-<p id="rfc.section.3.2.1.p.1">A base16 literal starts with the "b16:" tag, followed by a valid base16 string.  The base16 format (a.k.a. hexadecimal) is described in <a href="#RFC4648">[RFC4648]</a>. All base16 strings in TJSON MUST be lower case.  </p>
-<p id="rfc.section.3.2.1.p.2">The following is an example of a base16 string literal in TJSON: </p>
+<p id="rfc.section.3.2.p.2">The preferred encoding is base64url ("b64"), which SHOULD be used by default unless another encoding is explicitly specified at serialization time.  </p>
+<p id="rfc.section.3.2.p.3">The base16, base32, and base64url formats are mandatory to implement for all TJSON parsers.  </p>
+<h1 id="rfc.section.3.2.1"><a href="#rfc.section.3.2.1">3.2.1.</a> <a href="#base16-b16" id="base16-b16">base16 ("b16")</a></h1>
+<p id="rfc.section.3.2.1.p.1">Base16 literals are identified by the "b16" tag, with an associated JSON JSON string literal value containing base16-serialized binary data.  </p>
+<p id="rfc.section.3.2.1.p.2">The base16 format (a.k.a. hexadecimal) is described in <a href="#RFC4648">[RFC4648]</a>. All base16 strings in TJSON MUST be lower case.  </p>
+<p id="rfc.section.3.2.1.p.3">The following is an example of a base16 string literal in TJSON: </p>
 <pre>
-"b16:48656c6c6f2c20776f726c6421"
+{"example:b16":"48656c6c6f2c20776f726c6421"}
 </pre>
-<p id="rfc.section.3.2.1.p.3">This decodes to the equivalent of the ASCII string: "Hello, world!" </p>
-<h1 id="rfc.section.3.2.2"><a href="#rfc.section.3.2.2">3.2.2.</a> <a href="#base32-b32" id="base32-b32">base32 ("b32:")</a></h1>
-<p id="rfc.section.3.2.2.p.1">A base32 literal starts with the "b16:" tag, followed by a valid base32 string.  The base32 format is described in <a href="#RFC4648">[RFC4648]</a>. All base32 strings in TJSON MUST be lower case, and MUST NOT include any padding with the '=' character.  TJSON parsers MUST reject any documents containing upper case base32 characters or padding.  </p>
-<p id="rfc.section.3.2.2.p.2">The following is an example of a base32 string literal in TJSON: </p>
+<p id="rfc.section.3.2.1.p.4">This decodes to an object with an "example" key whose value is the equivalent of the ASCII string: "Hello, world!" </p>
+<h1 id="rfc.section.3.2.2"><a href="#rfc.section.3.2.2">3.2.2.</a> <a href="#base32-b32" id="base32-b32">base32 ("b32")</a></h1>
+<p id="rfc.section.3.2.2.p.1">Base32 literals are identified by the "b32" tag, with an associated JSON JSON string literal value containing base32-serialized binary data.  </p>
+<p id="rfc.section.3.2.2.p.2">The base32 format is described in <a href="#RFC4648">[RFC4648]</a>. All base32 strings in TJSON MUST be lower case, and MUST NOT include any padding with the '=' character.  TJSON parsers MUST reject any documents containing upper case base32 characters or padding.  </p>
+<p id="rfc.section.3.2.2.p.3">The following is an example of a base32 string literal in TJSON: </p>
 <pre>
-"b32:jbswy3dpfqqho33snrscc"
+{"example:b32":"jbswy3dpfqqho33snrscc"}
 </pre>
-<p id="rfc.section.3.2.2.p.3">This decodes to the equivalent of the ASCII string: "Hello, world!" </p>
-<h1 id="rfc.section.3.2.3"><a href="#rfc.section.3.2.3">3.2.3.</a> <a href="#base64url-b64" id="base64url-b64">base64url ("b64:")</a></h1>
-<p id="rfc.section.3.2.3.p.1">A base64url literal starts with the "b64:" tag, followed by a valid base64url string. The base64url format is described in <a href="#RFC4648">[RFC4648]</a>. All base64url strings in TJSON MUST NOT include any padding with the '=' character. TJSON parsers MUST reject any documents containing padded base64url strings.  </p>
-<p id="rfc.section.3.2.3.p.2">The following is an example of a base64url string literal in TJSON: </p>
+<p id="rfc.section.3.2.2.p.4">This decodes to an object with an "example" key whose value is the equivalent of the ASCII string: "Hello, world!" </p>
+<h1 id="rfc.section.3.2.3"><a href="#rfc.section.3.2.3">3.2.3.</a> <a href="#base64url-b64" id="base64url-b64">base64url ("b64")</a></h1>
+<p id="rfc.section.3.2.3.p.1">Base64url literals are identified by the "b" or "b64" tags, with an associated JSON string literal value containing base64url-serialized binary data.  </p>
+<p id="rfc.section.3.2.3.p.2">The base64url format is described in <a href="#RFC4648">[RFC4648]</a>. All base64url strings in TJSON MUST NOT include any padding with the '=' character. TJSON parsers MUST reject any documents containing padded base64url strings.  </p>
+<p id="rfc.section.3.2.3.p.3">When serializing binary data as TJSON, encoders SHOULD use the "b" tag to indicate binary data unless another format has been explicitly specified.  </p>
+<p id="rfc.section.3.2.3.p.4">The following is an example of a base64url string literal in TJSON: </p>
 <pre>
-"b64:SGVsbG8sIHdvcmxkIQ"
+{"example:b64":"SGVsbG8sIHdvcmxkIQ"}
 </pre>
-<p id="rfc.section.3.2.3.p.3">This decodes to the equivalent of the ASCII string: "Hello, world!" </p>
-<p id="rfc.section.3.2.3.p.4">Only the base64url format is supported. The non-URL safe form of base64 is not supported and MUST be rejected by parsers.  </p>
+<p id="rfc.section.3.2.3.p.5">The following is the same document using the shorter "b" tag: </p>
+<pre>
+{"example:b":"SGVsbG8sIHdvcmxkIQ"}
+</pre>
+<p id="rfc.section.3.2.3.p.6">This decodes to an object with an "example" key whose value is the equivalent of the ASCII string: "Hello, world!" </p>
+<p id="rfc.section.3.2.3.p.7">Only the base64url format is supported. The non-URL safe form of base64 is not supported and MUST be rejected by parsers.  </p>
 <h1 id="rfc.section.3.3"><a href="#rfc.section.3.3">3.3.</a> <a href="#integers" id="integers">Integers</a></h1>
 <p id="rfc.section.3.3.p.1">TJSON provides standard syntax for representing integers as tagged strings, which can express a larger range of values than the <samp>[-(2**53)+1, (2**53)-1]</samp> range defined as interoperable in <a href="#RFC7159">[RFC7159]</a>.  </p>
 <p id="rfc.section.3.3.p.2">Both signed and unsigned integers are supported and provide the same ranges as 64-bit integers.  </p>
-<h1 id="rfc.section.3.3.1"><a href="#rfc.section.3.3.1">3.3.1.</a> <a href="#signed-integers-i" id="signed-integers-i">Signed Integers ("i:")</a></h1>
-<p id="rfc.section.3.3.1.p.1">A signed integer literal is represented as string with an "i:" tag, followed by a valid JSON integer literal, with an optional minus ("-") character.  </p>
+<h1 id="rfc.section.3.3.1"><a href="#rfc.section.3.3.1">3.3.1.</a> <a href="#signed-integers-i" id="signed-integers-i">Signed Integers ("i")</a></h1>
+<p id="rfc.section.3.3.1.p.1">Signed integer literals are identified by the "i" tag, with an associated JSON string literal value containing the string representation of a valid JSON integer literal, with an optional minus ("-") character.  </p>
 <p id="rfc.section.3.3.1.p.2">Conforming TJSON parsers MUST be capable of supporting the full 64-bit signed integer range <samp>[-(2**63), (2**63)-1]</samp> for this type.  </p>
 <p id="rfc.section.3.3.1.p.3">Integers outside this range MUST be rejected.  </p>
-<h1 id="rfc.section.3.3.2"><a href="#rfc.section.3.3.2">3.3.2.</a> <a href="#unsigned-integers-u" id="unsigned-integers-u">Unsigned Integers ("u:")</a></h1>
-<p id="rfc.section.3.3.2.p.1">An unsigned integer literal is represented as a string with a "u:" tag, followed by a valid JSON integer literal. The minus ("-") character is expressly disallowed and parsers MUST fail if it's present.  </p>
+<h1 id="rfc.section.3.3.2"><a href="#rfc.section.3.3.2">3.3.2.</a> <a href="#unsigned-integers-u" id="unsigned-integers-u">Unsigned Integers ("u")</a></h1>
+<p id="rfc.section.3.3.2.p.1">Unsigned integer literals are identified by the "u" tag, with an associated JSON string literal value containing the string representation of a valid JSON integer literal. The minus ("-") character is expressly disallowed and parsers MUST reject documents containing it in an unsigned integer expression.  </p>
 <p id="rfc.section.3.3.2.p.2">Conforming TJSON parsers MUST be capable of supporting the full 64-bit unsigned integer range <samp>[0, (2**64)&#8722;1]</samp> for this type.  </p>
-<h1 id="rfc.section.3.4"><a href="#rfc.section.3.4">3.4.</a> <a href="#timestamps-t" id="timestamps-t">Timestamps ("t:")</a></h1>
-<p id="rfc.section.3.4.p.1">TJSON natively supports a timestamp type whose syntax is a subset of that provided by <a href="#RFC3339">[RFC3339]</a>. Specifically, TJSON timestamps MUST use only the upper-case UTC time zone identifier "Z". No other time zone identifiers are allowed except "Z" and parsers MUST NOT allow them.  </p>
+<h1 id="rfc.section.3.4"><a href="#rfc.section.3.4">3.4.</a> <a href="#timestamps-t" id="timestamps-t">Timestamps ("t")</a></h1>
+<p id="rfc.section.3.4.p.1">TJSON natively supports a timestamp type whose syntax is a subset of that provided by <a href="#RFC3339">[RFC3339]</a>. Specifically, TJSON timestamps MUST use only the upper-case UTC time zone identifier "Z" (i.e. times MUST be Z-normalized).  No other time zone identifiers are allowed except "Z" and parsers MUST NOT allow them.  </p>
 <p id="rfc.section.3.4.p.2">The following is an example of a TJSON timestamp: </p>
 <pre>
-"t:2016-10-02T07:31:51Z"
+{"example:t":"2016-10-02T07:31:51Z"}
 </pre>
-<p id="rfc.section.3.4.p.3">TJSON libraries SHOULD convert these timestamps to a native datetime type.  </p>
-<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#handling-of-json-types" id="handling-of-json-types">Handling of JSON types</a></h1>
-<p id="rfc.section.4.p.1">Below are notes about how the processing of certain JSON types should be handled under TJSON.  </p>
-<h1 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1.</a> <a href="#objects" id="objects">Objects</a></h1>
-<p id="rfc.section.4.1.p.1">TJSON constrains the allowable types for the names of object members to either Unicode Strings or Binary Data.  </p>
-<p id="rfc.section.4.1.p.2">All other types, such as integers, are expressly disallowed.  </p>
-<p id="rfc.section.4.1.p.3">The names of object members MUST be unique in TJSON. Repeated use of the same name for more than one member MUST be rejected by TJSON parsers.  </p>
-<h1 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2.</a> <a href="#arrays" id="arrays">Arrays</a></h1>
-<p id="rfc.section.4.2.p.1">Arrays have no additional handling considerations in TJSON.  </p>
-<h1 id="rfc.section.4.3"><a href="#rfc.section.4.3">4.3.</a> <a href="#floating-points" id="floating-points">Floating Points</a></h1>
-<p id="rfc.section.4.3.p.1">All numeric literals which are not represented as tagged strings MUST be treated as floating points under TJSON. This is already the default behavior of many JSON libraries.  </p>
-<h1 id="rfc.references"><a href="#rfc.references">5.</a> Normative References</h1>
+<p id="rfc.section.3.4.p.3">TJSON libraries SHOULD convert these timestamps to a native date/time type.  </p>
+<h1 id="rfc.section.3.5"><a href="#rfc.section.3.5">3.5.</a> <a href="#arrays" id="arrays">Arrays</a></h1>
+<p id="rfc.section.3.5.p.1">Arrays are a non-scalar and therefore use an upper case tag name as described in section 2.1.  </p>
+<p id="rfc.section.3.5.p.2">The "A" tag, with an associated JSON array value, identifies a TJSON array.  Non-scalars are parameterized by the types they contain, so fully identifying an array depends on its contents.  </p>
+<p id="rfc.section.3.5.p.3">The following is an example of a TJSON array containing integers: </p>
+<pre>
+{"example:A&lt;i&gt;": ["1", "2", "3"]}
+</pre>
+<p id="rfc.section.3.5.p.4">The following is an example of a two dimensional array containing integers: </p>
+<pre>
+{"example:A&lt;A&lt;i&gt;&gt;:" [["1", "2"], ["3", "4"], ["5", "6"]]}
+</pre>
+<h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#objects" id="objects">Objects</a></h1>
+<p id="rfc.section.3.6.p.1">Type information MUST be present in all object member names (i.e. all member names must be tagged). Parsers MUST reject objects with untagged members.  </p>
+<p id="rfc.section.3.6.p.2">When embedded within another non-scalar type such as an array, objects are identified by the tag "O". Objects self-identify their types, so do not need to be parameterized in type expressions.  </p>
+<p id="rfc.section.3.6.p.3">The following is an example of an array of objects: </p>
+<pre>
+{"example:A&lt;O&gt;": [{"a:i": "1"}, {"b:i": "2"}]}
+</pre>
+<p id="rfc.section.3.6.p.4">Object member names MUST be unique in TJSON. Repeated use of the same name for more than one member MUST be rejected by TJSON parsers.  </p>
+<h1 id="rfc.section.3.7"><a href="#rfc.section.3.7">3.7.</a> <a href="#floating-points" id="floating-points">Floating Points</a></h1>
+<p id="rfc.section.3.7.p.1">All numeric literals which are not represented as tagged strings MUST be treated as floating points under TJSON. This is already the default behavior of many JSON libraries.  </p>
+<h1 id="rfc.references"><a href="#rfc.references">4.</a> Normative References</h1>
 <table>
   <tbody>
     <tr>
