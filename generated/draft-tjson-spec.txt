@@ -5,7 +5,7 @@
 Network Working Group                                         T. Arcieri
 Internet-Draft
 Intended status: Informational                                 B. Laurie
-Expires: April 5, 2017                                   October 2, 2016
+Expires: May 7, 2017                                    November 3, 2016
 
 
    Tagged JavaScript Object Notation (TJSON) Data Interchange Format
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 5, 2017.
+   This Internet-Draft will expire on May 7, 2017.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Arcieri & Laurie          Expires April 5, 2017                 [Page 1]
+Arcieri & Laurie           Expires May 7, 2017                  [Page 1]
 
-Internet-Draft        TJSON Data Interchange Format         October 2016
+Internet-Draft        TJSON Data Interchange Format        November 2016
 
 
 Table of Contents
@@ -64,55 +64,72 @@ Table of Contents
      1.1.  Conventions Used in This Document . . . . . . . . . . . .   3
    2.  TJSON Grammar . . . . . . . . . . . . . . . . . . . . . . . .   3
      2.1.  String Grammar  . . . . . . . . . . . . . . . . . . . . .   3
-     2.2.  Root Symbol . . . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Extended Types  . . . . . . . . . . . . . . . . . . . . . . .   4
-     3.1.  UTF-8 Strings ("s:")  . . . . . . . . . . . . . . . . . .   4
-     3.2.  Binary Data . . . . . . . . . . . . . . . . . . . . . . .   4
-       3.2.1.  base16 ("b16:") . . . . . . . . . . . . . . . . . . .   4
-       3.2.2.  base32 ("b32:") . . . . . . . . . . . . . . . . . . .   5
-       3.2.3.  base64url ("b64:")  . . . . . . . . . . . . . . . . .   5
-     3.3.  Integers  . . . . . . . . . . . . . . . . . . . . . . . .   5
-       3.3.1.  Signed Integers ("i:")  . . . . . . . . . . . . . . .   5
-       3.3.2.  Unsigned Integers ("u:")  . . . . . . . . . . . . . .   6
-     3.4.  Timestamps ("t:") . . . . . . . . . . . . . . . . . . . .   6
-   4.  Handling of JSON types  . . . . . . . . . . . . . . . . . . .   6
-     4.1.  Objects . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     4.2.  Arrays  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     4.3.  Floating Points . . . . . . . . . . . . . . . . . . . . .   7
-   5.  Normative References  . . . . . . . . . . . . . . . . . . . .   7
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
+     2.2.  Root Symbol . . . . . . . . . . . . . . . . . . . . . . .   4
+   3.  Extended Types  . . . . . . . . . . . . . . . . . . . . . . .   5
+     3.1.  Unicode Strings ("s") . . . . . . . . . . . . . . . . . .   5
+     3.2.  Binary Data . . . . . . . . . . . . . . . . . . . . . . .   5
+       3.2.1.  base16 ("b16")  . . . . . . . . . . . . . . . . . . .   5
+       3.2.2.  base32 ("b32")  . . . . . . . . . . . . . . . . . . .   6
+       3.2.3.  base64url ("b64") . . . . . . . . . . . . . . . . . .   6
+     3.3.  Integers  . . . . . . . . . . . . . . . . . . . . . . . .   7
+       3.3.1.  Signed Integers ("i") . . . . . . . . . . . . . . . .   7
+       3.3.2.  Unsigned Integers ("u") . . . . . . . . . . . . . . .   7
+     3.4.  Timestamps ("t")  . . . . . . . . . . . . . . . . . . . .   7
+     3.5.  Arrays  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     3.6.  Objects . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     3.7.  Floating Points . . . . . . . . . . . . . . . . . . . . .   8
+   4.  Normative References  . . . . . . . . . . . . . . . . . . . .   9
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
 
 1.  Introduction
 
    Tagged JavaScript Object Notation (TJSON) is a set of backwards-
    compatible extensions to JavaScript Object Notation (JSON) [RFC7159]
-   which enrich the set of types the format is able to express.
+   which enriches the format with additional types beyond those
+   originally specified.
 
-   TJSON can represent six primitive types (strings, binary data,
-   integers, floating points, datetimes, and null) and two structured
-   types (objects and arrays).
+   TJSON supports six scalar types:
+
+   o  Strings
+
+   o  Binary Data
+
+   o  Integers (signed/unsigned)
+
+   o  Floating points
+
+   o  Timestamps
+
+   o  JSON values (true/false/nil)
+
+   It supports two non-scalar types:
+
+   o  Objects
+
+
+
+
+Arcieri & Laurie           Expires May 7, 2017                  [Page 2]
+
+Internet-Draft        TJSON Data Interchange Format        November 2016
+
+
+   o  Arrays
+
+   TJSON provides backwards-compatible self-describing type annotations
+   to JSON in the form of postfix tags on object member names.
 
    To extend JSON with additional types in a backwards-compatible
-   manner, TJSON adds a special mandatory "tag" to each JSON string
-   which identifies the data type and, optionally, encoding format.  A
-   tag consists of one or more alphanumeric characters, followed by the
-   colon ":" character.  All strings in TJSON MUST have a valid tag
-   prefix.
+   manner, TJSON adds a special mandatory "tag" to each object member
+   name which identifies the type and encoding format of the member
+   value.  A tag consists of a colon ":" delimiter followed by one or
+   more alphanumeric characters which comprise the tag name.  All object
+   member names in TJSON MUST have a valid tag.
 
    TJSON is intended to simplify transcoding documents from other
-   interchange formats which disambiguate strings from binary data, and
-   also improve the ability to both canonicalize and authenticate JSON
-   documents.
-
-
-
-
-
-
-Arcieri & Laurie          Expires April 5, 2017                 [Page 2]
-
-Internet-Draft        TJSON Data Interchange Format         October 2016
-
+   interchange formats which have a type system rich enough to include a
+   binary data format in addition to strings, and to improve the ability
+   authenticate JSON documents.
 
 1.1.  Conventions Used in This Document
 
@@ -129,49 +146,91 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
 
 2.1.  String Grammar
 
-   The main grammatical addition of TJSON is a tag prefix on string
-   literals.  Every string literal MUST have a tag prefix in TJSON.
-   Strings literals in TJSON are described by the following grammar:
+   The main grammatical addition of TJSON is the addition of a postfix
+   type annotation, or "tag", on the member names of all objects, which
+   are string literals.  Every member name MUST have a tag prefix in
+   TJSON.  Member names in TJSON are described by the following grammar:
 
-   <tagged-string> ::= quotation-mark tag *char quotation-mark
 
-   <tag> ::= <alpha> *<alphanumeric> ':'
 
-   <alpha> ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' |
-               'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' |
-               's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
+
+
+
+
+
+
+
+
+
+
+
+
+Arcieri & Laurie           Expires May 7, 2017                  [Page 3]
+
+Internet-Draft        TJSON Data Interchange Format        November 2016
+
+
+   <member> ::= <tagged-string> <name-separator> <value>
+
+   <tagged-string> ::= '"' *<char> ':' <tag> '"'
+
+   <tag> ::= <type-expression> | <scalar-tag> | <object-tag>
+
+   <type-expression> ::= <non-scalar-tag> '<' <tag> '>'
+
+   <non-scalar-tag> ::= <alpha-upper> *<alphanumeric-lower>
+
+   <scalar-tag> ::= <alpha-lower> *<alphanumeric-lower>
+
+   <object-tag> ::= 'O'
+
+   <alphanumeric-lower> ::= <alpha-lower> | <digit>
+
+   <alpha-upper> ::= 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' |
+                     'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' |
+                     'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' |
+                     'Y' | 'Z'
+
+   <alpha-lower> ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' |
+                     'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' |
+                     'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' |
+                     'y' | 'z'
 
    <digit> ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
 
-   <alphanumeric> ::= <alpha> | <digit>
+   The "member" pushdown (with a "tagged-string" instead of a "string"
+   as in JSON replaces the "member" pushdown as described in [RFC7159].
+   The "value" pushdown remains the same.
 
-   The tagged-string pushdown replaces the string pushdown in JSON as
-   described in [RFC7159].
+   The "char" nonterminal is described in section 7 of [RFC7159].
 
-   The quotation-mark and char pushdowns are described in section 7 of
-   [RFC7159].
+   TJSON uses the case of tag names to identify scalar types vs non-
+   scalars:
 
-   TJSON places a maximum length of 4 bytes on tag, including the ':'
-   character.
+   o  Scalars: lower-case tag names (e.g. "t")
+
+   o  Non-scalars: capitalized tag names (e.g.  "A")
 
 2.2.  Root Symbol
 
    The root grammatical symbol of all TJSON documents is constrained to
-   the following nonterminals as described in [RFC7159]:
+   the "object" nonterminal as described in [RFC7159]:
 
-                       <root> ::= <object> | <array>
-
-
+                            <root> ::= <object>
 
 
 
-Arcieri & Laurie          Expires April 5, 2017                 [Page 3]
+
+Arcieri & Laurie           Expires May 7, 2017                  [Page 4]
 
-Internet-Draft        TJSON Data Interchange Format         October 2016
+Internet-Draft        TJSON Data Interchange Format        November 2016
 
 
-   Documents which do not contain an object or array as the toplevel
-   element MUST be rejected by parsers.
+   TJSON uses objects to describe all further type information, so they
+   MUST be the top-level expression.
+
+   Documents which do not contain an object as the top-level element
+   MUST be rejected by parsers.
 
 3.  Extended Types
 
@@ -179,17 +238,18 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
    embedding them in string literals as described in section 2.1 of this
    document.
 
-3.1.  UTF-8 Strings ("s:")
+3.1.  Unicode Strings ("s")
 
    The syntax for TJSON strings is grammatically identical to JSON,
    except per section 2.1 of this document the string type MUST carry a
-   mandatory tag character, "s:" indicating a UTF-8 String.  Unlike
-   JSON, all Unicode Strings in TJSON MUST be valid UTF-8 [RFC3629].
-   Other Unicode encodings are expressly not supported.
+   mandatory tag character, "s" indicating a Unicode string.
 
-   The following is an example of a UTF-8 String literal in TJSON:
+   Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8
+   [RFC3629].  No other Unicode encodings are valid for TJSON strings.
 
-                             "s:Hello, world!"
+   The following is an example of a Unicode String literal in TJSON:
+
+                       {"example:s":"Hello, world!"}
 
 3.2.  Binary Data
 
@@ -198,61 +258,88 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
    begin with the "b" character followed by an alphanumeric identifier
    for a specific format.
 
-   The preferred encoding is base64url ("b64:"), which SHOULD be used by
+   The preferred encoding is base64url ("b64"), which SHOULD be used by
    default unless another encoding is explicitly specified at
    serialization time.
 
-   The base16 and base64url formats are mandatory to implement for all
-   TJSON parsers.
+   The base16, base32, and base64url formats are mandatory to implement
+   for all TJSON parsers.
 
-3.2.1.  base16 ("b16:")
+3.2.1.  base16 ("b16")
 
-   A base16 literal starts with the "b16:" tag, followed by a valid
-   base16 string.  The base16 format (a.k.a. hexadecimal) is described
-   in [RFC4648].  All base16 strings in TJSON MUST be lower case.
+   Base16 literals are identified by the "b16" tag, with an associated
+   JSON JSON string literal value containing base16-serialized binary
+   data.
+
+   The base16 format (a.k.a. hexadecimal) is described in [RFC4648].
+   All base16 strings in TJSON MUST be lower case.
+
+
+
+
+Arcieri & Laurie           Expires May 7, 2017                  [Page 5]
+
+Internet-Draft        TJSON Data Interchange Format        November 2016
+
 
    The following is an example of a base16 string literal in TJSON:
 
-                     "b16:48656c6c6f2c20776f726c6421"
+               {"example:b16":"48656c6c6f2c20776f726c6421"}
 
-   This decodes to the equivalent of the ASCII string: "Hello, world!"
+   This decodes to an object with an "example" key whose value is the
+   equivalent of the ASCII string: "Hello, world!"
 
+3.2.2.  base32 ("b32")
 
+   Base32 literals are identified by the "b32" tag, with an associated
+   JSON JSON string literal value containing base32-serialized binary
+   data.
 
-
-
-Arcieri & Laurie          Expires April 5, 2017                 [Page 4]
-
-Internet-Draft        TJSON Data Interchange Format         October 2016
-
-
-3.2.2.  base32 ("b32:")
-
-   A base32 literal starts with the "b16:" tag, followed by a valid
-   base32 string.  The base32 format is described in [RFC4648].  All
-   base32 strings in TJSON MUST be lower case, and MUST NOT include any
-   padding with the '=' character.  TJSON parsers MUST reject any
-   documents containing upper case base32 characters or padding.
+   The base32 format is described in [RFC4648].  All base32 strings in
+   TJSON MUST be lower case, and MUST NOT include any padding with the
+   '=' character.  TJSON parsers MUST reject any documents containing
+   upper case base32 characters or padding.
 
    The following is an example of a base32 string literal in TJSON:
 
-                        "b32:jbswy3dpfqqho33snrscc"
+                  {"example:b32":"jbswy3dpfqqho33snrscc"}
 
-   This decodes to the equivalent of the ASCII string: "Hello, world!"
+   This decodes to an object with an "example" key whose value is the
+   equivalent of the ASCII string: "Hello, world!"
 
-3.2.3.  base64url ("b64:")
+3.2.3.  base64url ("b64")
 
-   A base64url literal starts with the "b64:" tag, followed by a valid
-   base64url string.  The base64url format is described in [RFC4648].
-   All base64url strings in TJSON MUST NOT include any padding with the
-   '=' character.  TJSON parsers MUST reject any documents containing
-   padded base64url strings.
+   Base64url literals are identified by the "b" or "b64" tags, with an
+   associated JSON string literal value containing base64url-serialized
+   binary data.
+
+   The base64url format is described in [RFC4648].  All base64url
+   strings in TJSON MUST NOT include any padding with the '=' character.
+   TJSON parsers MUST reject any documents containing padded base64url
+   strings.
+
+   When serializing binary data as TJSON, encoders SHOULD use the "b"
+   tag to indicate binary data unless another format has been explicitly
+   specified.
 
    The following is an example of a base64url string literal in TJSON:
 
-                         "b64:SGVsbG8sIHdvcmxkIQ"
+                   {"example:b64":"SGVsbG8sIHdvcmxkIQ"}
 
-   This decodes to the equivalent of the ASCII string: "Hello, world!"
+   The following is the same document using the shorter "b" tag:
+
+                    {"example:b":"SGVsbG8sIHdvcmxkIQ"}
+
+
+
+
+Arcieri & Laurie           Expires May 7, 2017                  [Page 6]
+
+Internet-Draft        TJSON Data Interchange Format        November 2016
+
+
+   This decodes to an object with an "example" key whose value is the
+   equivalent of the ASCII string: "Hello, world!"
 
    Only the base64url format is supported.  The non-URL safe form of
    base64 is not supported and MUST be rejected by parsers.
@@ -267,88 +354,103 @@ Internet-Draft        TJSON Data Interchange Format         October 2016
    Both signed and unsigned integers are supported and provide the same
    ranges as 64-bit integers.
 
-3.3.1.  Signed Integers ("i:")
+3.3.1.  Signed Integers ("i")
 
-   A signed integer literal is represented as string with an "i:" tag,
-   followed by a valid JSON integer literal, with an optional minus
-   ("-") character.
-
-
-
-
-
-Arcieri & Laurie          Expires April 5, 2017                 [Page 5]
-
-Internet-Draft        TJSON Data Interchange Format         October 2016
-
+   Signed integer literals are identified by the "i" tag, with an
+   associated JSON string literal value containing the string
+   representation of a valid JSON integer literal, with an optional
+   minus ("-") character.
 
    Conforming TJSON parsers MUST be capable of supporting the full
    64-bit signed integer range "[-(2**63), (2**63)-1]" for this type.
 
    Integers outside this range MUST be rejected.
 
-3.3.2.  Unsigned Integers ("u:")
+3.3.2.  Unsigned Integers ("u")
 
-   An unsigned integer literal is represented as a string with a "u:"
-   tag, followed by a valid JSON integer literal.  The minus ("-")
-   character is expressly disallowed and parsers MUST fail if it's
-   present.
+   Unsigned integer literals are identified by the "u" tag, with an
+   associated JSON string literal value containing the string
+   representation of a valid JSON integer literal.  The minus ("-")
+   character is expressly disallowed and parsers MUST reject documents
+   containing it in an unsigned integer expression.
 
    Conforming TJSON parsers MUST be capable of supporting the full
    64-bit unsigned integer range "[0, (2**64)-1]" for this type.
 
-3.4.  Timestamps ("t:")
+3.4.  Timestamps ("t")
 
    TJSON natively supports a timestamp type whose syntax is a subset of
    that provided by [RFC3339].  Specifically, TJSON timestamps MUST use
-   only the upper-case UTC time zone identifier "Z".  No other time zone
-   identifiers are allowed except "Z" and parsers MUST NOT allow them.
+   only the upper-case UTC time zone identifier "Z" (i.e. times MUST be
+   Z-normalized).  No other time zone identifiers are allowed except "Z"
+   and parsers MUST NOT allow them.
 
    The following is an example of a TJSON timestamp:
 
-                         "t:2016-10-02T07:31:51Z"
 
-   TJSON libraries SHOULD convert these timestamps to a native datetime
+
+Arcieri & Laurie           Expires May 7, 2017                  [Page 7]
+
+Internet-Draft        TJSON Data Interchange Format        November 2016
+
+
+                   {"example:t":"2016-10-02T07:31:51Z"}
+
+   TJSON libraries SHOULD convert these timestamps to a native date/time
    type.
 
-4.  Handling of JSON types
+3.5.  Arrays
 
-   Below are notes about how the processing of certain JSON types should
-   be handled under TJSON.
+   Arrays are a non-scalar and therefore use an upper case tag name as
+   described in section 2.1.
 
-4.1.  Objects
+   The "A" tag, with an associated JSON array value, identifies a TJSON
+   array.  Non-scalars are parameterized by the types they contain, so
+   fully identifying an array depends on its contents.
 
-   TJSON constrains the allowable types for the names of object members
-   to either Unicode Strings or Binary Data.
+   The following is an example of a TJSON array containing integers:
 
-   All other types, such as integers, are expressly disallowed.
+                     {"example:A<i>": ["1", "2", "3"]}
 
-   The names of object members MUST be unique in TJSON.  Repeated use of
-   the same name for more than one member MUST be rejected by TJSON
-   parsers.
+   The following is an example of a two dimensional array containing
+   integers:
 
+         {"example:A<A<i>>:" [["1", "2"], ["3", "4"], ["5", "6"]]}
 
+3.6.  Objects
 
+   Type information MUST be present in all object member names (i.e. all
+   member names must be tagged).  Parsers MUST reject objects with
+   untagged members.
 
+   When embedded within another non-scalar type such as an array,
+   objects are identified by the tag "O".  Objects self-identify their
+   types, so do not need to be parameterized in type expressions.
 
+   The following is an example of an array of objects:
 
+              {"example:A<O>": [{"a:i": "1"}, {"b:i": "2"}]}
 
-Arcieri & Laurie          Expires April 5, 2017                 [Page 6]
-
-Internet-Draft        TJSON Data Interchange Format         October 2016
+   Object member names MUST be unique in TJSON.  Repeated use of the
+   same name for more than one member MUST be rejected by TJSON parsers.
 
-
-4.2.  Arrays
-
-   Arrays have no additional handling considerations in TJSON.
-
-4.3.  Floating Points
+3.7.  Floating Points
 
    All numeric literals which are not represented as tagged strings MUST
    be treated as floating points under TJSON.  This is already the
    default behavior of many JSON libraries.
 
-5.  Normative References
+
+
+
+
+
+Arcieri & Laurie           Expires May 7, 2017                  [Page 8]
+
+Internet-Draft        TJSON Data Interchange Format        November 2016
+
+
+4.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -389,4 +491,14 @@ Authors' Addresses
 
 
 
-Arcieri & Laurie          Expires April 5, 2017                 [Page 7]
+
+
+
+
+
+
+
+
+
+
+Arcieri & Laurie           Expires May 7, 2017                  [Page 9]
