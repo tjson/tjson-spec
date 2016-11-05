@@ -64,20 +64,20 @@ Table of Contents
      1.1.  Conventions Used in This Document . . . . . . . . . . . .   3
    2.  TJSON Grammar . . . . . . . . . . . . . . . . . . . . . . . .   3
      2.1.  String Grammar  . . . . . . . . . . . . . . . . . . . . .   3
-     2.2.  Root Symbol . . . . . . . . . . . . . . . . . . . . . . .   4
+     2.2.  Root Symbol . . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Extended Types  . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Unicode Strings ("s") . . . . . . . . . . . . . . . . . .   5
      3.2.  Binary Data . . . . . . . . . . . . . . . . . . . . . . .   5
-       3.2.1.  base16 ("b16")  . . . . . . . . . . . . . . . . . . .   5
+       3.2.1.  base16 ("b16")  . . . . . . . . . . . . . . . . . . .   6
        3.2.2.  base32 ("b32")  . . . . . . . . . . . . . . . . . . .   6
        3.2.3.  base64url ("b64") . . . . . . . . . . . . . . . . . .   6
      3.3.  Integers  . . . . . . . . . . . . . . . . . . . . . . . .   7
        3.3.1.  Signed Integers ("i") . . . . . . . . . . . . . . . .   7
        3.3.2.  Unsigned Integers ("u") . . . . . . . . . . . . . . .   7
-     3.4.  Timestamps ("t")  . . . . . . . . . . . . . . . . . . . .   7
+     3.4.  Timestamps ("t")  . . . . . . . . . . . . . . . . . . . .   8
      3.5.  Arrays ("A")  . . . . . . . . . . . . . . . . . . . . . .   8
      3.6.  Objects ("O") . . . . . . . . . . . . . . . . . . . . . .   8
-     3.7.  Floating Points . . . . . . . . . . . . . . . . . . . . .   8
+     3.7.  Floating Points . . . . . . . . . . . . . . . . . . . . .   9
    4.  Normative References  . . . . . . . . . . . . . . . . . . . .   9
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
 
@@ -174,7 +174,7 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
    <tagged-string> ::= '"' *<char> ':' <tag> '"'
 
-   <tag> ::= <type-expression> | <scalar-tag> | <object-tag>
+   <tag> ::= <object-tag> | <type-expression> | <scalar-tag>
 
    <type-expression> ::= <non-scalar-tag> '<' <tag> '>'
 
@@ -211,12 +211,12 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
    o  Non-scalars: capitalized tag names (e.g.  "A")
 
-2.2.  Root Symbol
+   The "object-tag" nonterminal has a special place in the grammar: as
+   the sole carrier of type information objects are the only nonterminal
+   which does not carry type information.
 
-   The root grammatical symbol of all TJSON documents is constrained to
-   the "object" nonterminal as described in [RFC7159]:
 
-                            <root> ::= <object>
+
 
 
 
@@ -225,6 +225,13 @@ Arcieri & Laurie           Expires May 7, 2017                  [Page 4]
 
 Internet-Draft        TJSON Data Interchange Format        November 2016
 
+
+2.2.  Root Symbol
+
+   The root grammatical symbol of all TJSON documents is constrained to
+   the "object" nonterminal as described in [RFC7159]:
+
+                            <root> ::= <object>
 
    TJSON uses objects to describe all further type information, so they
    MUST be the top-level expression.
@@ -265,14 +272,7 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    The base16, base32, and base64url formats are mandatory to implement
    for all TJSON parsers.
 
-3.2.1.  base16 ("b16")
 
-   Base16 literals are identified by the "b16" tag, with an associated
-   JSON JSON string literal value containing base16-serialized binary
-   data.
-
-   The base16 format (a.k.a. hexadecimal) is described in [RFC4648].
-   All base16 strings in TJSON MUST be lower case.
 
 
 
@@ -281,6 +281,15 @@ Arcieri & Laurie           Expires May 7, 2017                  [Page 5]
 
 Internet-Draft        TJSON Data Interchange Format        November 2016
 
+
+3.2.1.  base16 ("b16")
+
+   Base16 literals are identified by the "b16" tag, with an associated
+   JSON JSON string literal value containing base16-serialized binary
+   data.
+
+   The base16 format (a.k.a. hexadecimal) is described in [RFC4648].
+   All base16 strings in TJSON MUST be lower case.
 
    The following is an example of a base16 string literal in TJSON:
 
@@ -322,6 +331,13 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    tag to indicate binary data unless another format has been explicitly
    specified.
 
+
+
+Arcieri & Laurie           Expires May 7, 2017                  [Page 6]
+
+Internet-Draft        TJSON Data Interchange Format        November 2016
+
+
    The following is an example of a base64url string literal in TJSON:
 
                    {"example:b64":"SGVsbG8sIHdvcmxkIQ"}
@@ -329,14 +345,6 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    The following is the same document using the shorter "b" tag:
 
                     {"example:b":"SGVsbG8sIHdvcmxkIQ"}
-
-
-
-
-Arcieri & Laurie           Expires May 7, 2017                  [Page 6]
-
-Internet-Draft        TJSON Data Interchange Format        November 2016
-
 
    This decodes to an object with an "example" key whose value is the
    equivalent of the ASCII string: "Hello, world!"
@@ -377,6 +385,15 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    Conforming TJSON parsers MUST be capable of supporting the full
    64-bit unsigned integer range "[0, (2**64)-1]" for this type.
 
+
+
+
+
+Arcieri & Laurie           Expires May 7, 2017                  [Page 7]
+
+Internet-Draft        TJSON Data Interchange Format        November 2016
+
+
 3.4.  Timestamps ("t")
 
    TJSON natively supports a timestamp type whose syntax is a subset of
@@ -386,13 +403,6 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    and parsers MUST NOT allow them.
 
    The following is an example of a TJSON timestamp:
-
-
-
-Arcieri & Laurie           Expires May 7, 2017                  [Page 7]
-
-Internet-Draft        TJSON Data Interchange Format        November 2016
-
 
                    {"example:t":"2016-10-02T07:31:51Z"}
 
@@ -431,16 +441,6 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
               {"example:A<O>": [{"a:i": "1"}, {"b:i": "2"}]}
 
-   Object member names MUST be unique in TJSON.  Repeated use of the
-   same name for more than one member MUST be rejected by TJSON parsers.
-
-3.7.  Floating Points
-
-   All numeric literals which are not represented as tagged strings MUST
-   be treated as floating points under TJSON.  This is already the
-   default behavior of many JSON libraries.
-
-
 
 
 
@@ -449,6 +449,15 @@ Arcieri & Laurie           Expires May 7, 2017                  [Page 8]
 
 Internet-Draft        TJSON Data Interchange Format        November 2016
 
+
+   Object member names MUST be unique in TJSON.  Repeated use of the
+   same name for more than one member MUST be rejected by TJSON parsers.
+
+3.7.  Floating Points
+
+   All numeric literals which are not represented as tagged strings MUST
+   be treated as floating points under TJSON.  This is already the
+   default behavior of many JSON libraries.
 
 4.  Normative References
 
@@ -479,15 +488,6 @@ Authors' Addresses
 
 
    Ben Laurie
-
-
-
-
-
-
-
-
-
 
 
 

@@ -127,7 +127,7 @@ in TJSON are described by the following grammar:
 
 &lt;tagged-string&gt; ::= '"' *&lt;char&gt; ':' &lt;tag&gt; '"'
 
-&lt;tag&gt; ::= &lt;type-expression&gt; | &lt;scalar-tag&gt; | &lt;object-tag&gt;
+&lt;tag&gt; ::= &lt;object-tag&gt; | &lt;type-expression&gt; | &lt;scalar-tag&gt;
 
 &lt;type-expression&gt; ::= &lt;non-scalar-tag&gt; '&lt;' &lt;tag&gt; '&gt;'
 
@@ -164,6 +164,10 @@ The &quot;value&quot; pushdown remains the same.
 <t>Scalars: lower-case tag names (e.g. &quot;t&quot;)</t>
 <t>Non-scalars: capitalized tag names (e.g. &quot;A&quot;)</t>
 </list>
+</t>
+<t>The &quot;object-tag&quot; nonterminal has a special place in the grammar: as the
+sole carrier of type information objects are the only nonterminal
+which does not carry type information.
 </t>
 </section>
 

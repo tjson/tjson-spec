@@ -1,7 +1,7 @@
 #
 # [DRAFT] Annotated TJSON examples intended for testing TJSON parsers
 #
-# Revision: 17 (bump this when making changes to this file)
+# Revision: 18 (bump this when making changes to this file)
 #
 # Syntax used in this file:
 #
@@ -18,18 +18,18 @@
 # - result = "success" | "error"
 #
 -----
-name = "Empty Array"
-description = "Arrays are allowed as a toplevel value and can be empty"
-result = "success"
-
-[]
-
------
 name = "Empty Object"
 description = "Objects are allowed as a toplevel value and can be empty"
 result = "success"
 
 {}
+
+-----
+name = "Invalid Toplevel Array"
+description = "Arrays are NOT allowed as a toplevel value"
+result = "error"
+
+[]
 
 -----
 name = "Object with UTF-8 String Key"
@@ -173,7 +173,7 @@ result = "success"
 
 -----
 name = "Signed Integer Range Test"
-description = "It should be possible to represent the full range of a signed 64-bit integer"
+description = "Signed integers should support the full 64-bit range"
 result = "success"
 
 {"min:i":"-9223372036854775808", "max:i:":"9223372036854775807"}
@@ -208,7 +208,7 @@ result = "success"
 
 -----
 name = "Unsigned Integer Range Test"
-description = "It should be possible to represent the full range of a signed 64-bit integer"
+description = "Unsigned integers should support the full 64-bit range"
 result = "success"
 
 {"maxint:u":"18446744073709551615"}
