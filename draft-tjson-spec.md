@@ -85,7 +85,7 @@ in TJSON are described by the following grammar:
 
     <tagged-string> ::= '"' *<char> ':' <tag> '"'
 
-    <tag> ::= <type-expression> | <scalar-tag> | <object-tag>
+    <tag> ::= <object-tag> | <type-expression> | <scalar-tag>
 
     <type-expression> ::= <non-scalar-tag> '<' <tag> '>'
 
@@ -119,6 +119,10 @@ TJSON uses the case of tag names to identify scalar types vs non-scalars:
 
 * Scalars: lower-case tag names (e.g. "t")
 * Non-scalars: capitalized tag names (e.g. "A")
+
+The "object-tag" nonterminal has a special place in the grammar: as the
+sole carrier of type information objects are the only nonterminal
+which does not carry type information.
 
 ## Root Symbol
 
