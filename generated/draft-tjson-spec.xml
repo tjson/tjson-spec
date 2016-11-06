@@ -125,15 +125,15 @@ in TJSON are described by the following grammar:
 <figure align="center"><artwork align="center">
 &lt;member&gt; ::= &lt;tagged-string&gt; &lt;name-separator&gt; &lt;value&gt;
 
-&lt;tagged-string&gt; ::= '"' *&lt;char&gt; ':' &lt;tag&gt; '"'
+&lt;tagged-string&gt; ::= '"' &lt;char&gt;* ':' &lt;tag&gt; '"'
 
 &lt;tag&gt; ::= &lt;object-tag&gt; | &lt;type-expression&gt; | &lt;scalar-tag&gt;
 
-&lt;type-expression&gt; ::= &lt;non-scalar-tag&gt; '&lt;' &lt;tag&gt; '&gt;'
+&lt;type-expression&gt; ::= &lt;non-scalar-tag&gt; '&lt;' &lt;tag&gt;? '&gt;'
 
-&lt;non-scalar-tag&gt; ::= &lt;alpha-upper&gt; *&lt;alphanumeric-lower&gt;
+&lt;non-scalar-tag&gt; ::= &lt;alpha-upper&gt; &lt;alphanumeric-lower&gt;*
 
-&lt;scalar-tag&gt; ::= &lt;alpha-lower&gt; *&lt;alphanumeric-lower&gt;
+&lt;scalar-tag&gt; ::= &lt;alpha-lower&gt; &lt;alphanumeric-lower&gt;*
 
 &lt;object-tag&gt; ::= 'O'
 
@@ -164,6 +164,11 @@ The &quot;value&quot; pushdown remains the same.
 <t>Scalars: lower-case tag names (e.g. &quot;t&quot;)</t>
 <t>Non-scalars: capitalized tag names (e.g. &quot;A&quot;)</t>
 </list>
+</t>
+<t>Non-scalars are parameterized by an inner tag contained in '&lt;' '&gt;' characters,
+similar to the syntax used for generics in many programming languages.
+Omitting the inner tag (e.g. &quot;A&lt;&gt;&quot;) is allowed in cases where the corresponding
+non-scalar value is empty.
 </t>
 <t>The &quot;object-tag&quot; nonterminal has a special place in the grammar: as the
 sole carrier of type information objects are the only nonterminal
@@ -352,6 +357,9 @@ in section 2.1.
 Non-scalars are parameterized by the types they contain, so fully identifying
 an array depends on its contents.
 </t>
+<t>Empty arrays do not have a corresponding inner type, in which case the inner
+type may be omitted from the type description.
+</t>
 <t>The following is an example of a TJSON array containing integers:
 </t>
 
@@ -363,6 +371,12 @@ an array depends on its contents.
 
 <figure align="center"><artwork align="center">
 {"example:A&lt;A&lt;i&gt;&gt;:" [["1", "2"], ["3", "4"], ["5", "6"]]}
+</artwork></figure>
+<t>The following is an example of an empty array:
+</t>
+
+<figure align="center"><artwork align="center">
+{"example:A&lt;&gt;": []}
 </artwork></figure>
 </section>
 

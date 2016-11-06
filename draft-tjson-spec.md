@@ -83,15 +83,15 @@ in TJSON are described by the following grammar:
 
     <member> ::= <tagged-string> <name-separator> <value>
 
-    <tagged-string> ::= '"' *<char> ':' <tag> '"'
+    <tagged-string> ::= '"' <char>* ':' <tag> '"'
 
     <tag> ::= <object-tag> | <type-expression> | <scalar-tag>
 
-    <type-expression> ::= <non-scalar-tag> '<' <tag> '>'
+    <type-expression> ::= <non-scalar-tag> '<' <tag>? '>'
 
-    <non-scalar-tag> ::= <alpha-upper> *<alphanumeric-lower>
+    <non-scalar-tag> ::= <alpha-upper> <alphanumeric-lower>*
 
-    <scalar-tag> ::= <alpha-lower> *<alphanumeric-lower>
+    <scalar-tag> ::= <alpha-lower> <alphanumeric-lower>*
 
     <object-tag> ::= 'O'
 
@@ -119,6 +119,11 @@ TJSON uses the case of tag names to identify scalar types vs non-scalars:
 
 * Scalars: lower-case tag names (e.g. "t")
 * Non-scalars: capitalized tag names (e.g. "A")
+
+Non-scalars are parameterized by an inner tag contained in '<' '>' characters,
+similar to the syntax used for generics in many programming languages.
+Omitting the inner tag (e.g. "A<>") is allowed in cases where the corresponding
+non-scalar value is empty.
 
 The "object-tag" nonterminal has a special place in the grammar: as the
 sole carrier of type information objects are the only nonterminal
@@ -281,6 +286,11 @@ The "A" tag, with an associated JSON array value, identifies a TJSON array.
 Non-scalars are parameterized by the types they contain, so fully identifying
 an array depends on its contents.
 
+Empty arrays do not have a corresponding inner type, in which case the inner
+type MAY be omitted from the type description. However, type parameters are
+mandatory unless the array is empty, and parsers MUST reject documents missing
+an inner type for non-empty arrays.
+
 The following is an example of a TJSON array containing integers:
 
     {"example:A<i>": ["1", "2", "3"]}
@@ -288,6 +298,10 @@ The following is an example of a TJSON array containing integers:
 The following is an example of a two dimensional array containing integers:
 
     {"example:A<A<i>>:" [["1", "2"], ["3", "4"], ["5", "6"]]}
+
+The following is an example of an empty array:
+
+    {"example:A<>": []}
 
 ## Objects ("O")
 
