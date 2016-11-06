@@ -172,15 +172,15 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
    <member> ::= <tagged-string> <name-separator> <value>
 
-   <tagged-string> ::= '"' *<char> ':' <tag> '"'
+   <tagged-string> ::= '"' <char>* ':' <tag> '"'
 
    <tag> ::= <object-tag> | <type-expression> | <scalar-tag>
 
-   <type-expression> ::= <non-scalar-tag> '<' <tag> '>'
+   <type-expression> ::= <non-scalar-tag> '<' <tag>? '>'
 
-   <non-scalar-tag> ::= <alpha-upper> *<alphanumeric-lower>
+   <non-scalar-tag> ::= <alpha-upper> <alphanumeric-lower>*
 
-   <scalar-tag> ::= <alpha-lower> *<alphanumeric-lower>
+   <scalar-tag> ::= <alpha-lower> <alphanumeric-lower>*
 
    <object-tag> ::= 'O'
 
@@ -211,10 +211,10 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
    o  Non-scalars: capitalized tag names (e.g.  "A")
 
-   The "object-tag" nonterminal has a special place in the grammar: as
-   the sole carrier of type information objects are the only nonterminal
-   which does not carry type information.
-
+   Non-scalars are parameterized by an inner tag contained in '<' '>'
+   characters, similar to the syntax used for generics in many
+   programming languages.  Omitting the inner tag (e.g.  "A<>") is
+   allowed in cases where the corresponding non-scalar value is empty.
 
 
 
@@ -225,6 +225,10 @@ Arcieri & Laurie           Expires May 7, 2017                  [Page 4]
 
 Internet-Draft        TJSON Data Interchange Format        November 2016
 
+
+   The "object-tag" nonterminal has a special place in the grammar: as
+   the sole carrier of type information objects are the only nonterminal
+   which does not carry type information.
 
 2.2.  Root Symbol
 
@@ -269,10 +273,6 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    default unless another encoding is explicitly specified at
    serialization time.
 
-   The base16, base32, and base64url formats are mandatory to implement
-   for all TJSON parsers.
-
-
 
 
 
@@ -281,6 +281,9 @@ Arcieri & Laurie           Expires May 7, 2017                  [Page 5]
 
 Internet-Draft        TJSON Data Interchange Format        November 2016
 
+
+   The base16, base32, and base64url formats are mandatory to implement
+   for all TJSON parsers.
 
 3.2.1.  base16 ("b16")
 
@@ -327,9 +330,6 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    TJSON parsers MUST reject any documents containing padded base64url
    strings.
 
-   When serializing binary data as TJSON, encoders SHOULD use the "b"
-   tag to indicate binary data unless another format has been explicitly
-   specified.
 
 
 
@@ -337,6 +337,10 @@ Arcieri & Laurie           Expires May 7, 2017                  [Page 6]
 
 Internet-Draft        TJSON Data Interchange Format        November 2016
 
+
+   When serializing binary data as TJSON, encoders SHOULD use the "b"
+   tag to indicate binary data unless another format has been explicitly
+   specified.
 
    The following is an example of a base64url string literal in TJSON:
 
@@ -382,10 +386,6 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    character is expressly disallowed and parsers MUST reject documents
    containing it in an unsigned integer expression.
 
-   Conforming TJSON parsers MUST be capable of supporting the full
-   64-bit unsigned integer range "[0, (2**64)-1]" for this type.
-
-
 
 
 
@@ -393,6 +393,9 @@ Arcieri & Laurie           Expires May 7, 2017                  [Page 7]
 
 Internet-Draft        TJSON Data Interchange Format        November 2016
 
+
+   Conforming TJSON parsers MUST be capable of supporting the full
+   64-bit unsigned integer range "[0, (2**64)-1]" for this type.
 
 3.4.  Timestamps ("t")
 
@@ -418,6 +421,9 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    array.  Non-scalars are parameterized by the types they contain, so
    fully identifying an array depends on its contents.
 
+   Empty arrays do not have a corresponding inner type, in which case
+   the inner type may be omitted from the type description.
+
    The following is an example of a TJSON array containing integers:
 
                      {"example:A<i>": ["1", "2", "3"]}
@@ -427,11 +433,22 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
          {"example:A<A<i>>:" [["1", "2"], ["3", "4"], ["5", "6"]]}
 
+   The following is an example of an empty array:
+
+                            {"example:A<>": []}
+
 3.6.  Objects ("O")
 
    Type information MUST be present in all object member names (i.e. all
    member names must be tagged).  Parsers MUST reject objects with
    untagged members.
+
+
+
+Arcieri & Laurie           Expires May 7, 2017                  [Page 8]
+
+Internet-Draft        TJSON Data Interchange Format        November 2016
+
 
    When embedded within another non-scalar type such as an array,
    objects are identified by the tag "O".  Objects self-identify their
@@ -440,15 +457,6 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    The following is an example of an array of objects:
 
               {"example:A<O>": [{"a:i": "1"}, {"b:i": "2"}]}
-
-
-
-
-
-Arcieri & Laurie           Expires May 7, 2017                  [Page 8]
-
-Internet-Draft        TJSON Data Interchange Format        November 2016
-
 
    Object member names MUST be unique in TJSON.  Repeated use of the
    same name for more than one member MUST be rejected by TJSON parsers.
@@ -488,14 +496,6 @@ Authors' Addresses
 
 
    Ben Laurie
-
-
-
-
-
-
-
-
 
 
 

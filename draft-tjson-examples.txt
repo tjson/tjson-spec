@@ -1,7 +1,7 @@
 #
 # [DRAFT] Annotated TJSON examples intended for testing TJSON parsers
 #
-# Revision: 19 (bump this when making changes to this file)
+# Revision: 20 (bump this when making changes to this file)
 #
 # Syntax used in this file:
 #
@@ -79,6 +79,20 @@ description = "Objects are the only allowed terminal non-scalar"
 result = "success"
 
 {"example:A<O>": [{"a:i": "1"}, {"b:i": "2"}]}
+
+-----
+name = "Empty array"
+description = "Empty arrays do not need a type parameter"
+result = "success"
+
+{"example:A<>": []}
+
+-----
+name = "Array with missing type parameter"
+description = "Type parameters are mandatory for non-empty arrays"
+result = "error"
+
+{"example:A<>": ["1", "2", "3"]}
 
 -----
 name = "Multidimensional array of integers"
