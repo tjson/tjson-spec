@@ -9,6 +9,20 @@ IETF-style specification for TJSON authored using [mmark].
 
 [mmark]: https://github.com/miekg/mmark
 
+```json
+{
+  "array-example:A<O>": [
+    {
+      "string-example:s": "foobar",
+      "binary-example:b64": "QklOQVJZ",
+      "float-example:f": 0.42,
+      "int-example:i": "42",
+      "timestamp-example:t": "2016-11-06T22:27:34Z"
+    }
+  ]
+}
+```
+
 ## Specification Document
 
 The file `draft-tjson-spec.md` contains the canonical copy of the TJSON
