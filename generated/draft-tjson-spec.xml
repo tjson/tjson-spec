@@ -42,7 +42,7 @@
 <uri></uri>
 </address>
 </author>
-<date year="2016" month="November" day="3"/>
+<date year="2017" month="April" day="15"/>
 
 <area>Internet</area>
 <workgroup></workgroup>
@@ -332,6 +332,16 @@ integer range <spanx style="verb">[0, (2**64)−1]</spanx> for this type.
 </section>
 </section>
 
+<section anchor="floating-points-f" title="Floating Points (&quot;f&quot;)">
+<t>Floating points are identified by the &quot;f&quot; tag, with an associated JSON float
+literal value. Unlike integers, floating point values should NOT be quoted
+strings, but should use the native JSON syntax.
+</t>
+<t>Conforming TJSON parsers MUST ensure the resulting type of a parsed floating
+point is actually a floating point, and not an integer.
+</t>
+</section>
+
 <section anchor="timestamps-t" title="Timestamps (&quot;t&quot;)">
 <t>TJSON natively supports a timestamp type whose syntax is a subset of that
 provided by <xref target="RFC3339"/>. Specifically, TJSON timestamps MUST use only the
@@ -349,6 +359,12 @@ allow them.
 </t>
 </section>
 
+<section anchor="boolean-values-v" title="Boolean Values (&quot;v&quot;)">
+<t>Boolean values are identified by the &quot;v&quot; tag. Only the <spanx style="verb">true</spanx> and <spanx style="verb">false</spanx>
+values are allowed: <spanx style="verb">null</spanx> MUST be rejected with a parse error.
+</t>
+</section>
+
 <section anchor="arrays-a" title="Arrays (&quot;A&quot;)">
 <t>Arrays are a non-scalar and therefore use an upper case tag name as described
 in section 2.1.
@@ -357,8 +373,10 @@ in section 2.1.
 Non-scalars are parameterized by the types they contain, so fully identifying
 an array depends on its contents.
 </t>
-<t>Empty arrays do not have a corresponding inner type, in which case the inner
-type may be omitted from the type description.
+<t>Empty arrays do not require a corresponding inner type, in which case the inner
+type MAY be omitted from the type description. However, type parameters are
+mandatory unless the array is empty, and parsers MUST reject documents missing
+an inner type for non-empty arrays.
 </t>
 <t>The following is an example of a TJSON array containing integers:
 </t>
@@ -372,11 +390,54 @@ type may be omitted from the type description.
 <figure align="center"><artwork align="center">
 {"example:A&lt;A&lt;i&gt;&gt;:" [["1", "2"], ["3", "4"], ["5", "6"]]}
 </artwork></figure>
-<t>The following is an example of an empty array:
+<t>The following is an example of an empty array which omits its type parameter:
 </t>
 
 <figure align="center"><artwork align="center">
 {"example:A&lt;&gt;": []}
+</artwork></figure>
+<t>An empty array containing an inner type signature is also valid:
+</t>
+
+<figure align="center"><artwork align="center">
+{"example:A&lt;i&gt;": []}
+</artwork></figure>
+</section>
+
+<section anchor="sets-s" title="Sets (&quot;S&quot;)">
+<t>Sets are identified by the upper-case &quot;S&quot; tag and carry a type parameter like
+arrays. The associated value MUST use JSON array syntax.
+</t>
+<t>Unlike arrays, the members of sets MUST be unique. TJSON documents describing
+sets with duplicate members MUST be rejected by conforming parsers.
+</t>
+<t>Like empty arrays, the inner type definition for empty sets MAY be omitted from
+the type signature. A type paramater is mandatory for non-empty sets and MUST
+be included if the set has any members.
+</t>
+<t>The following is an example of a TJSON set of integers:
+</t>
+
+<figure align="center"><artwork align="center">
+{"example:S&lt;i&gt;: ["1", "2", "3"]}
+</artwork></figure>
+<t>Sets can contain arrays, and vice versa:
+</t>
+
+<figure align="center"><artwork align="center">
+{"example:S&lt;A&lt;i&gt;&gt;": [["1", "2"], ["3", "4"]]}
+</artwork></figure>
+<t>The following is an example of an empty set which omits its type parameter:
+</t>
+
+<figure align="center"><artwork align="center">
+{"example:S&lt;&gt;": []}
+</artwork></figure>
+<t>An empty set containing an inner type signature is also valid:
+</t>
+
+<figure align="center"><artwork align="center">
+{"example:S&lt;i&gt;": []}
 </artwork></figure>
 </section>
 
@@ -396,13 +457,6 @@ not need to be parameterized in type expressions.
 </artwork></figure>
 <t>Object member names MUST be unique in TJSON. Repeated use of the same
 name for more than one member MUST be rejected by TJSON parsers.
-</t>
-</section>
-
-<section anchor="floating-points" title="Floating Points">
-<t>All numeric literals which are not represented as tagged strings MUST be
-treated as floating points under TJSON. This is already the default behavior
-of many JSON libraries.
 </t>
 </section>
 </section>

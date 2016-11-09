@@ -389,9 +389,10 @@
 <link href="#rfc.section.3.3.1" rel="Chapter" title="3.3.1 Signed Integers (&quot;i&quot;)"/>
 <link href="#rfc.section.3.3.2" rel="Chapter" title="3.3.2 Unsigned Integers (&quot;u&quot;)"/>
 <link href="#rfc.section.3.4" rel="Chapter" title="3.4 Timestamps (&quot;t&quot;)"/>
-<link href="#rfc.section.3.5" rel="Chapter" title="3.5 Arrays"/>
-<link href="#rfc.section.3.6" rel="Chapter" title="3.6 Objects"/>
-<link href="#rfc.section.3.7" rel="Chapter" title="3.7 Floating Points"/>
+<link href="#rfc.section.3.5" rel="Chapter" title="3.5 Arrays (&quot;A&quot;)"/>
+<link href="#rfc.section.3.6" rel="Chapter" title="3.6 Sets (&quot;S&quot;)"/>
+<link href="#rfc.section.3.7" rel="Chapter" title="3.7 Objects (&quot;O&quot;)"/>
+<link href="#rfc.section.3.8" rel="Chapter" title="3.8 Floating Points"/>
 <link href="#rfc.references" rel="Chapter" title="4 Normative References"/>
 <link href="#rfc.authors" rel="Chapter"/>
 
@@ -473,9 +474,10 @@
 <ul><li>3.3.1.   <a href="#rfc.section.3.3.1">Signed Integers ("i")</a></li>
 <li>3.3.2.   <a href="#rfc.section.3.3.2">Unsigned Integers ("u")</a></li>
 </ul><li>3.4.   <a href="#rfc.section.3.4">Timestamps ("t")</a></li>
-<li>3.5.   <a href="#rfc.section.3.5">Arrays</a></li>
-<li>3.6.   <a href="#rfc.section.3.6">Objects</a></li>
-<li>3.7.   <a href="#rfc.section.3.7">Floating Points</a></li>
+<li>3.5.   <a href="#rfc.section.3.5">Arrays ("A")</a></li>
+<li>3.6.   <a href="#rfc.section.3.6">Sets ("S")</a></li>
+<li>3.7.   <a href="#rfc.section.3.7">Objects ("O")</a></li>
+<li>3.8.   <a href="#rfc.section.3.8">Floating Points</a></li>
 </ul><li>4.   <a href="#rfc.references">Normative References</a></li>
 <li><a href="#rfc.authors">Authors' Addresses</a></li>
 
@@ -518,15 +520,15 @@
 <pre>
 &lt;member&gt; ::= &lt;tagged-string&gt; &lt;name-separator&gt; &lt;value&gt;
 
-&lt;tagged-string&gt; ::= '"' *&lt;char&gt; ':' &lt;tag&gt; '"'
+&lt;tagged-string&gt; ::= '"' &lt;char&gt;* ':' &lt;tag&gt; '"'
 
-&lt;tag&gt; ::= &lt;type-expression&gt; | &lt;scalar-tag&gt; | &lt;object-tag&gt;
+&lt;tag&gt; ::= &lt;object-tag&gt; | &lt;type-expression&gt; | &lt;scalar-tag&gt;
 
-&lt;type-expression&gt; ::= &lt;non-scalar-tag&gt; '&lt;' &lt;tag&gt; '&gt;'
+&lt;type-expression&gt; ::= &lt;non-scalar-tag&gt; '&lt;' &lt;tag&gt;? '&gt;'
 
-&lt;non-scalar-tag&gt; ::= &lt;alpha-upper&gt; *&lt;alphanumeric-lower&gt;
+&lt;non-scalar-tag&gt; ::= &lt;alpha-upper&gt; &lt;alphanumeric-lower&gt;*
 
-&lt;scalar-tag&gt; ::= &lt;alpha-lower&gt; *&lt;alphanumeric-lower&gt;
+&lt;scalar-tag&gt; ::= &lt;alpha-lower&gt; &lt;alphanumeric-lower&gt;*
 
 &lt;object-tag&gt; ::= 'O'
 
@@ -555,6 +557,8 @@
 </ul>
 
 <p> </p>
+<p id="rfc.section.2.1.p.6">Non-scalars are parameterized by an inner tag contained in '&lt;' '&gt;' characters, similar to the syntax used for generics in many programming languages.  Omitting the inner tag (e.g. "A&lt;&gt;") is allowed in cases where the corresponding non-scalar value is empty.  </p>
+<p id="rfc.section.2.1.p.7">The "object-tag" nonterminal has a special place in the grammar: as the sole carrier of type information objects are the only nonterminal which does not carry type information.  </p>
 <h1 id="rfc.section.2.2"><a href="#rfc.section.2.2">2.2.</a> <a href="#root-symbol" id="root-symbol">Root Symbol</a></h1>
 <p id="rfc.section.2.2.p.1">The root grammatical symbol of all TJSON documents is constrained to the "object" nonterminal as described in <a href="#RFC7159">[RFC7159]</a>: </p>
 <pre>
@@ -622,27 +626,56 @@
 {"example:t":"2016-10-02T07:31:51Z"}
 </pre>
 <p id="rfc.section.3.4.p.3">TJSON libraries SHOULD convert these timestamps to a native date/time type.  </p>
-<h1 id="rfc.section.3.5"><a href="#rfc.section.3.5">3.5.</a> <a href="#arrays" id="arrays">Arrays</a></h1>
+<h1 id="rfc.section.3.5"><a href="#rfc.section.3.5">3.5.</a> <a href="#arrays-a" id="arrays-a">Arrays ("A")</a></h1>
 <p id="rfc.section.3.5.p.1">Arrays are a non-scalar and therefore use an upper case tag name as described in section 2.1.  </p>
 <p id="rfc.section.3.5.p.2">The "A" tag, with an associated JSON array value, identifies a TJSON array.  Non-scalars are parameterized by the types they contain, so fully identifying an array depends on its contents.  </p>
-<p id="rfc.section.3.5.p.3">The following is an example of a TJSON array containing integers: </p>
+<p id="rfc.section.3.5.p.3">Empty arrays do not require a corresponding inner type, in which case the inner type MAY be omitted from the type description. However, type parameters are mandatory unless the array is empty, and parsers MUST reject documents missing an inner type for non-empty arrays.  </p>
+<p id="rfc.section.3.5.p.4">The following is an example of a TJSON array containing integers: </p>
 <pre>
 {"example:A&lt;i&gt;": ["1", "2", "3"]}
 </pre>
-<p id="rfc.section.3.5.p.4">The following is an example of a two dimensional array containing integers: </p>
+<p id="rfc.section.3.5.p.5">The following is an example of a two dimensional array containing integers: </p>
 <pre>
 {"example:A&lt;A&lt;i&gt;&gt;:" [["1", "2"], ["3", "4"], ["5", "6"]]}
 </pre>
-<h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#objects" id="objects">Objects</a></h1>
-<p id="rfc.section.3.6.p.1">Type information MUST be present in all object member names (i.e. all member names must be tagged). Parsers MUST reject objects with untagged members.  </p>
-<p id="rfc.section.3.6.p.2">When embedded within another non-scalar type such as an array, objects are identified by the tag "O". Objects self-identify their types, so do not need to be parameterized in type expressions.  </p>
-<p id="rfc.section.3.6.p.3">The following is an example of an array of objects: </p>
+<p id="rfc.section.3.5.p.6">The following is an example of an empty array which omits its type parameter: </p>
+<pre>
+{"example:A&lt;&gt;": []}
+</pre>
+<p id="rfc.section.3.5.p.7">An empty array containing an inner type signature is also valid: </p>
+<pre>
+{"example:A&lt;i&gt;": []}
+</pre>
+<h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#sets-s" id="sets-s">Sets ("S")</a></h1>
+<p id="rfc.section.3.6.p.1">Sets are identified by the upper-case "S" tag and carry a type parameter like arrays. The associated value MUST use JSON array syntax.  </p>
+<p id="rfc.section.3.6.p.2">Unlike arrays, the members of sets MUST be unique. TJSON documents describing sets with duplicate members MUST be rejected by conforming parsers.  </p>
+<p id="rfc.section.3.6.p.3">Like empty arrays, the inner type definition for empty sets MAY be omitted from the type signature. A type paramater is mandatory for non-empty sets and MUST be included if the set has any members.  </p>
+<p id="rfc.section.3.6.p.4">The following is an example of a TJSON set of integers: </p>
+<pre>
+{"example:S&lt;i&gt;: ["1", "2", "3"]}
+</pre>
+<p id="rfc.section.3.6.p.5">Sets can contain arrays, and vice versa: </p>
+<pre>
+{"example:S&lt;A&lt;i&gt;&gt;": [["1", "2"], ["3", "4"]]}
+</pre>
+<p id="rfc.section.3.6.p.6">The following is an example of an empty set which omits its type parameter: </p>
+<pre>
+{"example:S&lt;&gt;": []}
+</pre>
+<p id="rfc.section.3.6.p.7">An empty set containing an inner type signature is also valid: </p>
+<pre>
+{"example:S&lt;i&gt;": []}
+</pre>
+<h1 id="rfc.section.3.7"><a href="#rfc.section.3.7">3.7.</a> <a href="#objects-o" id="objects-o">Objects ("O")</a></h1>
+<p id="rfc.section.3.7.p.1">Type information MUST be present in all object member names (i.e. all member names must be tagged). Parsers MUST reject objects with untagged members.  </p>
+<p id="rfc.section.3.7.p.2">When embedded within another non-scalar type such as an array, objects are identified by the tag "O". Objects self-identify their types, so do not need to be parameterized in type expressions.  </p>
+<p id="rfc.section.3.7.p.3">The following is an example of an array of objects: </p>
 <pre>
 {"example:A&lt;O&gt;": [{"a:i": "1"}, {"b:i": "2"}]}
 </pre>
-<p id="rfc.section.3.6.p.4">Object member names MUST be unique in TJSON. Repeated use of the same name for more than one member MUST be rejected by TJSON parsers.  </p>
-<h1 id="rfc.section.3.7"><a href="#rfc.section.3.7">3.7.</a> <a href="#floating-points" id="floating-points">Floating Points</a></h1>
-<p id="rfc.section.3.7.p.1">All numeric literals which are not represented as tagged strings MUST be treated as floating points under TJSON. This is already the default behavior of many JSON libraries.  </p>
+<p id="rfc.section.3.7.p.4">Object member names MUST be unique in TJSON. Repeated use of the same name for more than one member MUST be rejected by TJSON parsers.  </p>
+<h1 id="rfc.section.3.8"><a href="#rfc.section.3.8">3.8.</a> <a href="#floating-points" id="floating-points">Floating Points</a></h1>
+<p id="rfc.section.3.8.p.1">All numeric literals which are not represented as tagged strings MUST be treated as floating points under TJSON. This is already the default behavior of many JSON libraries.  </p>
 <h1 id="rfc.references"><a href="#rfc.references">4.</a> Normative References</h1>
 <table>
   <tbody>

@@ -15,6 +15,8 @@ namespace :generate do
   task all: %w(xml txt)
 end
 
+task generate: %(generate:all)
+
 namespace :examples do
   task :verify do
     require "toml"
