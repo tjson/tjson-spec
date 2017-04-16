@@ -5,7 +5,7 @@
 Network Working Group                                         T. Arcieri
 Internet-Draft
 Intended status: Informational                                 B. Laurie
-Expires: May 7, 2017                                    November 3, 2016
+Expires: October 17, 2017                                 April 15, 2017
 
 
    Tagged JavaScript Object Notation (TJSON) Data Interchange Format
@@ -34,11 +34,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 7, 2017.
+   This Internet-Draft will expire on October 17, 2017.
 
 Copyright Notice
 
-   Copyright (c) 2016 IETF Trust and the persons identified as the
+   Copyright (c) 2017 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Arcieri & Laurie           Expires May 7, 2017                  [Page 1]
+Arcieri & Laurie        Expires October 17, 2017                [Page 1]
 
-Internet-Draft        TJSON Data Interchange Format        November 2016
+Internet-Draft        TJSON Data Interchange Format           April 2017
 
 
 Table of Contents
@@ -74,12 +74,14 @@ Table of Contents
      3.3.  Integers  . . . . . . . . . . . . . . . . . . . . . . . .   7
        3.3.1.  Signed Integers ("i") . . . . . . . . . . . . . . . .   7
        3.3.2.  Unsigned Integers ("u") . . . . . . . . . . . . . . .   7
-     3.4.  Timestamps ("t")  . . . . . . . . . . . . . . . . . . . .   8
-     3.5.  Arrays ("A")  . . . . . . . . . . . . . . . . . . . . . .   8
-     3.6.  Objects ("O") . . . . . . . . . . . . . . . . . . . . . .   8
-     3.7.  Floating Points . . . . . . . . . . . . . . . . . . . . .   9
-   4.  Normative References  . . . . . . . . . . . . . . . . . . . .   9
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
+     3.4.  Floating Points ("f") . . . . . . . . . . . . . . . . . .   8
+     3.5.  Timestamps ("t")  . . . . . . . . . . . . . . . . . . . .   8
+     3.6.  Boolean Values ("v")  . . . . . . . . . . . . . . . . . .   8
+     3.7.  Arrays ("A")  . . . . . . . . . . . . . . . . . . . . . .   8
+     3.8.  Sets ("S")  . . . . . . . . . . . . . . . . . . . . . . .   9
+     3.9.  Objects ("O") . . . . . . . . . . . . . . . . . . . . . .  10
+   4.  Normative References  . . . . . . . . . . . . . . . . . . . .  10
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
 
 1.  Introduction
 
@@ -104,15 +106,15 @@ Table of Contents
 
    It supports two non-scalar types:
 
-   o  Objects
 
 
 
-
-Arcieri & Laurie           Expires May 7, 2017                  [Page 2]
+Arcieri & Laurie        Expires October 17, 2017                [Page 2]
 
-Internet-Draft        TJSON Data Interchange Format        November 2016
+Internet-Draft        TJSON Data Interchange Format           April 2017
 
+
+   o  Objects
 
    o  Arrays
 
@@ -163,11 +165,9 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
 
 
-
-
-Arcieri & Laurie           Expires May 7, 2017                  [Page 3]
+Arcieri & Laurie        Expires October 17, 2017                [Page 3]
 
-Internet-Draft        TJSON Data Interchange Format        November 2016
+Internet-Draft        TJSON Data Interchange Format           April 2017
 
 
    <member> ::= <tagged-string> <name-separator> <value>
@@ -221,9 +221,9 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
 
 
-Arcieri & Laurie           Expires May 7, 2017                  [Page 4]
+Arcieri & Laurie        Expires October 17, 2017                [Page 4]
 
-Internet-Draft        TJSON Data Interchange Format        November 2016
+Internet-Draft        TJSON Data Interchange Format           April 2017
 
 
    The "object-tag" nonterminal has a special place in the grammar: as
@@ -277,9 +277,9 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
 
 
-Arcieri & Laurie           Expires May 7, 2017                  [Page 5]
+Arcieri & Laurie        Expires October 17, 2017                [Page 5]
 
-Internet-Draft        TJSON Data Interchange Format        November 2016
+Internet-Draft        TJSON Data Interchange Format           April 2017
 
 
    The base16, base32, and base64url formats are mandatory to implement
@@ -333,9 +333,9 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
 
 
-Arcieri & Laurie           Expires May 7, 2017                  [Page 6]
+Arcieri & Laurie        Expires October 17, 2017                [Page 6]
 
-Internet-Draft        TJSON Data Interchange Format        November 2016
+Internet-Draft        TJSON Data Interchange Format           April 2017
 
 
    When serializing binary data as TJSON, encoders SHOULD use the "b"
@@ -389,15 +389,24 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
 
 
-Arcieri & Laurie           Expires May 7, 2017                  [Page 7]
+Arcieri & Laurie        Expires October 17, 2017                [Page 7]
 
-Internet-Draft        TJSON Data Interchange Format        November 2016
+Internet-Draft        TJSON Data Interchange Format           April 2017
 
 
    Conforming TJSON parsers MUST be capable of supporting the full
    64-bit unsigned integer range "[0, (2**64)-1]" for this type.
 
-3.4.  Timestamps ("t")
+3.4.  Floating Points ("f")
+
+   Floating points are identified by the "f" tag, with an associated
+   JSON float literal value.  Unlike integers, floating point values
+   should NOT be quoted strings, but should use the native JSON syntax.
+
+   Conforming TJSON parsers MUST ensure the resulting type of a parsed
+   floating point is actually a floating point, and not an integer.
+
+3.5.  Timestamps ("t")
 
    TJSON natively supports a timestamp type whose syntax is a subset of
    that provided by [RFC3339].  Specifically, TJSON timestamps MUST use
@@ -412,7 +421,13 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    TJSON libraries SHOULD convert these timestamps to a native date/time
    type.
 
-3.5.  Arrays ("A")
+3.6.  Boolean Values ("v")
+
+   Boolean values are identified by the "v" tag.  Only the "true" and
+   "false" values are allowed: "null" MUST be rejected with a parse
+   error.
+
+3.7.  Arrays ("A")
 
    Arrays are a non-scalar and therefore use an upper case tag name as
    described in section 2.1.
@@ -421,10 +436,19 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
    array.  Non-scalars are parameterized by the types they contain, so
    fully identifying an array depends on its contents.
 
-   Empty arrays do not have a corresponding inner type, in which case
-   the inner type may be omitted from the type description.
+   Empty arrays do not require a corresponding inner type, in which case
+   the inner type MAY be omitted from the type description.  However,
+   type parameters are mandatory unless the array is empty, and parsers
+   MUST reject documents missing an inner type for non-empty arrays.
 
    The following is an example of a TJSON array containing integers:
+
+
+
+Arcieri & Laurie        Expires October 17, 2017                [Page 8]
+
+Internet-Draft        TJSON Data Interchange Format           April 2017
+
 
                      {"example:A<i>": ["1", "2", "3"]}
 
@@ -433,22 +457,60 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
          {"example:A<A<i>>:" [["1", "2"], ["3", "4"], ["5", "6"]]}
 
-   The following is an example of an empty array:
+   The following is an example of an empty array which omits its type
+   parameter:
 
                             {"example:A<>": []}
 
-3.6.  Objects ("O")
+   An empty array containing an inner type signature is also valid:
+
+                           {"example:A<i>": []}
+
+3.8.  Sets ("S")
+
+   Sets are identified by the upper-case "S" tag and carry a type
+   parameter like arrays.  The associated value MUST use JSON array
+   syntax.
+
+   Unlike arrays, the members of sets MUST be unique.  TJSON documents
+   describing sets with duplicate members MUST be rejected by conforming
+   parsers.
+
+   Like empty arrays, the inner type definition for empty sets MAY be
+   omitted from the type signature.  A type paramater is mandatory for
+   non-empty sets and MUST be included if the set has any members.
+
+   The following is an example of a TJSON set of integers:
+
+                     {"example:S<i>: ["1", "2", "3"]}
+
+   Sets can contain arrays, and vice versa:
+
+               {"example:S<A<i>>": [["1", "2"], ["3", "4"]]}
+
+   The following is an example of an empty set which omits its type
+   parameter:
+
+                            {"example:S<>": []}
+
+   An empty set containing an inner type signature is also valid:
+
+                           {"example:S<i>": []}
+
+
+
+
+
+Arcieri & Laurie        Expires October 17, 2017                [Page 9]
+
+Internet-Draft        TJSON Data Interchange Format           April 2017
+
+
+3.9.  Objects ("O")
 
    Type information MUST be present in all object member names (i.e. all
    member names must be tagged).  Parsers MUST reject objects with
    untagged members.
-
-
-
-Arcieri & Laurie           Expires May 7, 2017                  [Page 8]
-
-Internet-Draft        TJSON Data Interchange Format        November 2016
-
 
    When embedded within another non-scalar type such as an array,
    objects are identified by the tag "O".  Objects self-identify their
@@ -460,12 +522,6 @@ Internet-Draft        TJSON Data Interchange Format        November 2016
 
    Object member names MUST be unique in TJSON.  Repeated use of the
    same name for more than one member MUST be rejected by TJSON parsers.
-
-3.7.  Floating Points
-
-   All numeric literals which are not represented as tagged strings MUST
-   be treated as floating points under TJSON.  This is already the
-   default behavior of many JSON libraries.
 
 4.  Normative References
 
@@ -501,4 +557,4 @@ Authors' Addresses
 
 
 
-Arcieri & Laurie           Expires May 7, 2017                  [Page 9]
+Arcieri & Laurie        Expires October 17, 2017               [Page 10]

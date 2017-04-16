@@ -1,7 +1,7 @@
 #
 # [DRAFT] Annotated TJSON examples intended for testing TJSON parsers
 #
-# Revision: 20 (bump this when making changes to this file)
+# Revision: 21 (bump this when making changes to this file)
 #
 # Syntax used in this file:
 #
@@ -23,13 +23,6 @@ description = "Objects are allowed as a toplevel value and can be empty"
 result = "success"
 
 {}
-
------
-name = "Invalid Toplevel Array"
-description = "Arrays are NOT allowed as a toplevel value"
-result = "error"
-
-[]
 
 -----
 name = "Object with UTF-8 String Key"
@@ -67,6 +60,13 @@ result = "error"
 {"example:i":"1","example:i":"1"}
 
 -----
+name = "Invalid Toplevel Array"
+description = "Arrays are NOT allowed as a toplevel value"
+result = "error"
+
+[]
+
+-----
 name = "Array of integers"
 description = "Arrays are parameterized by the types of their contents"
 result = "success"
@@ -82,7 +82,7 @@ result = "success"
 
 -----
 name = "Empty array"
-description = "Empty arrays do not need a type parameter"
+description = "Empty arrays are allowed to omit the type parameter"
 result = "success"
 
 {"example:A<>": []}
@@ -100,6 +100,62 @@ description = "Arrays can contain other arrays"
 result = "success"
 
 {"example:A<A<i>>": [["1", "2"], ["3", "4"], ["5", "6"]]}
+
+-----
+name = "Set of integers"
+description = "Sets are parameterized by the types of their contents"
+result = "success"
+
+{"example:S<i>": ["1", "2", "3"]}
+
+-----
+name = "Invalid set of integers with duplicate members"
+description = "The members of sets MUST be unique or the parser MUST reject the document"
+result = "error"
+
+{"example:S<i>": ["1", "1"]}
+
+-----
+name = "Set of objects"
+description = "Objects are the only allowed terminal non-scalar"
+result = "success"
+
+{"example:A<O>": [{"a:i": "1"}, {"b:i": "2"}]}
+
+-----
+name = "Invalid set of duplicate objects"
+description = "The members of sets MUST be unique or the parser MUST reject the document"
+result = "error"
+
+{"example:A<O>": [{"a:i": "1"}, {"a:i": "1"}]}
+
+-----
+name = "Empty set"
+description = "Empty sets are allowed to omit the type parameter"
+result = "success"
+
+{"example:S<>": []}
+
+-----
+name = "Set with missing type parameter"
+description = "Type parameters are mandatory for non-empty sets"
+result = "error"
+
+{"example:S<>": ["1", "2", "3"]}
+
+-----
+name = "Set containing arrays of integers"
+description = "Sets can contain arrays"
+result = "success"
+
+{"example:S<A<i>>": [["1", "2"], ["3", "4"], ["5", "6"]]}
+
+-----
+name = "Invalid set containing duplicate arrays"
+description = "Sets containing arrays must contain unique arrays"
+result = "error"
+
+{"example:S<A<i>>": [["1", "2"], ["1", "2"]]}
 
 -----
 name = "Base16 Binary Data"
