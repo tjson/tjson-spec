@@ -37,16 +37,17 @@ the format with additional types beyond those originally specified.
 TJSON supports six scalar types:
 
 * Strings
-* Binary Data
+* Binary data
 * Integers (signed/unsigned)
 * Floating points
 * Timestamps
-* JSON values (true/false/nil)
+* Boolean values (true/false only)
 
-It supports two non-scalar types:
+It supports three non-scalar types:
 
-* Objects
 * Arrays
+* Sets
+* Objects
 
 TJSON provides backwards-compatible self-describing type annotations to JSON
 in the form of postfix tags on object member names.
