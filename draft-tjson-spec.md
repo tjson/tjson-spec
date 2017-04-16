@@ -277,6 +277,11 @@ The following is an example of a TJSON timestamp:
 
 TJSON libraries SHOULD convert these timestamps to a native date/time type.
 
+## Boolean Values ("v")
+
+Boolean values are identified by the "v" tag. Only the `true` and `false`
+values are allowed: `null` MUST be rejected with a parse error.
+
 ## Arrays ("A")
 
 Arrays are a non-scalar and therefore use an upper case tag name as described
