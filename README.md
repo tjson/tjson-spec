@@ -20,7 +20,8 @@ IETF-style specification for TJSON authored using [mmark].
       "timestamp-example:t": "2016-11-06T22:27:34Z",
       "value-example:v": true
     }
-  ]
+  ],
+  "set-example:S<int>": [1, 2, 3]
 }
 ```
 
