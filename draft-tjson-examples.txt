@@ -270,3 +270,73 @@ result = "error"
 {"invalid:t":"This is not a valid timestamp"}
 
 -----
+name = "True Value"
+description = "True is allowed as a TJSON value"
+result = "success"
+
+{"example:v": true}
+
+-----
+name = "False Value"
+description = "False is allowed as a TJSON value"
+result = "success"
+
+{"example:v": false}
+
+-----
+name = "Null Value"
+description = "Null is disallowed as a TJSON value"
+result = "error"
+
+{"example:v": null}
+
+-----
+name = "Null Object"
+description = "Null is disallowed as a TJSON object"
+result = "error"
+
+{"example:O": null}
+
+-----
+name = "Null Array"
+description = "Null is disallowed as a TJSON array"
+result = "error"
+
+{"example:A<O>": [null]}
+
+-----
+name = "Null String"
+description = "Null is disallowed as a TJSON string"
+result = "error"
+
+{"example:s": null}
+
+-----
+name = "Null Binary"
+description = "Null is disallowed as a TJSON binary"
+result = "error"
+
+{"example:b": null}
+
+-----
+name = "Null Integer"
+description = "Null is disallowed as a TJSON integer"
+result = "error"
+
+{"example:i": null}
+
+-----
+name = "Null Unsigned"
+description = "Null is disallowed as a TJSON unsigned integer"
+result = "error"
+
+{"example:u": null}
+
+-----
+name = "Null Timestamp"
+description = "Null is disallowed as a TJSON timestamp"
+result = "error"
+
+{"example:t": null}
+
+-----
