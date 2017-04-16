@@ -249,6 +249,20 @@ result = "error"
 {"invalid:u":"This is not a valid integer"}
 
 -----
+name = "Floating Point"
+description = "A valid floating point"
+result = "success"
+
+{"float:f":1.23}
+
+-----
+name = "Invalid Quoted Floating Point"
+description = "Floating point values MUST NOT be quoted"
+result = "success"
+
+{"float:f":"1.23"}
+
+-----
 name = "Timestamp"
 description = "A valid RFC3339 timestamp example"
 result = "success"
@@ -264,7 +278,7 @@ result = "error"
 
 -----
 name = "Invalid Timestamp"
-description = "Garbage data after the timestamp tag should be rejected"
+description = "Garbage data after the timestamp tag MUST be rejected"
 result = "error"
 
 {"invalid:t":"This is not a valid timestamp"}
@@ -324,6 +338,13 @@ description = "Null is disallowed as a TJSON integer"
 result = "error"
 
 {"example:i": null}
+
+-----
+name = "Null Floating Point"
+description = "Null is disallowed as a TJSON floating point"
+result = "error"
+
+{"example:f": null}
 
 -----
 name = "Null Unsigned"
