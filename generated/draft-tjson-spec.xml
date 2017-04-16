@@ -71,19 +71,20 @@ the format with additional types beyond those originally specified.
 <t>
 <list style="symbols">
 <t>Strings</t>
-<t>Binary Data</t>
+<t>Binary data</t>
 <t>Integers (signed/unsigned)</t>
 <t>Floating points</t>
 <t>Timestamps</t>
-<t>JSON values (true/false/nil)</t>
+<t>Boolean values (true/false only)</t>
 </list>
 </t>
-<t>It supports two non-scalar types:
+<t>It supports three non-scalar types:
 </t>
 <t>
 <list style="symbols">
-<t>Objects</t>
 <t>Arrays</t>
+<t>Sets</t>
+<t>Objects</t>
 </list>
 </t>
 <t>TJSON provides backwards-compatible self-describing type annotations to JSON
