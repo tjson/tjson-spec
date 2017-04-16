@@ -12,7 +12,11 @@ namespace :generate do
     sh "xml2rfc --text generated/draft-tjson-spec.xml"
   end
 
-  task all: %w(xml txt)
+  task html: :xml do
+    sh "xml2rfc --html generated/draft-tjson-spec.xml"
+  end
+
+  task all: %w(xml txt html)
 end
 
 task generate: %(generate:all)
