@@ -263,6 +263,15 @@ parsers MUST reject documents containing it in an unsigned integer expression.
 Conforming TJSON parsers MUST be capable of supporting the full 64-bit unsigned
 integer range `[0, (2**64)−1]` for this type.
 
+## Floating Points ("f")
+
+Floating points are identified by the "f" tag, with an associated JSON float
+literal value. Unlike integers, floating point values should NOT be quoted
+strings, but should use the native JSON syntax.
+
+Conforming TJSON parsers MUST ensure the resulting type of a parsed floating
+point is actually a floating point, and not an integer.
+
 ## Timestamps ("t")
 
 TJSON natively supports a timestamp type whose syntax is a subset of that
@@ -323,11 +332,5 @@ The following is an example of an array of objects:
 
 Object member names MUST be unique in TJSON. Repeated use of the same
 name for more than one member MUST be rejected by TJSON parsers.
-
-## Floating Points
-
-All numeric literals which are not represented as tagged strings MUST be
-treated as floating points under TJSON. This is already the default behavior
-of many JSON libraries.
 
 {backmatter}
