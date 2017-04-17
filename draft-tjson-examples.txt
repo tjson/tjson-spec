@@ -314,7 +314,7 @@ result = "success"
 -----
 name = "Invalid Quoted Floating Point"
 description = "Floating point values MUST NOT be quoted"
-result = "success"
+result = "error"
 
 {"float:f":"1.23"}
 
