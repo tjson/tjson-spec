@@ -127,7 +127,7 @@ name = "Invalid set of duplicate objects"
 description = "The members of sets MUST be unique or the parser MUST reject the document"
 result = "error"
 
-{"example:A<O>": [{"a:i": "1"}, {"a:i": "1"}]}
+{"example:S<O>": [{"a:i": "1"}, {"a:i": "1"}]}
 
 -----
 name = "Empty set"
