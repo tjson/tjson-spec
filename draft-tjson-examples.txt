@@ -1,7 +1,7 @@
 #
 # [DRAFT] Annotated TJSON examples intended for testing TJSON parsers
 #
-# Revision: 21 (bump this when making changes to this file)
+# Revision: 22 (bump this when making changes to this file)
 #
 # Syntax used in this file:
 #
@@ -58,6 +58,13 @@ description = "Names of the members of objects must be distinct"
 result = "error"
 
 {"example:i":"1","example:i":"1"}
+
+-----
+name = "Invalid Object with Trailing Comma"
+description = "Trailing commas are explicitly allowed in JSON, let alone TJSON"
+result = "error"
+
+{"example1:i":"1","example2:i":"2",}
 
 -----
 name = "Invalid Toplevel Array"
