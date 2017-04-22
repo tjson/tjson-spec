@@ -21,7 +21,7 @@ IETF-style specification for TJSON authored using [mmark].
       "value-example:v": true
     }
   ],
-  "set-example:S<int>": [1, 2, 3]
+  "set-example:S<i>": [1, 2, 3]
 }
 ```
 
