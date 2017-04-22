@@ -161,23 +161,23 @@ The following is an example of a Unicode String literal in TJSON:
 
     {"example:s":"Hello, world!"}
 
-## Binary Data
+## Binary Data ("d")
 
 TJSON provides first-class support for binary data stored in multiple
 different encodings within a tagged string. Tags for binary data begin
-with the "b" character followed by an alphanumeric identifier for a
+with the "d" character followed by an alphanumeric identifier for a
 specific format.
 
-The preferred encoding is base64url ("b64"), which SHOULD be used by
+The preferred encoding is base64url ("d64"), which SHOULD be used by
 default unless another encoding is explicitly specified at serialization
 time.
 
 The base16, base32, and base64url formats are mandatory to implement for all
 TJSON parsers.
 
-### base16 ("b16")
+### base16 ("d16")
 
-Base16 literals are identified by the "b16" tag, with an associated JSON
+Base16 literals are identified by the "d16" tag, with an associated JSON
 JSON string literal value containing base16-serialized binary data.
 
 The base16 format (a.k.a. hexadecimal) is described in [@!RFC4648]. All base16
@@ -185,14 +185,14 @@ strings in TJSON MUST be lower case.
 
 The following is an example of a base16 string literal in TJSON:
 
-    {"example:b16":"48656c6c6f2c20776f726c6421"}
+    {"example:d16":"48656c6c6f2c20776f726c6421"}
 
 This decodes to an object with an "example" key whose value is the equivalent
 of the ASCII string: "Hello, world!"
 
-### base32 ("b32")
+### base32 ("d32")
 
-Base32 literals are identified by the "b32" tag, with an associated JSON
+Base32 literals are identified by the "d32" tag, with an associated JSON
 JSON string literal value containing base32-serialized binary data.
 
 The base32 format is described in [@!RFC4648]. All base32 strings in TJSON
@@ -202,14 +202,14 @@ or padding.
 
 The following is an example of a base32 string literal in TJSON:
 
-    {"example:b32":"jbswy3dpfqqho33snrscc"}
+    {"example:d32":"jbswy3dpfqqho33snrscc"}
 
 This decodes to an object with an "example" key whose value is the equivalent
 of the ASCII string: "Hello, world!"
 
-### base64url ("b64")
+### base64url ("d64")
 
-Base64url literals are identified by the "b" or "b64" tags, with an
+Base64url literals are identified by the "d" or "d64" tags, with an
 associated JSON string literal value containing base64url-serialized binary
 data.
 
@@ -217,16 +217,16 @@ The base64url format is described in [@!RFC4648]. All base64url strings in
 TJSON MUST NOT include any padding with the '=' character. TJSON parsers MUST
 reject any documents containing padded base64url strings.
 
-When serializing binary data as TJSON, encoders SHOULD use the "b" tag to
+When serializing binary data as TJSON, encoders SHOULD use the "d" tag to
 indicate binary data unless another format has been explicitly specified.
 
 The following is an example of a base64url string literal in TJSON:
 
-    {"example:b64":"SGVsbG8sIHdvcmxkIQ"}
+    {"example:d64":"SGVsbG8sIHdvcmxkIQ"}
 
-The following is the same document using the shorter "b" tag:
+The following is the same document using the shorter "d" tag:
 
-    {"example:b":"SGVsbG8sIHdvcmxkIQ"}
+    {"example:d":"SGVsbG8sIHdvcmxkIQ"}
 
 This decodes to an object with an "example" key whose value is the equivalent
 of the ASCII string: "Hello, world!"

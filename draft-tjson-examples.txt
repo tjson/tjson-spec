@@ -1,7 +1,7 @@
 #
 # [DRAFT] Annotated TJSON examples intended for testing TJSON parsers
 #
-# Revision: 22 (bump this when making changes to this file)
+# Revision: 23 (bump this when making changes to this file)
 #
 # Syntax used in this file:
 #
@@ -169,77 +169,77 @@ name = "Base16 Binary Data"
 description = "Base16 data begins with the 'b16:' prefix"
 result = "success"
 
-{"example:b16":"48656c6c6f2c20776f726c6421"}
+{"example:d16":"48656c6c6f2c20776f726c6421"}
 
 -----
 name = "Invalid Base16 Binary Data with bad case"
 description = "Base16 data MUST be lower case"
 result = "error"
 
-{"example:b16":"48656C6C6F2C20776F726C6421"}
+{"example:d16":"48656C6C6F2C20776F726C6421"}
 
 -----
 name = "Invalid Base16 Binary Data"
 description = "Base16 data must be valid hexadecimal"
 result = "error"
 
-{"example:b16":"This is not a valid hexadecimal string"}
+{"example:d16":"This is not a valid hexadecimal string"}
 
 -----
 name = "Base32 Binary Data"
 description = "Base32 data begins with the 'b32:' prefix"
 result = "success"
 
-{"example:b32":"jbswy3dpfqqho33snrscc"}
+{"example:d32":"jbswy3dpfqqho33snrscc"}
 
 -----
 name = "Invalid Base32 Binary Data with bad case"
 description = "Base32 data MUST be lower case"
 result = "error"
 
-{"example:b32":"JBSWY3DPFQQHO33SNRSCC"}
+{"example:d32":"JBSWY3DPFQQHO33SNRSCC"}
 
 -----
 name = "Invalid Base32 Binary Data with padding"
 description = "Base64 data MUST NOT include padding"
 result = "error"
 
-{"example:b32":"jbswy3dpfqqho33snrscc==="}
+{"example:d32":"jbswy3dpfqqho33snrscc==="}
 
 -----
 name = "Invalid Base32 Binary Data"
 description = "Base32 data must be valid"
 result = "error"
 
-{"example:b32":"This is not a valid base32 string"}
+{"example:d32":"This is not a valid base32 string"}
 
 -----
 name = "Base64url Binary Data"
 description = "Base64 data begins with the 'b64:' prefix"
 result = "success"
 
-{"example:b64":"SGVsbG8sIHdvcmxkIQ"}
+{"example:d64":"SGVsbG8sIHdvcmxkIQ"}
 
 -----
 name = "Invalid Base64url Binary Data with padding"
 description = "Base64 data MUST NOT include padding"
 result = "error"
 
-{"example:b64":"SGVsbG8sIHdvcmxkIQ=="}
+{"example:d64":"SGVsbG8sIHdvcmxkIQ=="}
 
 -----
 name = "Invalid Base64url Binary Data with non-URL safe characters"
 description = "Traditional Base64 is expressly disallowed"
 result = "error"
 
-{"example:b64":"+/+/"}
+{"example:d64":"+/+/"}
 
 -----
 name = "Invalid Base64url Binary Data"
 description = "Garbage data MUST be rejected"
 result = "error"
 
-{"example:b64":"This is not a valid base64url string"}
+{"example:d64":"This is not a valid base64url string"}
 
 -----
 name = "Signed Integer"
@@ -389,11 +389,11 @@ result = "error"
 {"example:s": null}
 
 -----
-name = "Null Binary"
+name = "Null Binary Data"
 description = "Null is disallowed as a TJSON binary"
 result = "error"
 
-{"example:b": null}
+{"example:d": null}
 
 -----
 name = "Null Integer"
