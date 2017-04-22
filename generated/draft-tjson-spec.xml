@@ -360,10 +360,16 @@ allow them.
 </t>
 </section>
 
-<section anchor="boolean-values-v" title="Boolean Values (&quot;v&quot;)">
-<t>Boolean values are identified by the &quot;v&quot; tag. Only the <spanx style="verb">true</spanx> and <spanx style="verb">false</spanx>
+<section anchor="boolean-values-b" title="Boolean Values (&quot;b&quot;)">
+<t>Boolean values are identified by the &quot;b&quot; tag. Only the <spanx style="verb">true</spanx> and <spanx style="verb">false</spanx>
 values are allowed: <spanx style="verb">null</spanx> MUST be rejected with a parse error.
 </t>
+<t>The following is an example of a TJSON boolean:
+</t>
+
+<figure align="center"><artwork align="center">
+{"example:b": true}
+</artwork></figure>
 </section>
 
 <section anchor="arrays-a" title="Arrays (&quot;A&quot;)">

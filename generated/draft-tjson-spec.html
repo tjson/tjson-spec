@@ -390,7 +390,7 @@
 <link href="#rfc.section.3.3.2" rel="Chapter" title="3.3.2 Unsigned Integers (&quot;u&quot;)"/>
 <link href="#rfc.section.3.4" rel="Chapter" title="3.4 Floating Points (&quot;f&quot;)"/>
 <link href="#rfc.section.3.5" rel="Chapter" title="3.5 Timestamps (&quot;t&quot;)"/>
-<link href="#rfc.section.3.6" rel="Chapter" title="3.6 Boolean Values (&quot;v&quot;)"/>
+<link href="#rfc.section.3.6" rel="Chapter" title="3.6 Boolean Values (&quot;b&quot;)"/>
 <link href="#rfc.section.3.7" rel="Chapter" title="3.7 Arrays (&quot;A&quot;)"/>
 <link href="#rfc.section.3.8" rel="Chapter" title="3.8 Sets (&quot;S&quot;)"/>
 <link href="#rfc.section.3.9" rel="Chapter" title="3.9 Objects (&quot;O&quot;)"/>
@@ -476,7 +476,7 @@
 <li>3.3.2.   <a href="#rfc.section.3.3.2">Unsigned Integers ("u")</a></li>
 </ul><li>3.4.   <a href="#rfc.section.3.4">Floating Points ("f")</a></li>
 <li>3.5.   <a href="#rfc.section.3.5">Timestamps ("t")</a></li>
-<li>3.6.   <a href="#rfc.section.3.6">Boolean Values ("v")</a></li>
+<li>3.6.   <a href="#rfc.section.3.6">Boolean Values ("b")</a></li>
 <li>3.7.   <a href="#rfc.section.3.7">Arrays ("A")</a></li>
 <li>3.8.   <a href="#rfc.section.3.8">Sets ("S")</a></li>
 <li>3.9.   <a href="#rfc.section.3.9">Objects ("O")</a></li>
@@ -632,8 +632,12 @@
 {"example:t":"2016-10-02T07:31:51Z"}
 </pre>
 <p id="rfc.section.3.5.p.3">TJSON libraries SHOULD convert these timestamps to a native date/time type.  </p>
-<h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#boolean-values-v" id="boolean-values-v">Boolean Values ("v")</a></h1>
-<p id="rfc.section.3.6.p.1">Boolean values are identified by the "v" tag. Only the <samp>true</samp> and <samp>false</samp> values are allowed: <samp>null</samp> MUST be rejected with a parse error.  </p>
+<h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#boolean-values-b" id="boolean-values-b">Boolean Values ("b")</a></h1>
+<p id="rfc.section.3.6.p.1">Boolean values are identified by the "b" tag. Only the <samp>true</samp> and <samp>false</samp> values are allowed: <samp>null</samp> MUST be rejected with a parse error.  </p>
+<p id="rfc.section.3.6.p.2">The following is an example of a TJSON boolean: </p>
+<pre>
+{"example:b": true}
+</pre>
 <h1 id="rfc.section.3.7"><a href="#rfc.section.3.7">3.7.</a> <a href="#arrays-a" id="arrays-a">Arrays ("A")</a></h1>
 <p id="rfc.section.3.7.p.1">Arrays are a non-scalar and therefore use an upper case tag name as described in section 2.1.  </p>
 <p id="rfc.section.3.7.p.2">The "A" tag, with an associated JSON array value, identifies a TJSON array.  Non-scalars are parameterized by the types they contain, so fully identifying an array depends on its contents.  </p>

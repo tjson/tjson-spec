@@ -1,7 +1,7 @@
 #
 # [DRAFT] Annotated TJSON examples intended for testing TJSON parsers
 #
-# Revision: 23 (bump this when making changes to this file)
+# Revision: 24 (bump this when making changes to this file)
 #
 # Syntax used in this file:
 #
@@ -347,25 +347,25 @@ result = "error"
 {"invalid:t":"This is not a valid timestamp"}
 
 -----
-name = "True Value"
+name = "True Boolean Value"
 description = "True is allowed as a TJSON value"
 result = "success"
 
-{"example:v": true}
+{"example:b": true}
 
 -----
-name = "False Value"
+name = "False Boolean Value"
 description = "False is allowed as a TJSON value"
 result = "success"
 
-{"example:v": false}
+{"example:b": false}
 
 -----
-name = "Null Value"
+name = "Null Boolean Value"
 description = "Null is disallowed as a TJSON value"
 result = "error"
 
-{"example:v": null}
+{"example:b": null}
 
 -----
 name = "Null Object"

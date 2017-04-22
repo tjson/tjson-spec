@@ -287,10 +287,14 @@ The following is an example of a TJSON timestamp:
 
 TJSON libraries SHOULD convert these timestamps to a native date/time type.
 
-## Boolean Values ("v")
+## Boolean Values ("b")
 
-Boolean values are identified by the "v" tag. Only the `true` and `false`
+Boolean values are identified by the "b" tag. Only the `true` and `false`
 values are allowed: `null` MUST be rejected with a parse error.
+
+The following is an example of a TJSON boolean:
+
+    {"example:b": true}
 
 ## Arrays ("A")
 

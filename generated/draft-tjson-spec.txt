@@ -76,12 +76,12 @@ Table of Contents
        3.3.2.  Unsigned Integers ("u") . . . . . . . . . . . . . . .   7
      3.4.  Floating Points ("f") . . . . . . . . . . . . . . . . . .   8
      3.5.  Timestamps ("t")  . . . . . . . . . . . . . . . . . . . .   8
-     3.6.  Boolean Values ("v")  . . . . . . . . . . . . . . . . . .   8
+     3.6.  Boolean Values ("b")  . . . . . . . . . . . . . . . . . .   8
      3.7.  Arrays ("A")  . . . . . . . . . . . . . . . . . . . . . .   8
      3.8.  Sets ("S")  . . . . . . . . . . . . . . . . . . . . . . .   9
      3.9.  Objects ("O") . . . . . . . . . . . . . . . . . . . . . .  10
    4.  Normative References  . . . . . . . . . . . . . . . . . . . .  10
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
 
 1.  Introduction
 
@@ -421,11 +421,15 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
    TJSON libraries SHOULD convert these timestamps to a native date/time
    type.
 
-3.6.  Boolean Values ("v")
+3.6.  Boolean Values ("b")
 
-   Boolean values are identified by the "v" tag.  Only the "true" and
+   Boolean values are identified by the "b" tag.  Only the "true" and
    "false" values are allowed: "null" MUST be rejected with a parse
    error.
+
+   The following is an example of a TJSON boolean:
+
+                            {"example:b": true}
 
 3.7.  Arrays ("A")
 
@@ -438,10 +442,6 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
 
    Empty arrays do not require a corresponding inner type, in which case
    the inner type MAY be omitted from the type description.  However,
-   type parameters are mandatory unless the array is empty, and parsers
-   MUST reject documents missing an inner type for non-empty arrays.
-
-   The following is an example of a TJSON array containing integers:
 
 
 
@@ -449,6 +449,11 @@ Arcieri & Laurie        Expires October 17, 2017                [Page 8]
 
 Internet-Draft        TJSON Data Interchange Format           April 2017
 
+
+   type parameters are mandatory unless the array is empty, and parsers
+   MUST reject documents missing an inner type for non-empty arrays.
+
+   The following is an example of a TJSON array containing integers:
 
                      {"example:A<i>": ["1", "2", "3"]}
 
@@ -493,11 +498,6 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
 
                             {"example:S<>": []}
 
-   An empty set containing an inner type signature is also valid:
-
-                           {"example:S<i>": []}
-
-
 
 
 
@@ -505,6 +505,10 @@ Arcieri & Laurie        Expires October 17, 2017                [Page 9]
 
 Internet-Draft        TJSON Data Interchange Format           April 2017
 
+
+   An empty set containing an inner type signature is also valid:
+
+                           {"example:S<i>": []}
 
 3.9.  Objects ("O")
 
@@ -546,6 +550,18 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
               Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
               2014, <http://www.rfc-editor.org/info/rfc7159>.
 
+
+
+
+
+
+
+
+Arcieri & Laurie        Expires October 17, 2017               [Page 10]
+
+Internet-Draft        TJSON Data Interchange Format           April 2017
+
+
 Authors' Addresses
 
    Tony Arcieri
@@ -557,4 +573,44 @@ Authors' Addresses
 
 
 
-Arcieri & Laurie        Expires October 17, 2017               [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Arcieri & Laurie        Expires October 17, 2017               [Page 11]
