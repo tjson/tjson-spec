@@ -67,21 +67,21 @@ Table of Contents
      2.2.  Root Symbol . . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Extended Types  . . . . . . . . . . . . . . . . . . . . . . .   5
      3.1.  Unicode Strings ("s") . . . . . . . . . . . . . . . . . .   5
-     3.2.  Binary Data . . . . . . . . . . . . . . . . . . . . . . .   5
-       3.2.1.  base16 ("b16")  . . . . . . . . . . . . . . . . . . .   6
-       3.2.2.  base32 ("b32")  . . . . . . . . . . . . . . . . . . .   6
-       3.2.3.  base64url ("b64") . . . . . . . . . . . . . . . . . .   6
+     3.2.  Binary Data ("d") . . . . . . . . . . . . . . . . . . . .   5
+       3.2.1.  base16 ("d16")  . . . . . . . . . . . . . . . . . . .   6
+       3.2.2.  base32 ("d32")  . . . . . . . . . . . . . . . . . . .   6
+       3.2.3.  base64url ("d64") . . . . . . . . . . . . . . . . . .   6
      3.3.  Integers  . . . . . . . . . . . . . . . . . . . . . . . .   7
        3.3.1.  Signed Integers ("i") . . . . . . . . . . . . . . . .   7
        3.3.2.  Unsigned Integers ("u") . . . . . . . . . . . . . . .   7
      3.4.  Floating Points ("f") . . . . . . . . . . . . . . . . . .   8
      3.5.  Timestamps ("t")  . . . . . . . . . . . . . . . . . . . .   8
-     3.6.  Boolean Values ("v")  . . . . . . . . . . . . . . . . . .   8
+     3.6.  Boolean Values ("b")  . . . . . . . . . . . . . . . . . .   8
      3.7.  Arrays ("A")  . . . . . . . . . . . . . . . . . . . . . .   8
      3.8.  Sets ("S")  . . . . . . . . . . . . . . . . . . . . . . .   9
      3.9.  Objects ("O") . . . . . . . . . . . . . . . . . . . . . .  10
    4.  Normative References  . . . . . . . . . . . . . . . . . . . .  10
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
 
 1.  Introduction
 
@@ -262,14 +262,14 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
 
                        {"example:s":"Hello, world!"}
 
-3.2.  Binary Data
+3.2.  Binary Data ("d")
 
    TJSON provides first-class support for binary data stored in multiple
    different encodings within a tagged string.  Tags for binary data
-   begin with the "b" character followed by an alphanumeric identifier
+   begin with the "d" character followed by an alphanumeric identifier
    for a specific format.
 
-   The preferred encoding is base64url ("b64"), which SHOULD be used by
+   The preferred encoding is base64url ("d64"), which SHOULD be used by
    default unless another encoding is explicitly specified at
    serialization time.
 
@@ -285,9 +285,9 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
    The base16, base32, and base64url formats are mandatory to implement
    for all TJSON parsers.
 
-3.2.1.  base16 ("b16")
+3.2.1.  base16 ("d16")
 
-   Base16 literals are identified by the "b16" tag, with an associated
+   Base16 literals are identified by the "d16" tag, with an associated
    JSON JSON string literal value containing base16-serialized binary
    data.
 
@@ -296,14 +296,14 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
 
    The following is an example of a base16 string literal in TJSON:
 
-               {"example:b16":"48656c6c6f2c20776f726c6421"}
+               {"example:d16":"48656c6c6f2c20776f726c6421"}
 
    This decodes to an object with an "example" key whose value is the
    equivalent of the ASCII string: "Hello, world!"
 
-3.2.2.  base32 ("b32")
+3.2.2.  base32 ("d32")
 
-   Base32 literals are identified by the "b32" tag, with an associated
+   Base32 literals are identified by the "d32" tag, with an associated
    JSON JSON string literal value containing base32-serialized binary
    data.
 
@@ -314,14 +314,14 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
 
    The following is an example of a base32 string literal in TJSON:
 
-                  {"example:b32":"jbswy3dpfqqho33snrscc"}
+                  {"example:d32":"jbswy3dpfqqho33snrscc"}
 
    This decodes to an object with an "example" key whose value is the
    equivalent of the ASCII string: "Hello, world!"
 
-3.2.3.  base64url ("b64")
+3.2.3.  base64url ("d64")
 
-   Base64url literals are identified by the "b" or "b64" tags, with an
+   Base64url literals are identified by the "d" or "d64" tags, with an
    associated JSON string literal value containing base64url-serialized
    binary data.
 
@@ -338,17 +338,17 @@ Arcieri & Laurie        Expires October 17, 2017                [Page 6]
 Internet-Draft        TJSON Data Interchange Format           April 2017
 
 
-   When serializing binary data as TJSON, encoders SHOULD use the "b"
+   When serializing binary data as TJSON, encoders SHOULD use the "d"
    tag to indicate binary data unless another format has been explicitly
    specified.
 
    The following is an example of a base64url string literal in TJSON:
 
-                   {"example:b64":"SGVsbG8sIHdvcmxkIQ"}
+                   {"example:d64":"SGVsbG8sIHdvcmxkIQ"}
 
-   The following is the same document using the shorter "b" tag:
+   The following is the same document using the shorter "d" tag:
 
-                    {"example:b":"SGVsbG8sIHdvcmxkIQ"}
+                    {"example:d":"SGVsbG8sIHdvcmxkIQ"}
 
    This decodes to an object with an "example" key whose value is the
    equivalent of the ASCII string: "Hello, world!"
@@ -421,11 +421,15 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
    TJSON libraries SHOULD convert these timestamps to a native date/time
    type.
 
-3.6.  Boolean Values ("v")
+3.6.  Boolean Values ("b")
 
-   Boolean values are identified by the "v" tag.  Only the "true" and
+   Boolean values are identified by the "b" tag.  Only the "true" and
    "false" values are allowed: "null" MUST be rejected with a parse
    error.
+
+   The following is an example of a TJSON boolean:
+
+                            {"example:b": true}
 
 3.7.  Arrays ("A")
 
@@ -438,10 +442,6 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
 
    Empty arrays do not require a corresponding inner type, in which case
    the inner type MAY be omitted from the type description.  However,
-   type parameters are mandatory unless the array is empty, and parsers
-   MUST reject documents missing an inner type for non-empty arrays.
-
-   The following is an example of a TJSON array containing integers:
 
 
 
@@ -449,6 +449,11 @@ Arcieri & Laurie        Expires October 17, 2017                [Page 8]
 
 Internet-Draft        TJSON Data Interchange Format           April 2017
 
+
+   type parameters are mandatory unless the array is empty, and parsers
+   MUST reject documents missing an inner type for non-empty arrays.
+
+   The following is an example of a TJSON array containing integers:
 
                      {"example:A<i>": ["1", "2", "3"]}
 
@@ -493,11 +498,6 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
 
                             {"example:S<>": []}
 
-   An empty set containing an inner type signature is also valid:
-
-                           {"example:S<i>": []}
-
-
 
 
 
@@ -505,6 +505,10 @@ Arcieri & Laurie        Expires October 17, 2017                [Page 9]
 
 Internet-Draft        TJSON Data Interchange Format           April 2017
 
+
+   An empty set containing an inner type signature is also valid:
+
+                           {"example:S<i>": []}
 
 3.9.  Objects ("O")
 
@@ -546,6 +550,18 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
               Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
               2014, <http://www.rfc-editor.org/info/rfc7159>.
 
+
+
+
+
+
+
+
+Arcieri & Laurie        Expires October 17, 2017               [Page 10]
+
+Internet-Draft        TJSON Data Interchange Format           April 2017
+
+
 Authors' Addresses
 
    Tony Arcieri
@@ -557,4 +573,44 @@ Authors' Addresses
 
 
 
-Arcieri & Laurie        Expires October 17, 2017               [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Arcieri & Laurie        Expires October 17, 2017               [Page 11]

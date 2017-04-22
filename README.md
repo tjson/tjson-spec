@@ -14,11 +14,11 @@ IETF-style specification for TJSON authored using [mmark].
   "array-example:A<O>": [
     {
       "string-example:s": "foobar",
-      "binary-example:b64": "QklOQVJZ",
+      "binary-data-example:d": "QklOQVJZ",
       "float-example:f": 0.42,
       "int-example:i": "42",
       "timestamp-example:t": "2016-11-06T22:27:34Z",
-      "value-example:v": true
+      "boolean-example:b": true
     }
   ],
   "set-example:S<i>": [1, 2, 3]

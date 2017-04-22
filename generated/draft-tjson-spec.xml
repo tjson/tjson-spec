@@ -215,13 +215,13 @@ No other Unicode encodings are valid for TJSON strings.
 </artwork></figure>
 </section>
 
-<section anchor="binary-data" title="Binary Data">
+<section anchor="binary-data-d" title="Binary Data (&quot;d&quot;)">
 <t>TJSON provides first-class support for binary data stored in multiple
 different encodings within a tagged string. Tags for binary data begin
-with the &quot;b&quot; character followed by an alphanumeric identifier for a
+with the &quot;d&quot; character followed by an alphanumeric identifier for a
 specific format.
 </t>
-<t>The preferred encoding is base64url (&quot;b64&quot;), which SHOULD be used by
+<t>The preferred encoding is base64url (&quot;d64&quot;), which SHOULD be used by
 default unless another encoding is explicitly specified at serialization
 time.
 </t>
@@ -229,8 +229,8 @@ time.
 TJSON parsers.
 </t>
 
-<section anchor="base16-b16" title="base16 (&quot;b16&quot;)">
-<t>Base16 literals are identified by the &quot;b16&quot; tag, with an associated JSON
+<section anchor="base16-d16" title="base16 (&quot;d16&quot;)">
+<t>Base16 literals are identified by the &quot;d16&quot; tag, with an associated JSON
 JSON string literal value containing base16-serialized binary data.
 </t>
 <t>The base16 format (a.k.a. hexadecimal) is described in <xref target="RFC4648"/>. All base16
@@ -240,15 +240,15 @@ strings in TJSON MUST be lower case.
 </t>
 
 <figure align="center"><artwork align="center">
-{"example:b16":"48656c6c6f2c20776f726c6421"}
+{"example:d16":"48656c6c6f2c20776f726c6421"}
 </artwork></figure>
 <t>This decodes to an object with an &quot;example&quot; key whose value is the equivalent
 of the ASCII string: &quot;Hello, world!&quot;
 </t>
 </section>
 
-<section anchor="base32-b32" title="base32 (&quot;b32&quot;)">
-<t>Base32 literals are identified by the &quot;b32&quot; tag, with an associated JSON
+<section anchor="base32-d32" title="base32 (&quot;d32&quot;)">
+<t>Base32 literals are identified by the &quot;d32&quot; tag, with an associated JSON
 JSON string literal value containing base32-serialized binary data.
 </t>
 <t>The base32 format is described in <xref target="RFC4648"/>. All base32 strings in TJSON
@@ -260,15 +260,15 @@ or padding.
 </t>
 
 <figure align="center"><artwork align="center">
-{"example:b32":"jbswy3dpfqqho33snrscc"}
+{"example:d32":"jbswy3dpfqqho33snrscc"}
 </artwork></figure>
 <t>This decodes to an object with an &quot;example&quot; key whose value is the equivalent
 of the ASCII string: &quot;Hello, world!&quot;
 </t>
 </section>
 
-<section anchor="base64url-b64" title="base64url (&quot;b64&quot;)">
-<t>Base64url literals are identified by the &quot;b&quot; or &quot;b64&quot; tags, with an
+<section anchor="base64url-d64" title="base64url (&quot;d64&quot;)">
+<t>Base64url literals are identified by the &quot;d&quot; or &quot;d64&quot; tags, with an
 associated JSON string literal value containing base64url-serialized binary
 data.
 </t>
@@ -276,20 +276,20 @@ data.
 TJSON MUST NOT include any padding with the '=' character. TJSON parsers MUST
 reject any documents containing padded base64url strings.
 </t>
-<t>When serializing binary data as TJSON, encoders SHOULD use the &quot;b&quot; tag to
+<t>When serializing binary data as TJSON, encoders SHOULD use the &quot;d&quot; tag to
 indicate binary data unless another format has been explicitly specified.
 </t>
 <t>The following is an example of a base64url string literal in TJSON:
 </t>
 
 <figure align="center"><artwork align="center">
-{"example:b64":"SGVsbG8sIHdvcmxkIQ"}
+{"example:d64":"SGVsbG8sIHdvcmxkIQ"}
 </artwork></figure>
-<t>The following is the same document using the shorter &quot;b&quot; tag:
+<t>The following is the same document using the shorter &quot;d&quot; tag:
 </t>
 
 <figure align="center"><artwork align="center">
-{"example:b":"SGVsbG8sIHdvcmxkIQ"}
+{"example:d":"SGVsbG8sIHdvcmxkIQ"}
 </artwork></figure>
 <t>This decodes to an object with an &quot;example&quot; key whose value is the equivalent
 of the ASCII string: &quot;Hello, world!&quot;
@@ -360,10 +360,16 @@ allow them.
 </t>
 </section>
 
-<section anchor="boolean-values-v" title="Boolean Values (&quot;v&quot;)">
-<t>Boolean values are identified by the &quot;v&quot; tag. Only the <spanx style="verb">true</spanx> and <spanx style="verb">false</spanx>
+<section anchor="boolean-values-b" title="Boolean Values (&quot;b&quot;)">
+<t>Boolean values are identified by the &quot;b&quot; tag. Only the <spanx style="verb">true</spanx> and <spanx style="verb">false</spanx>
 values are allowed: <spanx style="verb">null</spanx> MUST be rejected with a parse error.
 </t>
+<t>The following is an example of a TJSON boolean:
+</t>
+
+<figure align="center"><artwork align="center">
+{"example:b": true}
+</artwork></figure>
 </section>
 
 <section anchor="arrays-a" title="Arrays (&quot;A&quot;)">

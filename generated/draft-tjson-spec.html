@@ -381,16 +381,16 @@
 <link href="#rfc.section.2.2" rel="Chapter" title="2.2 Root Symbol"/>
 <link href="#rfc.section.3" rel="Chapter" title="3 Extended Types"/>
 <link href="#rfc.section.3.1" rel="Chapter" title="3.1 Unicode Strings (&quot;s&quot;)"/>
-<link href="#rfc.section.3.2" rel="Chapter" title="3.2 Binary Data"/>
-<link href="#rfc.section.3.2.1" rel="Chapter" title="3.2.1 base16 (&quot;b16&quot;)"/>
-<link href="#rfc.section.3.2.2" rel="Chapter" title="3.2.2 base32 (&quot;b32&quot;)"/>
-<link href="#rfc.section.3.2.3" rel="Chapter" title="3.2.3 base64url (&quot;b64&quot;)"/>
+<link href="#rfc.section.3.2" rel="Chapter" title="3.2 Binary Data (&quot;d&quot;)"/>
+<link href="#rfc.section.3.2.1" rel="Chapter" title="3.2.1 base16 (&quot;d16&quot;)"/>
+<link href="#rfc.section.3.2.2" rel="Chapter" title="3.2.2 base32 (&quot;d32&quot;)"/>
+<link href="#rfc.section.3.2.3" rel="Chapter" title="3.2.3 base64url (&quot;d64&quot;)"/>
 <link href="#rfc.section.3.3" rel="Chapter" title="3.3 Integers"/>
 <link href="#rfc.section.3.3.1" rel="Chapter" title="3.3.1 Signed Integers (&quot;i&quot;)"/>
 <link href="#rfc.section.3.3.2" rel="Chapter" title="3.3.2 Unsigned Integers (&quot;u&quot;)"/>
 <link href="#rfc.section.3.4" rel="Chapter" title="3.4 Floating Points (&quot;f&quot;)"/>
 <link href="#rfc.section.3.5" rel="Chapter" title="3.5 Timestamps (&quot;t&quot;)"/>
-<link href="#rfc.section.3.6" rel="Chapter" title="3.6 Boolean Values (&quot;v&quot;)"/>
+<link href="#rfc.section.3.6" rel="Chapter" title="3.6 Boolean Values (&quot;b&quot;)"/>
 <link href="#rfc.section.3.7" rel="Chapter" title="3.7 Arrays (&quot;A&quot;)"/>
 <link href="#rfc.section.3.8" rel="Chapter" title="3.8 Sets (&quot;S&quot;)"/>
 <link href="#rfc.section.3.9" rel="Chapter" title="3.9 Objects (&quot;O&quot;)"/>
@@ -467,16 +467,16 @@
 <li>2.2.   <a href="#rfc.section.2.2">Root Symbol</a></li>
 </ul><li>3.   <a href="#rfc.section.3">Extended Types</a></li>
 <ul><li>3.1.   <a href="#rfc.section.3.1">Unicode Strings ("s")</a></li>
-<li>3.2.   <a href="#rfc.section.3.2">Binary Data</a></li>
-<ul><li>3.2.1.   <a href="#rfc.section.3.2.1">base16 ("b16")</a></li>
-<li>3.2.2.   <a href="#rfc.section.3.2.2">base32 ("b32")</a></li>
-<li>3.2.3.   <a href="#rfc.section.3.2.3">base64url ("b64")</a></li>
+<li>3.2.   <a href="#rfc.section.3.2">Binary Data ("d")</a></li>
+<ul><li>3.2.1.   <a href="#rfc.section.3.2.1">base16 ("d16")</a></li>
+<li>3.2.2.   <a href="#rfc.section.3.2.2">base32 ("d32")</a></li>
+<li>3.2.3.   <a href="#rfc.section.3.2.3">base64url ("d64")</a></li>
 </ul><li>3.3.   <a href="#rfc.section.3.3">Integers</a></li>
 <ul><li>3.3.1.   <a href="#rfc.section.3.3.1">Signed Integers ("i")</a></li>
 <li>3.3.2.   <a href="#rfc.section.3.3.2">Unsigned Integers ("u")</a></li>
 </ul><li>3.4.   <a href="#rfc.section.3.4">Floating Points ("f")</a></li>
 <li>3.5.   <a href="#rfc.section.3.5">Timestamps ("t")</a></li>
-<li>3.6.   <a href="#rfc.section.3.6">Boolean Values ("v")</a></li>
+<li>3.6.   <a href="#rfc.section.3.6">Boolean Values ("b")</a></li>
 <li>3.7.   <a href="#rfc.section.3.7">Arrays ("A")</a></li>
 <li>3.8.   <a href="#rfc.section.3.8">Sets ("S")</a></li>
 <li>3.9.   <a href="#rfc.section.3.9">Objects ("O")</a></li>
@@ -578,37 +578,37 @@
 <pre>
 {"example:s":"Hello, world!"}
 </pre>
-<h1 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2.</a> <a href="#binary-data" id="binary-data">Binary Data</a></h1>
-<p id="rfc.section.3.2.p.1">TJSON provides first-class support for binary data stored in multiple different encodings within a tagged string. Tags for binary data begin with the "b" character followed by an alphanumeric identifier for a specific format.  </p>
-<p id="rfc.section.3.2.p.2">The preferred encoding is base64url ("b64"), which SHOULD be used by default unless another encoding is explicitly specified at serialization time.  </p>
+<h1 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2.</a> <a href="#binary-data-d" id="binary-data-d">Binary Data ("d")</a></h1>
+<p id="rfc.section.3.2.p.1">TJSON provides first-class support for binary data stored in multiple different encodings within a tagged string. Tags for binary data begin with the "d" character followed by an alphanumeric identifier for a specific format.  </p>
+<p id="rfc.section.3.2.p.2">The preferred encoding is base64url ("d64"), which SHOULD be used by default unless another encoding is explicitly specified at serialization time.  </p>
 <p id="rfc.section.3.2.p.3">The base16, base32, and base64url formats are mandatory to implement for all TJSON parsers.  </p>
-<h1 id="rfc.section.3.2.1"><a href="#rfc.section.3.2.1">3.2.1.</a> <a href="#base16-b16" id="base16-b16">base16 ("b16")</a></h1>
-<p id="rfc.section.3.2.1.p.1">Base16 literals are identified by the "b16" tag, with an associated JSON JSON string literal value containing base16-serialized binary data.  </p>
+<h1 id="rfc.section.3.2.1"><a href="#rfc.section.3.2.1">3.2.1.</a> <a href="#base16-d16" id="base16-d16">base16 ("d16")</a></h1>
+<p id="rfc.section.3.2.1.p.1">Base16 literals are identified by the "d16" tag, with an associated JSON JSON string literal value containing base16-serialized binary data.  </p>
 <p id="rfc.section.3.2.1.p.2">The base16 format (a.k.a. hexadecimal) is described in <a href="#RFC4648">[RFC4648]</a>. All base16 strings in TJSON MUST be lower case.  </p>
 <p id="rfc.section.3.2.1.p.3">The following is an example of a base16 string literal in TJSON: </p>
 <pre>
-{"example:b16":"48656c6c6f2c20776f726c6421"}
+{"example:d16":"48656c6c6f2c20776f726c6421"}
 </pre>
 <p id="rfc.section.3.2.1.p.4">This decodes to an object with an "example" key whose value is the equivalent of the ASCII string: "Hello, world!" </p>
-<h1 id="rfc.section.3.2.2"><a href="#rfc.section.3.2.2">3.2.2.</a> <a href="#base32-b32" id="base32-b32">base32 ("b32")</a></h1>
-<p id="rfc.section.3.2.2.p.1">Base32 literals are identified by the "b32" tag, with an associated JSON JSON string literal value containing base32-serialized binary data.  </p>
+<h1 id="rfc.section.3.2.2"><a href="#rfc.section.3.2.2">3.2.2.</a> <a href="#base32-d32" id="base32-d32">base32 ("d32")</a></h1>
+<p id="rfc.section.3.2.2.p.1">Base32 literals are identified by the "d32" tag, with an associated JSON JSON string literal value containing base32-serialized binary data.  </p>
 <p id="rfc.section.3.2.2.p.2">The base32 format is described in <a href="#RFC4648">[RFC4648]</a>. All base32 strings in TJSON MUST be lower case, and MUST NOT include any padding with the '=' character.  TJSON parsers MUST reject any documents containing upper case base32 characters or padding.  </p>
 <p id="rfc.section.3.2.2.p.3">The following is an example of a base32 string literal in TJSON: </p>
 <pre>
-{"example:b32":"jbswy3dpfqqho33snrscc"}
+{"example:d32":"jbswy3dpfqqho33snrscc"}
 </pre>
 <p id="rfc.section.3.2.2.p.4">This decodes to an object with an "example" key whose value is the equivalent of the ASCII string: "Hello, world!" </p>
-<h1 id="rfc.section.3.2.3"><a href="#rfc.section.3.2.3">3.2.3.</a> <a href="#base64url-b64" id="base64url-b64">base64url ("b64")</a></h1>
-<p id="rfc.section.3.2.3.p.1">Base64url literals are identified by the "b" or "b64" tags, with an associated JSON string literal value containing base64url-serialized binary data.  </p>
+<h1 id="rfc.section.3.2.3"><a href="#rfc.section.3.2.3">3.2.3.</a> <a href="#base64url-d64" id="base64url-d64">base64url ("d64")</a></h1>
+<p id="rfc.section.3.2.3.p.1">Base64url literals are identified by the "d" or "d64" tags, with an associated JSON string literal value containing base64url-serialized binary data.  </p>
 <p id="rfc.section.3.2.3.p.2">The base64url format is described in <a href="#RFC4648">[RFC4648]</a>. All base64url strings in TJSON MUST NOT include any padding with the '=' character. TJSON parsers MUST reject any documents containing padded base64url strings.  </p>
-<p id="rfc.section.3.2.3.p.3">When serializing binary data as TJSON, encoders SHOULD use the "b" tag to indicate binary data unless another format has been explicitly specified.  </p>
+<p id="rfc.section.3.2.3.p.3">When serializing binary data as TJSON, encoders SHOULD use the "d" tag to indicate binary data unless another format has been explicitly specified.  </p>
 <p id="rfc.section.3.2.3.p.4">The following is an example of a base64url string literal in TJSON: </p>
 <pre>
-{"example:b64":"SGVsbG8sIHdvcmxkIQ"}
+{"example:d64":"SGVsbG8sIHdvcmxkIQ"}
 </pre>
-<p id="rfc.section.3.2.3.p.5">The following is the same document using the shorter "b" tag: </p>
+<p id="rfc.section.3.2.3.p.5">The following is the same document using the shorter "d" tag: </p>
 <pre>
-{"example:b":"SGVsbG8sIHdvcmxkIQ"}
+{"example:d":"SGVsbG8sIHdvcmxkIQ"}
 </pre>
 <p id="rfc.section.3.2.3.p.6">This decodes to an object with an "example" key whose value is the equivalent of the ASCII string: "Hello, world!" </p>
 <p id="rfc.section.3.2.3.p.7">Only the base64url format is supported. The non-URL safe form of base64 is not supported and MUST be rejected by parsers.  </p>
@@ -632,8 +632,12 @@
 {"example:t":"2016-10-02T07:31:51Z"}
 </pre>
 <p id="rfc.section.3.5.p.3">TJSON libraries SHOULD convert these timestamps to a native date/time type.  </p>
-<h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#boolean-values-v" id="boolean-values-v">Boolean Values ("v")</a></h1>
-<p id="rfc.section.3.6.p.1">Boolean values are identified by the "v" tag. Only the <samp>true</samp> and <samp>false</samp> values are allowed: <samp>null</samp> MUST be rejected with a parse error.  </p>
+<h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#boolean-values-b" id="boolean-values-b">Boolean Values ("b")</a></h1>
+<p id="rfc.section.3.6.p.1">Boolean values are identified by the "b" tag. Only the <samp>true</samp> and <samp>false</samp> values are allowed: <samp>null</samp> MUST be rejected with a parse error.  </p>
+<p id="rfc.section.3.6.p.2">The following is an example of a TJSON boolean: </p>
+<pre>
+{"example:b": true}
+</pre>
 <h1 id="rfc.section.3.7"><a href="#rfc.section.3.7">3.7.</a> <a href="#arrays-a" id="arrays-a">Arrays ("A")</a></h1>
 <p id="rfc.section.3.7.p.1">Arrays are a non-scalar and therefore use an upper case tag name as described in section 2.1.  </p>
 <p id="rfc.section.3.7.p.2">The "A" tag, with an associated JSON array value, identifies a TJSON array.  Non-scalars are parameterized by the types they contain, so fully identifying an array depends on its contents.  </p>
