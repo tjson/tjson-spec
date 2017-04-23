@@ -380,20 +380,20 @@
 <link href="#rfc.section.2.1" rel="Chapter" title="2.1 String Grammar"/>
 <link href="#rfc.section.2.2" rel="Chapter" title="2.2 Root Symbol"/>
 <link href="#rfc.section.3" rel="Chapter" title="3 Extended Types"/>
-<link href="#rfc.section.3.1" rel="Chapter" title="3.1 Unicode Strings (&quot;s&quot;)"/>
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 Boolean Values (&quot;b&quot;)"/>
 <link href="#rfc.section.3.2" rel="Chapter" title="3.2 Binary Data (&quot;d&quot;)"/>
 <link href="#rfc.section.3.2.1" rel="Chapter" title="3.2.1 base16 (&quot;d16&quot;)"/>
 <link href="#rfc.section.3.2.2" rel="Chapter" title="3.2.2 base32 (&quot;d32&quot;)"/>
 <link href="#rfc.section.3.2.3" rel="Chapter" title="3.2.3 base64url (&quot;d64&quot;)"/>
-<link href="#rfc.section.3.3" rel="Chapter" title="3.3 Integers"/>
-<link href="#rfc.section.3.3.1" rel="Chapter" title="3.3.1 Signed Integers (&quot;i&quot;)"/>
-<link href="#rfc.section.3.3.2" rel="Chapter" title="3.3.2 Unsigned Integers (&quot;u&quot;)"/>
-<link href="#rfc.section.3.4" rel="Chapter" title="3.4 Floating Points (&quot;f&quot;)"/>
-<link href="#rfc.section.3.5" rel="Chapter" title="3.5 Timestamps (&quot;t&quot;)"/>
-<link href="#rfc.section.3.6" rel="Chapter" title="3.6 Boolean Values (&quot;b&quot;)"/>
+<link href="#rfc.section.3.3" rel="Chapter" title="3.3 Floating Points (&quot;f&quot;)"/>
+<link href="#rfc.section.3.4" rel="Chapter" title="3.4 Integers"/>
+<link href="#rfc.section.3.4.1" rel="Chapter" title="3.4.1 Signed Integers (&quot;i&quot;)"/>
+<link href="#rfc.section.3.4.2" rel="Chapter" title="3.4.2 Unsigned Integers (&quot;u&quot;)"/>
+<link href="#rfc.section.3.5" rel="Chapter" title="3.5 Unicode Strings (&quot;s&quot;)"/>
+<link href="#rfc.section.3.6" rel="Chapter" title="3.6 Timestamps (&quot;t&quot;)"/>
 <link href="#rfc.section.3.7" rel="Chapter" title="3.7 Arrays (&quot;A&quot;)"/>
-<link href="#rfc.section.3.8" rel="Chapter" title="3.8 Sets (&quot;S&quot;)"/>
-<link href="#rfc.section.3.9" rel="Chapter" title="3.9 Objects (&quot;O&quot;)"/>
+<link href="#rfc.section.3.8" rel="Chapter" title="3.8 Objects (&quot;O&quot;)"/>
+<link href="#rfc.section.3.9" rel="Chapter" title="3.9 Sets (&quot;S&quot;)"/>
 <link href="#rfc.references" rel="Chapter" title="4 Normative References"/>
 <link href="#rfc.authors" rel="Chapter"/>
 
@@ -466,20 +466,20 @@
 <ul><li>2.1.   <a href="#rfc.section.2.1">String Grammar</a></li>
 <li>2.2.   <a href="#rfc.section.2.2">Root Symbol</a></li>
 </ul><li>3.   <a href="#rfc.section.3">Extended Types</a></li>
-<ul><li>3.1.   <a href="#rfc.section.3.1">Unicode Strings ("s")</a></li>
+<ul><li>3.1.   <a href="#rfc.section.3.1">Boolean Values ("b")</a></li>
 <li>3.2.   <a href="#rfc.section.3.2">Binary Data ("d")</a></li>
 <ul><li>3.2.1.   <a href="#rfc.section.3.2.1">base16 ("d16")</a></li>
 <li>3.2.2.   <a href="#rfc.section.3.2.2">base32 ("d32")</a></li>
 <li>3.2.3.   <a href="#rfc.section.3.2.3">base64url ("d64")</a></li>
-</ul><li>3.3.   <a href="#rfc.section.3.3">Integers</a></li>
-<ul><li>3.3.1.   <a href="#rfc.section.3.3.1">Signed Integers ("i")</a></li>
-<li>3.3.2.   <a href="#rfc.section.3.3.2">Unsigned Integers ("u")</a></li>
-</ul><li>3.4.   <a href="#rfc.section.3.4">Floating Points ("f")</a></li>
-<li>3.5.   <a href="#rfc.section.3.5">Timestamps ("t")</a></li>
-<li>3.6.   <a href="#rfc.section.3.6">Boolean Values ("b")</a></li>
+</ul><li>3.3.   <a href="#rfc.section.3.3">Floating Points ("f")</a></li>
+<li>3.4.   <a href="#rfc.section.3.4">Integers</a></li>
+<ul><li>3.4.1.   <a href="#rfc.section.3.4.1">Signed Integers ("i")</a></li>
+<li>3.4.2.   <a href="#rfc.section.3.4.2">Unsigned Integers ("u")</a></li>
+</ul><li>3.5.   <a href="#rfc.section.3.5">Unicode Strings ("s")</a></li>
+<li>3.6.   <a href="#rfc.section.3.6">Timestamps ("t")</a></li>
 <li>3.7.   <a href="#rfc.section.3.7">Arrays ("A")</a></li>
-<li>3.8.   <a href="#rfc.section.3.8">Sets ("S")</a></li>
-<li>3.9.   <a href="#rfc.section.3.9">Objects ("O")</a></li>
+<li>3.8.   <a href="#rfc.section.3.8">Objects ("O")</a></li>
+<li>3.9.   <a href="#rfc.section.3.9">Sets ("S")</a></li>
 </ul><li>4.   <a href="#rfc.references">Normative References</a></li>
 <li><a href="#rfc.authors">Authors' Addresses</a></li>
 
@@ -571,12 +571,11 @@
 <p id="rfc.section.2.2.p.3">Documents which do not contain an object as the top-level element MUST be rejected by parsers.  </p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#extended-types" id="extended-types">Extended Types</a></h1>
 <p id="rfc.section.3.p.1">The following section describes the extended types added to TJSON by embedding them in string literals as described in section 2.1 of this document.  </p>
-<h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#unicode-strings-s" id="unicode-strings-s">Unicode Strings ("s")</a></h1>
-<p id="rfc.section.3.1.p.1">The syntax for TJSON strings is grammatically identical to JSON, except per section 2.1 of this document the string type MUST carry a mandatory tag character, "s" indicating a Unicode string.  </p>
-<p id="rfc.section.3.1.p.2">Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8 <a href="#RFC3629">[RFC3629]</a>.  No other Unicode encodings are valid for TJSON strings.  </p>
-<p id="rfc.section.3.1.p.3">The following is an example of a Unicode String literal in TJSON: </p>
+<h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#boolean-values-b" id="boolean-values-b">Boolean Values ("b")</a></h1>
+<p id="rfc.section.3.1.p.1">Boolean values are identified by the "b" tag. Only the <samp>true</samp> and <samp>false</samp> values are allowed: <samp>null</samp> MUST be rejected with a parse error.  </p>
+<p id="rfc.section.3.1.p.2">The following is an example of a TJSON boolean: </p>
 <pre>
-{"example:s":"Hello, world!"}
+{"example:b":true}
 </pre>
 <h1 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2.</a> <a href="#binary-data-d" id="binary-data-d">Binary Data ("d")</a></h1>
 <p id="rfc.section.3.2.p.1">TJSON provides first-class support for binary data stored in multiple different encodings within a tagged string. Tags for binary data begin with the "d" character followed by an alphanumeric identifier for a specific format.  </p>
@@ -612,32 +611,45 @@
 </pre>
 <p id="rfc.section.3.2.3.p.6">This decodes to an object with an "example" key whose value is the equivalent of the ASCII string: "Hello, world!" </p>
 <p id="rfc.section.3.2.3.p.7">Only the base64url format is supported. The non-URL safe form of base64 is not supported and MUST be rejected by parsers.  </p>
-<h1 id="rfc.section.3.3"><a href="#rfc.section.3.3">3.3.</a> <a href="#integers" id="integers">Integers</a></h1>
-<p id="rfc.section.3.3.p.1">TJSON provides standard syntax for representing integers as tagged strings, which can express a larger range of values than the <samp>[-(2**53)+1, (2**53)-1]</samp> range defined as interoperable in <a href="#RFC7159">[RFC7159]</a>.  </p>
-<p id="rfc.section.3.3.p.2">Both signed and unsigned integers are supported and provide the same ranges as 64-bit integers.  </p>
-<h1 id="rfc.section.3.3.1"><a href="#rfc.section.3.3.1">3.3.1.</a> <a href="#signed-integers-i" id="signed-integers-i">Signed Integers ("i")</a></h1>
-<p id="rfc.section.3.3.1.p.1">Signed integer literals are identified by the "i" tag, with an associated JSON string literal value containing the string representation of a valid JSON integer literal, with an optional minus ("-") character.  </p>
-<p id="rfc.section.3.3.1.p.2">Conforming TJSON parsers MUST be capable of supporting the full 64-bit signed integer range <samp>[-(2**63), (2**63)-1]</samp> for this type.  </p>
-<p id="rfc.section.3.3.1.p.3">Integers outside this range MUST be rejected.  </p>
-<h1 id="rfc.section.3.3.2"><a href="#rfc.section.3.3.2">3.3.2.</a> <a href="#unsigned-integers-u" id="unsigned-integers-u">Unsigned Integers ("u")</a></h1>
-<p id="rfc.section.3.3.2.p.1">Unsigned integer literals are identified by the "u" tag, with an associated JSON string literal value containing the string representation of a valid JSON integer literal. The minus ("-") character is expressly disallowed and parsers MUST reject documents containing it in an unsigned integer expression.  </p>
-<p id="rfc.section.3.3.2.p.2">Conforming TJSON parsers MUST be capable of supporting the full 64-bit unsigned integer range <samp>[0, (2**64)&#8722;1]</samp> for this type.  </p>
-<h1 id="rfc.section.3.4"><a href="#rfc.section.3.4">3.4.</a> <a href="#floating-points-f" id="floating-points-f">Floating Points ("f")</a></h1>
-<p id="rfc.section.3.4.p.1">Floating points are identified by the "f" tag, with an associated JSON float literal value. Unlike integers, floating point values should NOT be quoted strings, but should use the native JSON syntax.  </p>
-<p id="rfc.section.3.4.p.2">Conforming TJSON parsers MUST ensure the resulting type of a parsed floating point is actually a floating point, and not an integer.  </p>
-<h1 id="rfc.section.3.5"><a href="#rfc.section.3.5">3.5.</a> <a href="#timestamps-t" id="timestamps-t">Timestamps ("t")</a></h1>
-<p id="rfc.section.3.5.p.1">TJSON natively supports a timestamp type whose syntax is a subset of that provided by <a href="#RFC3339">[RFC3339]</a>. Specifically, TJSON timestamps MUST use only the upper-case UTC time zone identifier "Z" (i.e. times MUST be Z-normalized).  No other time zone identifiers are allowed except "Z" and parsers MUST NOT allow them.  </p>
-<p id="rfc.section.3.5.p.2">The following is an example of a TJSON timestamp: </p>
+<h1 id="rfc.section.3.3"><a href="#rfc.section.3.3">3.3.</a> <a href="#floating-points-f" id="floating-points-f">Floating Points ("f")</a></h1>
+<p id="rfc.section.3.3.p.1">Floating points are identified by the "f" tag, with an associated JSON float literal value. Unlike integers, floating point values should NOT be quoted strings, but should use the native JSON syntax.  </p>
+<p id="rfc.section.3.3.p.2">Conforming TJSON parsers MUST ensure the resulting type of a parsed floating point is actually a floating point, and not an integer.  </p>
+<p id="rfc.section.3.3.p.3">The following is an example of a floating point in TJSON: </p>
+<pre>
+{"example:f":0.42}
+</pre>
+<h1 id="rfc.section.3.4"><a href="#rfc.section.3.4">3.4.</a> <a href="#integers" id="integers">Integers</a></h1>
+<p id="rfc.section.3.4.p.1">TJSON provides standard syntax for representing integers as tagged strings, which can express a larger range of values than the <samp>[-(2**53)+1, (2**53)-1]</samp> range defined as interoperable in <a href="#RFC7159">[RFC7159]</a>.  </p>
+<p id="rfc.section.3.4.p.2">Both signed and unsigned integers are supported and provide the same ranges as 64-bit integers.  </p>
+<h1 id="rfc.section.3.4.1"><a href="#rfc.section.3.4.1">3.4.1.</a> <a href="#signed-integers-i" id="signed-integers-i">Signed Integers ("i")</a></h1>
+<p id="rfc.section.3.4.1.p.1">Signed integer literals are identified by the "i" tag, with an associated JSON string literal value containing the string representation of a valid JSON integer literal, with an optional minus ("-") character.  </p>
+<p id="rfc.section.3.4.1.p.2">Conforming TJSON parsers MUST be capable of supporting the full 64-bit signed integer range <samp>[-(2**63), (2**63)-1]</samp> for this type.  </p>
+<p id="rfc.section.3.4.1.p.3">Integers outside this range MUST be rejected.  </p>
+<p id="rfc.section.3.4.1.p.4">The following is an example of a signed integer in TJSON: </p>
+<pre>
+{"example-positive:i":"42","example-negative:i":"-42"}
+</pre>
+<h1 id="rfc.section.3.4.2"><a href="#rfc.section.3.4.2">3.4.2.</a> <a href="#unsigned-integers-u" id="unsigned-integers-u">Unsigned Integers ("u")</a></h1>
+<p id="rfc.section.3.4.2.p.1">Unsigned integer literals are identified by the "u" tag, with an associated JSON string literal value containing the string representation of a valid JSON integer literal. The minus ("-") character is expressly disallowed and parsers MUST reject documents containing it in an unsigned integer expression.  </p>
+<p id="rfc.section.3.4.2.p.2">Conforming TJSON parsers MUST be capable of supporting the full 64-bit unsigned integer range <samp>[0, (2**64)&#8722;1]</samp> for this type.  </p>
+<p id="rfc.section.3.4.2.p.3">The following is an example of an unsigned integer in TJSON: </p>
+<pre>
+{"example:u":"42"}
+</pre>
+<h1 id="rfc.section.3.5"><a href="#rfc.section.3.5">3.5.</a> <a href="#unicode-strings-s" id="unicode-strings-s">Unicode Strings ("s")</a></h1>
+<p id="rfc.section.3.5.p.1">The syntax for TJSON strings is grammatically identical to JSON, except per section 2.1 of this document the string type MUST carry a mandatory tag character, "s" indicating a Unicode string.  </p>
+<p id="rfc.section.3.5.p.2">Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8 <a href="#RFC3629">[RFC3629]</a>.  No other Unicode encodings are valid for TJSON strings.  </p>
+<p id="rfc.section.3.5.p.3">The following is an example of a Unicode String literal in TJSON: </p>
+<pre>
+{"example:s":"Hello, world!"}
+</pre>
+<h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#timestamps-t" id="timestamps-t">Timestamps ("t")</a></h1>
+<p id="rfc.section.3.6.p.1">TJSON natively supports a timestamp type whose syntax is a subset of that provided by <a href="#RFC3339">[RFC3339]</a>. Specifically, TJSON timestamps MUST use only the upper-case UTC time zone identifier "Z" (i.e. times MUST be Z-normalized).  No other time zone identifiers are allowed except "Z" and parsers MUST NOT allow them.  </p>
+<p id="rfc.section.3.6.p.2">The following is an example of a TJSON timestamp: </p>
 <pre>
 {"example:t":"2016-10-02T07:31:51Z"}
 </pre>
-<p id="rfc.section.3.5.p.3">TJSON libraries SHOULD convert these timestamps to a native date/time type.  </p>
-<h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#boolean-values-b" id="boolean-values-b">Boolean Values ("b")</a></h1>
-<p id="rfc.section.3.6.p.1">Boolean values are identified by the "b" tag. Only the <samp>true</samp> and <samp>false</samp> values are allowed: <samp>null</samp> MUST be rejected with a parse error.  </p>
-<p id="rfc.section.3.6.p.2">The following is an example of a TJSON boolean: </p>
-<pre>
-{"example:b": true}
-</pre>
+<p id="rfc.section.3.6.p.3">TJSON libraries SHOULD convert these timestamps to a native date/time type.  </p>
 <h1 id="rfc.section.3.7"><a href="#rfc.section.3.7">3.7.</a> <a href="#arrays-a" id="arrays-a">Arrays ("A")</a></h1>
 <p id="rfc.section.3.7.p.1">Arrays are a non-scalar and therefore use an upper case tag name as described in section 2.1.  </p>
 <p id="rfc.section.3.7.p.2">The "A" tag, with an associated JSON array value, identifies a TJSON array.  Non-scalars are parameterized by the types they contain, so fully identifying an array depends on its contents.  </p>
@@ -658,34 +670,34 @@
 <pre>
 {"example:A&lt;i&gt;": []}
 </pre>
-<h1 id="rfc.section.3.8"><a href="#rfc.section.3.8">3.8.</a> <a href="#sets-s" id="sets-s">Sets ("S")</a></h1>
-<p id="rfc.section.3.8.p.1">Sets are identified by the upper-case "S" tag and carry a type parameter like arrays. The associated value MUST use JSON array syntax.  </p>
-<p id="rfc.section.3.8.p.2">Unlike arrays, the members of sets MUST be unique. TJSON documents describing sets with duplicate members MUST be rejected by conforming parsers.  </p>
-<p id="rfc.section.3.8.p.3">Like empty arrays, the inner type definition for empty sets MAY be omitted from the type signature. A type paramater is mandatory for non-empty sets and MUST be included if the set has any members.  </p>
-<p id="rfc.section.3.8.p.4">The following is an example of a TJSON set of integers: </p>
-<pre>
-{"example:S&lt;i&gt;: ["1", "2", "3"]}
-</pre>
-<p id="rfc.section.3.8.p.5">Sets can contain arrays, and vice versa: </p>
-<pre>
-{"example:S&lt;A&lt;i&gt;&gt;": [["1", "2"], ["3", "4"]]}
-</pre>
-<p id="rfc.section.3.8.p.6">The following is an example of an empty set which omits its type parameter: </p>
-<pre>
-{"example:S&lt;&gt;": []}
-</pre>
-<p id="rfc.section.3.8.p.7">An empty set containing an inner type signature is also valid: </p>
-<pre>
-{"example:S&lt;i&gt;": []}
-</pre>
-<h1 id="rfc.section.3.9"><a href="#rfc.section.3.9">3.9.</a> <a href="#objects-o" id="objects-o">Objects ("O")</a></h1>
-<p id="rfc.section.3.9.p.1">Type information MUST be present in all object member names (i.e. all member names must be tagged). Parsers MUST reject objects with untagged members.  </p>
-<p id="rfc.section.3.9.p.2">When embedded within another non-scalar type such as an array, objects are identified by the tag "O". Objects self-identify their types, so do not need to be parameterized in type expressions.  </p>
-<p id="rfc.section.3.9.p.3">The following is an example of an array of objects: </p>
+<h1 id="rfc.section.3.8"><a href="#rfc.section.3.8">3.8.</a> <a href="#objects-o" id="objects-o">Objects ("O")</a></h1>
+<p id="rfc.section.3.8.p.1">Type information MUST be present in all object member names (i.e. all member names must be tagged). Parsers MUST reject objects with untagged members.  </p>
+<p id="rfc.section.3.8.p.2">When embedded within another non-scalar type such as an array, objects are identified by the tag "O". Objects self-identify their types, so do not need to be parameterized in type expressions.  </p>
+<p id="rfc.section.3.8.p.3">The following is an example of an array of objects: </p>
 <pre>
 {"example:A&lt;O&gt;": [{"a:i": "1"}, {"b:i": "2"}]}
 </pre>
-<p id="rfc.section.3.9.p.4">Object member names MUST be unique in TJSON. Repeated use of the same name for more than one member MUST be rejected by TJSON parsers.  </p>
+<p id="rfc.section.3.8.p.4">Object member names MUST be unique in TJSON. Repeated use of the same name for more than one member MUST be rejected by TJSON parsers.  </p>
+<h1 id="rfc.section.3.9"><a href="#rfc.section.3.9">3.9.</a> <a href="#sets-s" id="sets-s">Sets ("S")</a></h1>
+<p id="rfc.section.3.9.p.1">Sets are identified by the upper-case "S" tag and carry a type parameter like arrays. The associated value MUST use JSON array syntax.  </p>
+<p id="rfc.section.3.9.p.2">Unlike arrays, the members of sets MUST be unique. TJSON documents describing sets with duplicate members MUST be rejected by conforming parsers.  </p>
+<p id="rfc.section.3.9.p.3">Like empty arrays, the inner type definition for empty sets MAY be omitted from the type signature. A type paramater is mandatory for non-empty sets and MUST be included if the set has any members.  </p>
+<p id="rfc.section.3.9.p.4">The following is an example of a TJSON set of integers: </p>
+<pre>
+{"example:S&lt;i&gt;: ["1", "2", "3"]}
+</pre>
+<p id="rfc.section.3.9.p.5">Sets can contain arrays, and vice versa: </p>
+<pre>
+{"example:S&lt;A&lt;i&gt;&gt;": [["1", "2"], ["3", "4"]]}
+</pre>
+<p id="rfc.section.3.9.p.6">The following is an example of an empty set which omits its type parameter: </p>
+<pre>
+{"example:S&lt;&gt;": []}
+</pre>
+<p id="rfc.section.3.9.p.7">An empty set containing an inner type signature is also valid: </p>
+<pre>
+{"example:S&lt;i&gt;": []}
+</pre>
 <h1 id="rfc.references"><a href="#rfc.references">4.</a> Normative References</h1>
 <table>
   <tbody>

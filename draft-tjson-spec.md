@@ -148,18 +148,14 @@ rejected by parsers.
 The following section describes the extended types added to TJSON by embedding
 them in string literals as described in section 2.1 of this document.
 
-## Unicode Strings ("s")
+## Boolean Values ("b")
 
-The syntax for TJSON strings is grammatically identical to JSON, except per
-section 2.1 of this document the string type MUST carry a mandatory tag
-character, "s" indicating a Unicode string.
+Boolean values are identified by the "b" tag. Only the `true` and `false`
+values are allowed: `null` MUST be rejected with a parse error.
 
-Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8 [@!RFC3629].
-No other Unicode encodings are valid for TJSON strings.
+The following is an example of a TJSON boolean:
 
-The following is an example of a Unicode String literal in TJSON:
-
-    {"example:s":"Hello, world!"}
+    {"example:b":true}
 
 ## Binary Data ("d")
 
@@ -234,6 +230,19 @@ of the ASCII string: "Hello, world!"
 Only the base64url format is supported. The non-URL safe form of base64
 is not supported and MUST be rejected by parsers.
 
+## Floating Points ("f")
+
+Floating points are identified by the "f" tag, with an associated JSON float
+literal value. Unlike integers, floating point values should NOT be quoted
+strings, but should use the native JSON syntax.
+
+Conforming TJSON parsers MUST ensure the resulting type of a parsed floating
+point is actually a floating point, and not an integer.
+
+The following is an example of a floating point in TJSON:
+
+    {"example:f":0.42}
+
 ## Integers
 
 TJSON provides standard syntax for representing integers as tagged strings,
@@ -254,6 +263,10 @@ integer range `[-(2**63), (2**63)-1]` for this type.
 
 Integers outside this range MUST be rejected.
 
+The following is an example of a signed integer in TJSON:
+
+    {"example-positive:i":"42","example-negative:i":"-42"}
+
 ### Unsigned Integers ("u")
 
 Unsigned integer literals are identified by the "u" tag, with an associated
@@ -264,14 +277,22 @@ parsers MUST reject documents containing it in an unsigned integer expression.
 Conforming TJSON parsers MUST be capable of supporting the full 64-bit unsigned
 integer range `[0, (2**64)−1]` for this type.
 
-## Floating Points ("f")
+The following is an example of an unsigned integer in TJSON:
 
-Floating points are identified by the "f" tag, with an associated JSON float
-literal value. Unlike integers, floating point values should NOT be quoted
-strings, but should use the native JSON syntax.
+    {"example:u":"42"}
 
-Conforming TJSON parsers MUST ensure the resulting type of a parsed floating
-point is actually a floating point, and not an integer.
+## Unicode Strings ("s")
+
+The syntax for TJSON strings is grammatically identical to JSON, except per
+section 2.1 of this document the string type MUST carry a mandatory tag
+character, "s" indicating a Unicode string.
+
+Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8 [@!RFC3629].
+No other Unicode encodings are valid for TJSON strings.
+
+The following is an example of a Unicode String literal in TJSON:
+
+    {"example:s":"Hello, world!"}
 
 ## Timestamps ("t")
 
@@ -286,15 +307,6 @@ The following is an example of a TJSON timestamp:
     {"example:t":"2016-10-02T07:31:51Z"}
 
 TJSON libraries SHOULD convert these timestamps to a native date/time type.
-
-## Boolean Values ("b")
-
-Boolean values are identified by the "b" tag. Only the `true` and `false`
-values are allowed: `null` MUST be rejected with a parse error.
-
-The following is an example of a TJSON boolean:
-
-    {"example:b": true}
 
 ## Arrays ("A")
 
@@ -326,6 +338,22 @@ An empty array containing an inner type signature is also valid:
 
     {"example:A<i>": []}
 
+## Objects ("O")
+
+Type information MUST be present in all object member names (i.e. all member
+names must be tagged). Parsers MUST reject objects with untagged members.
+
+When embedded within another non-scalar type such as an array, objects
+are identified by the tag "O". Objects self-identify their types, so do
+not need to be parameterized in type expressions.
+
+The following is an example of an array of objects:
+
+    {"example:A<O>": [{"a:i": "1"}, {"b:i": "2"}]}
+
+Object member names MUST be unique in TJSON. Repeated use of the same
+name for more than one member MUST be rejected by TJSON parsers.
+
 ## Sets ("S")
 
 Sets are identified by the upper-case "S" tag and carry a type parameter like
@@ -353,21 +381,5 @@ The following is an example of an empty set which omits its type parameter:
 An empty set containing an inner type signature is also valid:
 
     {"example:S<i>": []}
-
-## Objects ("O")
-
-Type information MUST be present in all object member names (i.e. all member
-names must be tagged). Parsers MUST reject objects with untagged members.
-
-When embedded within another non-scalar type such as an array, objects
-are identified by the tag "O". Objects self-identify their types, so do
-not need to be parameterized in type expressions.
-
-The following is an example of an array of objects:
-
-    {"example:A<O>": [{"a:i": "1"}, {"b:i": "2"}]}
-
-Object member names MUST be unique in TJSON. Repeated use of the same
-name for more than one member MUST be rejected by TJSON parsers.
 
 {backmatter}

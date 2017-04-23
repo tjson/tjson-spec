@@ -66,20 +66,20 @@ Table of Contents
      2.1.  String Grammar  . . . . . . . . . . . . . . . . . . . . .   3
      2.2.  Root Symbol . . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Extended Types  . . . . . . . . . . . . . . . . . . . . . . .   5
-     3.1.  Unicode Strings ("s") . . . . . . . . . . . . . . . . . .   5
+     3.1.  Boolean Values ("b")  . . . . . . . . . . . . . . . . . .   5
      3.2.  Binary Data ("d") . . . . . . . . . . . . . . . . . . . .   5
        3.2.1.  base16 ("d16")  . . . . . . . . . . . . . . . . . . .   6
        3.2.2.  base32 ("d32")  . . . . . . . . . . . . . . . . . . .   6
        3.2.3.  base64url ("d64") . . . . . . . . . . . . . . . . . .   6
-     3.3.  Integers  . . . . . . . . . . . . . . . . . . . . . . . .   7
-       3.3.1.  Signed Integers ("i") . . . . . . . . . . . . . . . .   7
-       3.3.2.  Unsigned Integers ("u") . . . . . . . . . . . . . . .   7
-     3.4.  Floating Points ("f") . . . . . . . . . . . . . . . . . .   8
-     3.5.  Timestamps ("t")  . . . . . . . . . . . . . . . . . . . .   8
-     3.6.  Boolean Values ("b")  . . . . . . . . . . . . . . . . . .   8
-     3.7.  Arrays ("A")  . . . . . . . . . . . . . . . . . . . . . .   8
-     3.8.  Sets ("S")  . . . . . . . . . . . . . . . . . . . . . . .   9
-     3.9.  Objects ("O") . . . . . . . . . . . . . . . . . . . . . .  10
+     3.3.  Floating Points ("f") . . . . . . . . . . . . . . . . . .   7
+     3.4.  Integers  . . . . . . . . . . . . . . . . . . . . . . . .   7
+       3.4.1.  Signed Integers ("i") . . . . . . . . . . . . . . . .   7
+       3.4.2.  Unsigned Integers ("u") . . . . . . . . . . . . . . .   8
+     3.5.  Unicode Strings ("s") . . . . . . . . . . . . . . . . . .   8
+     3.6.  Timestamps ("t")  . . . . . . . . . . . . . . . . . . . .   8
+     3.7.  Arrays ("A")  . . . . . . . . . . . . . . . . . . . . . .   9
+     3.8.  Objects ("O") . . . . . . . . . . . . . . . . . . . . . .   9
+     3.9.  Sets ("S")  . . . . . . . . . . . . . . . . . . . . . . .  10
    4.  Normative References  . . . . . . . . . . . . . . . . . . . .  10
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
 
@@ -249,18 +249,15 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
    embedding them in string literals as described in section 2.1 of this
    document.
 
-3.1.  Unicode Strings ("s")
+3.1.  Boolean Values ("b")
 
-   The syntax for TJSON strings is grammatically identical to JSON,
-   except per section 2.1 of this document the string type MUST carry a
-   mandatory tag character, "s" indicating a Unicode string.
+   Boolean values are identified by the "b" tag.  Only the "true" and
+   "false" values are allowed: "null" MUST be rejected with a parse
+   error.
 
-   Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8
-   [RFC3629].  No other Unicode encodings are valid for TJSON strings.
+   The following is an example of a TJSON boolean:
 
-   The following is an example of a Unicode String literal in TJSON:
-
-                       {"example:s":"Hello, world!"}
+                            {"example:b":true}
 
 3.2.  Binary Data ("d")
 
@@ -273,6 +270,9 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
    default unless another encoding is explicitly specified at
    serialization time.
 
+   The base16, base32, and base64url formats are mandatory to implement
+   for all TJSON parsers.
+
 
 
 
@@ -281,9 +281,6 @@ Arcieri & Laurie        Expires October 17, 2017                [Page 5]
 
 Internet-Draft        TJSON Data Interchange Format           April 2017
 
-
-   The base16, base32, and base64url formats are mandatory to implement
-   for all TJSON parsers.
 
 3.2.1.  base16 ("d16")
 
@@ -330,6 +327,9 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
    TJSON parsers MUST reject any documents containing padded base64url
    strings.
 
+   When serializing binary data as TJSON, encoders SHOULD use the "d"
+   tag to indicate binary data unless another format has been explicitly
+   specified.
 
 
 
@@ -337,10 +337,6 @@ Arcieri & Laurie        Expires October 17, 2017                [Page 6]
 
 Internet-Draft        TJSON Data Interchange Format           April 2017
 
-
-   When serializing binary data as TJSON, encoders SHOULD use the "d"
-   tag to indicate binary data unless another format has been explicitly
-   specified.
 
    The following is an example of a base64url string literal in TJSON:
 
@@ -356,7 +352,20 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
    Only the base64url format is supported.  The non-URL safe form of
    base64 is not supported and MUST be rejected by parsers.
 
-3.3.  Integers
+3.3.  Floating Points ("f")
+
+   Floating points are identified by the "f" tag, with an associated
+   JSON float literal value.  Unlike integers, floating point values
+   should NOT be quoted strings, but should use the native JSON syntax.
+
+   Conforming TJSON parsers MUST ensure the resulting type of a parsed
+   floating point is actually a floating point, and not an integer.
+
+   The following is an example of a floating point in TJSON:
+
+                            {"example:f":0.42}
+
+3.4.  Integers
 
    TJSON provides standard syntax for representing integers as tagged
    strings, which can express a larger range of values than the
@@ -366,7 +375,7 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
    Both signed and unsigned integers are supported and provide the same
    ranges as 64-bit integers.
 
-3.3.1.  Signed Integers ("i")
+3.4.1.  Signed Integers ("i")
 
    Signed integer literals are identified by the "i" tag, with an
    associated JSON string literal value containing the string
@@ -378,15 +387,6 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
 
    Integers outside this range MUST be rejected.
 
-3.3.2.  Unsigned Integers ("u")
-
-   Unsigned integer literals are identified by the "u" tag, with an
-   associated JSON string literal value containing the string
-   representation of a valid JSON integer literal.  The minus ("-")
-   character is expressly disallowed and parsers MUST reject documents
-   containing it in an unsigned integer expression.
-
-
 
 
 Arcieri & Laurie        Expires October 17, 2017                [Page 7]
@@ -394,19 +394,39 @@ Arcieri & Laurie        Expires October 17, 2017                [Page 7]
 Internet-Draft        TJSON Data Interchange Format           April 2017
 
 
+   The following is an example of a signed integer in TJSON:
+
+          {"example-positive:i":"42","example-negative:i":"-42"}
+
+3.4.2.  Unsigned Integers ("u")
+
+   Unsigned integer literals are identified by the "u" tag, with an
+   associated JSON string literal value containing the string
+   representation of a valid JSON integer literal.  The minus ("-")
+   character is expressly disallowed and parsers MUST reject documents
+   containing it in an unsigned integer expression.
+
    Conforming TJSON parsers MUST be capable of supporting the full
    64-bit unsigned integer range "[0, (2**64)-1]" for this type.
 
-3.4.  Floating Points ("f")
+   The following is an example of an unsigned integer in TJSON:
 
-   Floating points are identified by the "f" tag, with an associated
-   JSON float literal value.  Unlike integers, floating point values
-   should NOT be quoted strings, but should use the native JSON syntax.
+                            {"example:u":"42"}
 
-   Conforming TJSON parsers MUST ensure the resulting type of a parsed
-   floating point is actually a floating point, and not an integer.
+3.5.  Unicode Strings ("s")
 
-3.5.  Timestamps ("t")
+   The syntax for TJSON strings is grammatically identical to JSON,
+   except per section 2.1 of this document the string type MUST carry a
+   mandatory tag character, "s" indicating a Unicode string.
+
+   Unlike JSON, all Unicode Strings in TJSON MUST be valid UTF-8
+   [RFC3629].  No other Unicode encodings are valid for TJSON strings.
+
+   The following is an example of a Unicode String literal in TJSON:
+
+                       {"example:s":"Hello, world!"}
+
+3.6.  Timestamps ("t")
 
    TJSON natively supports a timestamp type whose syntax is a subset of
    that provided by [RFC3339].  Specifically, TJSON timestamps MUST use
@@ -421,15 +441,14 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
    TJSON libraries SHOULD convert these timestamps to a native date/time
    type.
 
-3.6.  Boolean Values ("b")
 
-   Boolean values are identified by the "b" tag.  Only the "true" and
-   "false" values are allowed: "null" MUST be rejected with a parse
-   error.
 
-   The following is an example of a TJSON boolean:
 
-                            {"example:b": true}
+
+Arcieri & Laurie        Expires October 17, 2017                [Page 8]
+
+Internet-Draft        TJSON Data Interchange Format           April 2017
+
 
 3.7.  Arrays ("A")
 
@@ -442,14 +461,6 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
 
    Empty arrays do not require a corresponding inner type, in which case
    the inner type MAY be omitted from the type description.  However,
-
-
-
-Arcieri & Laurie        Expires October 17, 2017                [Page 8]
-
-Internet-Draft        TJSON Data Interchange Format           April 2017
-
-
    type parameters are mandatory unless the array is empty, and parsers
    MUST reject documents missing an inner type for non-empty arrays.
 
@@ -471,7 +482,31 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
 
                            {"example:A<i>": []}
 
-3.8.  Sets ("S")
+3.8.  Objects ("O")
+
+   Type information MUST be present in all object member names (i.e. all
+   member names must be tagged).  Parsers MUST reject objects with
+   untagged members.
+
+   When embedded within another non-scalar type such as an array,
+   objects are identified by the tag "O".  Objects self-identify their
+   types, so do not need to be parameterized in type expressions.
+
+   The following is an example of an array of objects:
+
+              {"example:A<O>": [{"a:i": "1"}, {"b:i": "2"}]}
+
+   Object member names MUST be unique in TJSON.  Repeated use of the
+   same name for more than one member MUST be rejected by TJSON parsers.
+
+
+
+Arcieri & Laurie        Expires October 17, 2017                [Page 9]
+
+Internet-Draft        TJSON Data Interchange Format           April 2017
+
+
+3.9.  Sets ("S")
 
    Sets are identified by the upper-case "S" tag and carry a type
    parameter like arrays.  The associated value MUST use JSON array
@@ -498,34 +533,9 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
 
                             {"example:S<>": []}
 
-
-
-
-Arcieri & Laurie        Expires October 17, 2017                [Page 9]
-
-Internet-Draft        TJSON Data Interchange Format           April 2017
-
-
    An empty set containing an inner type signature is also valid:
 
                            {"example:S<i>": []}
-
-3.9.  Objects ("O")
-
-   Type information MUST be present in all object member names (i.e. all
-   member names must be tagged).  Parsers MUST reject objects with
-   untagged members.
-
-   When embedded within another non-scalar type such as an array,
-   objects are identified by the tag "O".  Objects self-identify their
-   types, so do not need to be parameterized in type expressions.
-
-   The following is an example of an array of objects:
-
-              {"example:A<O>": [{"a:i": "1"}, {"b:i": "2"}]}
-
-   Object member names MUST be unique in TJSON.  Repeated use of the
-   same name for more than one member MUST be rejected by TJSON parsers.
 
 4.  Normative References
 
@@ -542,16 +552,6 @@ Internet-Draft        TJSON Data Interchange Format           April 2017
               10646", STD 63, RFC 3629, DOI 10.17487/RFC3629, November
               2003, <http://www.rfc-editor.org/info/rfc3629>.
 
-   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
-              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
-              <http://www.rfc-editor.org/info/rfc4648>.
-
-   [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
-              Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
-              2014, <http://www.rfc-editor.org/info/rfc7159>.
-
-
-
 
 
 
@@ -562,20 +562,20 @@ Arcieri & Laurie        Expires October 17, 2017               [Page 10]
 Internet-Draft        TJSON Data Interchange Format           April 2017
 
 
+   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
+              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
+              <http://www.rfc-editor.org/info/rfc4648>.
+
+   [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
+              Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
+              2014, <http://www.rfc-editor.org/info/rfc7159>.
+
 Authors' Addresses
 
    Tony Arcieri
 
 
    Ben Laurie
-
-
-
-
-
-
-
-
 
 
 
